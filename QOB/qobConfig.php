@@ -16,7 +16,7 @@ define("USER", "root");
 
 
 //password of MySQL database
-define("PASSWORD", "root");
+define("PASSWORD", "isquarer");
 
 $dbName=getDBName();
 

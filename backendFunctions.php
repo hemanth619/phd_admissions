@@ -1,98 +1,9 @@
 <?php
-include_once('QOB/qob.php');
-
-function RedirectToURL($url)
-{
-    header("Location: $url");
-    exit();
-}
-
-function getAppNoPrefix()
-{
-	$prefix=strtoupper(getDBName());
-	return $prefix;
-}
-
-function getUserByID($userId)
-{
-	$con=QoB();
-
-	$getUserSQL="SELECT *,personal_info.fullName as name From registered_users inner join personal_info on personal_info.userId=registered_users.userId WHERE userId=?";
-
-	$values[]=array($userId => 's');
-
-	$result=$con->fetchAll($getUserSQL,$values);
-
-	if($con->error==""&&$result!="")
-	{
-		return $result;
-	}
-	else
-	{
-		notifyAdmin("Conn. Error : $con->error while fetching user by ID",$userId);
-	}
-}
-
-
-function getUserByEmail($email)
-{
-	$con=QoB();
-
-	$getUserSQL="SELECT *,personal_info.fullName as name From registered_users inner join personal_info on personal_info.userId=registered_users.userId WHERE email=?";
-
-	$values[]=array($email => 's');
-
-	$result=$con->fetchAll($getUserSQL,$values);
-
-	if($con->error==""&&$result!="")
-	{
-		return $result;
-	}
-	else
-	{
-		notifyAdmin("Conn. Error : $con->error while fetching user by ID",$userId);
-	}
-}
-
-function displayAlert($message)
-{
-	echo '<script>alert("'.$message.'")</script>';
-}
-
-function notifyAdmin($notification,$userIdentity)
-	{
-		$conn= getMasterDBQoBObject();
-
-		$ip=$_SERVER['REMOTE_ADDR'];
-
-		$childDBName=getAppNoPrefix();
-
-		$notification="DB: ".$childDBName."Notify: ".$notification.",  IP: ".$ip;
-
-		$noteCrimeSQL="INSERT INTO adminNotif (userId, notif, ipAddress) VALUES(?,?,?)";
-
-		$values1[0]=array($userIdentity =>'s');
-
-		$values1[1]=array($notification => 's');
-
-		$values[2]=array($ip=>'s');
-
-		$result=$conn->insert($noteCrimeSQL,$values1);
-
-		if($conn->error==""&&$result==true)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-
-	}
+require_once("QOB/qob.php");
 
 function getDBName()
 {
-	$con = mysqli_connect("localhost", "root", "root", "phd_admission_master");
+	$con = mysqli_connect("localhost", "root", "isquarer", "phd_admission_master");
 	$getDbNameSQL="SELECT dbname From db_list where activeStatus=1";
 	$result=mysqli_query($con,$getDbNameSQL);
 	if(mysqli_num_rows($result)==0)
@@ -113,9 +24,105 @@ function getDBName()
 
 function getMasterDBQoBObject()
 {
-	$con=QoB("localhost","root","root", "phd_admission_master");
+	$con=new QoB("localhost","root","isquarer", "phd_admission_master");
 	return $con;
 }
+
+function RedirectToURL($url)
+{
+    header("Location: $url");
+    exit();
+}
+
+function getAppNoPrefix()
+{
+	$prefix=strtoupper(getDBName());
+	return $prefix;
+}
+
+function getUserByID($userId)
+{
+	$con=new QoB();
+
+	$getUserSQL="SELECT registered_users.*,personal_info.fullName as name From registered_users left join personal_info on personal_info.userId=registered_users.userId WHERE registered_users.userId=?";
+
+	$values[]=array($userId => 's');
+
+	$result=$con->fetchAll($getUserSQL,$values);
+
+	if($con->error==""&&$result!="")
+	{
+		return $result;
+	}
+	else
+	{
+		notifyAdmin("Conn. Error : $con->error while fetching user by ID",$userId);
+	}
+}
+
+
+function getUserByEmail($email)
+{
+	$con=new QoB();
+
+	$getUserSQL="SELECT registered_users.*,personal_info.fullName as name From registered_users left join personal_info on personal_info.userId=registered_users.userId WHERE registered_users.emailAddress=?";
+
+	$values[]=array($email => 's');
+
+	$result=$con->fetchAll($getUserSQL,$values);
+
+	if($con->error==""&&$result!="")
+	{
+		return $result;
+	}
+	else
+	{
+		notifyAdmin("Conn. Error : $con->error while fetching user by ID",$email);
+
+		return false;
+	}
+}
+
+function displayAlert($message)
+{
+	echo '<script>alert("'.$message.'")</script>';
+}
+
+function notifyAdmin($notification,$userIdentity="")
+	{
+		$conn= getMasterDBQoBObject();
+
+		$ip=$_SERVER['REMOTE_ADDR'];
+
+		$childDBName=getAppNoPrefix();
+		//echo $childDBName;
+
+		$notification="DB: ".$childDBName."Notify: ".$notification.",  IP: ".$ip;
+
+		$noteCrimeSQL="INSERT INTO suspicious (userId, notif, ipAddress) VALUES(?,?,?)";
+
+		$values1[0]=array($userIdentity =>'s');
+
+		$values1[1]=array($notification => 's');
+
+		$values1[2]=array($ip=>'s');
+
+		$result=$conn->insert($noteCrimeSQL,$values1);
+
+		if($conn->error==""&&$result==true)
+		{
+			//echo "finished";
+			return true;
+		}
+		else
+		{
+			
+			//displayAlert($conn->error."in Notify Admin");
+			//echo "Notify Error $conn->error";
+			return false;
+		}
+
+	}
 
 
 function getMailerObject()
@@ -126,7 +133,7 @@ function getMailerObject()
 
 			$mail->IsSMTP();
 
-			$mail->IsHTML();
+			//$mail->IsHTML();
 
 			$mail->Timeout    = 45;
 
@@ -144,13 +151,14 @@ function getMailerObject()
 
 			$mail->Sender     = "phdadmissionsiiitdm@gmail.com";
 
-			$mail->From       = "Webmaster IIITDMK";
+			$mail->From       = "Ph.D Admissions Admin IIITDMK";
 
-			$mail->FromName   = "Ph.D Admissions Admin @ IIITDM-Kancheepuram";
+			$mail->FromName   = "Webmaster @ IIITDM-Kancheepuram";
 
 		}
 		catch(phpmailerException $e)
 		{
+			//echo "Mailer Error ".$e->errorMessage();
 			notifyAdmin($e->errorMessage()."!!!! MailSubject: ".$subject,$userId);
 			return false;
 		}
@@ -193,7 +201,8 @@ function sendEmail($mailerObject,$emailId,$content,$subject,$attachments="")
 		}
 		catch(phpmailerException $e)
 		{
-			notifyAdmin($e->errorMessage()."!!!! MailSubject: ".$subject,$userId);
+			//echo "SendMail Error ".$e->errorMessage();
+			notifyAdmin($e->errorMessage()."!!!! MailSubject: ".$subject,$emailId);
 			return false;
 		}
 
@@ -203,7 +212,7 @@ function sendEmail($mailerObject,$emailId,$content,$subject,$attachments="")
 function GetAbsoluteURLFolder()
     {
         $scriptFolder = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) ? 'https://' : 'http://';
-        $scriptFolder .= $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']);
+        $scriptFolder .= $_SERVER['SERVER_ADDR'] . dirname($_SERVER['REQUEST_URI']);
         return $scriptFolder;
     }
 
@@ -223,7 +232,7 @@ function confirmUser($code)
 
 	$values[0]=array($code=>'s');
 
-	$con=QoB();
+	$con=new QoB();
 
 	$result=$con->fetchAll($getUserByConfirmationLinkSQL,$values);
 
@@ -243,7 +252,7 @@ function confirmUser($code)
 
 			if($con->error=="")
 			{
-				$invalidateConfirmCodeSQL="UPDATE email_confirmation SET isValid=0 AND confirmationStatus=1 WHERE confirmationLink=?";
+				$invalidateConfirmCodeSQL="UPDATE email_confirmation SET isValid=0 , emailConfirmationStatus=1 WHERE confirmationLink=?";
 
 				$values[0]=array($code=>'s');
 
@@ -280,17 +289,28 @@ function confirmUser($code)
 			}
 
 		}
+		else
+		{
+			echo "<br/><h3><strong>Invalid Confirmation Link.Please use the latest link you received or Request a new one <a href='resendConfirmationEmail.php'>here</a></strong></h3><br/>";
+		}
 	}
 }
 
 
 
-function sendEmailConfirmationLink($userId)
+function sendEmailConfirmationLink($con,$user,$userId)
 {
-	
-    $user=getUserByID($userId);
+	//displayAlert("In Send Email Confirmation".$userId);
 
-    $con=QoB();
+    //var_dump($user);
+
+    //displayAlert($user['emailAddress']);
+
+    //$con=new QoB();
+
+    //$con->startTransaction();
+
+    $email=$user['emailAddress'];
 
     $randomKey=generateRandomKey();
 
@@ -310,9 +330,9 @@ function sendEmailConfirmationLink($userId)
 
 		$confirm_url = GetAbsoluteURLFolder().'/confirmreg.php?code='.$randomKey;
 	        
-	    $content ="Hello ".$user['name']."\r\n\r\n".
+	    $content ="Hello ".$user['name'].",\r\n\r\n".
 	    "Thanks for your registration with www.iiitdm.ac.in\r\n".
-	    "Please click the link below or Enter $confirmcode in the page displayed after registration to confirm your email address.\r\n".
+	    "Please click the link below or Enter $randomKey in the page displayed after registration to confirm your email address.\r\n".
 	    "$confirm_url\r\n".
 	    "\r\n".
 	    "Regards,\r\n".
@@ -321,10 +341,14 @@ function sendEmailConfirmationLink($userId)
 
     	if(sendEmail($mailerObject,$user['emailAddress'],$content,$subject))
     	{
+    		//$con->completeTransaction();
+
     		return true;
     	}
     	else
     	{
+    		//$con->rollbackTransaction();
+
     		return false;
     	}
     }
@@ -342,9 +366,11 @@ function resendEmailConfirmationLink($email)
 
     $user=getUserByEmail($email);
 
+    var_dump($user);
+
     $userId=$user['userId'];
 
-    $con=QoB();
+    $con=new QoB();
 
     $invalidateOldConfirmationCodesSQL="UPDATE email_confirmation set isValid=0 WHERE userId=?";
 
@@ -374,7 +400,7 @@ function resendEmailConfirmationLink($email)
 		        
 		    $content ="Hello ".$user['name']."\r\n\r\n".
 		    "This Email Confirmation mail has been resent as per your request. Please note that all the previous links you received have been invalidated.\r\n".
-		    "Please click the link below or Enter $confirmcode in the page displayed after registration to confirm your Email Address.\r\n".
+		    "Please click the link below or Enter $randomKey in the page displayed after registration to confirm your Email Address.\r\n".
 		    "$confirm_url\r\n".
 		    "\r\n".
 		    "Regards,\r\n".
@@ -412,7 +438,7 @@ function sendResetPasswordLink($emailId)
 
 	$userId=$user['userId'];
 
-    $con=QoB();
+    $con=new QoB();
 
     $invalidateOldResetCodesSQL="UPDATE password_reset set isValid=0 WHERE userId=?";
 

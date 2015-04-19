@@ -99,8 +99,8 @@ if(isset($_SESSION['email']))
 		$sq="delete from experience where userId = '$userId'";
 	    $rs=mysql_query($sq) or die(mysql_error());	
 
-		 //$sql2="insert into  experience(user_ex,org_1,des_1,per_1,work_1,org_2,des_2,per_2,work_2,org_3,des_3,per_3,work_3,org_4,des_4,per_4,work_4,org_5,des_5,per_5,work_5) values('$t','$_POST[org_1]' , '$_POST[des_1]' , '$_POST[per_1]' , '$_POST[work_1]' , '$_POST[org_2]' , '$_POST[des_2]' , '$_POST[per_2]' , '$_POST[work_2]' , '$_POST[org_3]' , '$_POST[des_3]' , '$_POST[per_3]' , '$_POST[work_3]' , '$_POST[org_4]' , '$_POST[des_4]' , '$_POST[per_4]' , '$_POST[work_4]' , '$_POST[org_5]' , '$_POST[des_5]' , '$_POST[per_5]' , '$_POST[work_5]' )";
-	    //$result2=mysql_query($sql2) or die(mysql_error());
+		$sql2="insert into  experience(userId,org_1,des_1,per_1,work_1,org_2,des_2,per_2,work_2) values('$userId','$_POST[org_1]' , '$_POST[des_1]' , '$_POST[per_1]' , '$_POST[work_1]' , '$_POST[org_2]' , '$_POST[des_2]' , '$_POST[per_2]' , '$_POST[work_2]' )";
+	    $result2=mysql_query($sql2) or die(mysql_error());
 	    $message.=validateQualificationsInfoOnSave($_POST);	
 		// echo "<script>
 		// 	alert('Details of Experience saved Succesfully.');

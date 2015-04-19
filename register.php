@@ -38,7 +38,7 @@ require_once('helperFunctions.php');
             }
             else
             {
-              //$conObj->startTransaction();
+              $conObj->startTransaction();
               $insertUserSQL = "INSERT INTO registered_users(emailAddress,password,discipline,mode) values(?,?,?,?)";
               $values[]=array($emailAddress => 's');
               $values[]=array($passwordHash => 's');
@@ -48,15 +48,15 @@ require_once('helperFunctions.php');
               if($conObj -> error=="")
               {
                 $userId=$conObj->getInsertId();
-                if(sendEmailConfirmationLink($userId))
+                if(sendEmailConfirmationLink($conObj,$_POST,$userId))
                 {
                   displayAlert("Registration Successfull. Check your email to confirm registration.");
-                  //$conObj->completeTransaction();
+                  $conObj->completeTransaction();
                   RedirectToURL("confirmreg.php");
                 }
                 else
                 {
-                  //$conObj->rollbackTransaction();
+                  $conObj->rollbackTransaction();
                   displayAlert("Some Error Occured. Please Try Again");
                 }
               }
@@ -197,7 +197,7 @@ Buttons :   Submit
               <div id="submit_button" class="center"><button class="waves-effect waves-light btn-large" type='submit' name='submit' value='Submit' >Submit<i class="mdi-content-send right"></i></button></div>
               <!--*******************************************************************-->
 
-            <div class='short_explanation'><a href='reset-pwd-req.php'>Resend Confirmation Mail?</a></div>
+            <div class='short_explanation'><a href='resendConfirmationEmail.php'>Resend Confirmation Mail?</a></div>
         </form>
         <!--*************************************************************-->
 

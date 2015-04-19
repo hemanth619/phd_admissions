@@ -1,5 +1,6 @@
 <?php
-include_once("backendFunctions.php");
+require_once("QOB/qob.php");
+require_once("backendFunctions.php");
 ?>
 <html>
 	<body>
@@ -10,7 +11,7 @@ if(isset($_POST['Email']))
 {
 	$Email=$_POST['Email'];
 	
-	if(($user=getUserFromEmail($Email))==false)
+	if(($user=getUserByEmail($Email))==false)
 	{
 		var_dump($user);
 		
@@ -18,14 +19,22 @@ if(isset($_POST['Email']))
 	}
 	else
 	{
-		if(resendEmailConfirmationLink($Email))
+		if($user['emailConfirmationStatus']==1)
 		{
-			echo "<br/><h3><strong>Email Confirmation link sent to your EmailId($Email) successfully.</strong></h3><br/>";
+			echo "<br/><h3><strong>Email Address entered is already confirmed. Go to <a href='login.php'>Login</a>Page</strong></h3><br/>";
 		}
 		else
 		{
-			echo "<h3><strong>Some unexpected error Occured. This may be due to server overload. Please try again later. Admin has been intimated.</strong></h3><br/>";
+			if(resendEmailConfirmationLink($Email))
+			{
+				echo "<br/><h3><strong>Email Confirmation link sent to your EmailId($Email) successfully.</strong></h3><br/>";
+			}
+			else
+			{
+				echo "<h3><strong>Some unexpected error Occured. This may be due to server overload. Please try again later. Admin has been intimated.</strong></h3><br/>";
+			}
 		}
+		
 	}
 }
 
