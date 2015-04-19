@@ -130,7 +130,7 @@ Buttons :   Submit
 
     <!--*********************NAVIGATION BAR****************************-->
     <body>
-      <!-- Dropdown Structure -->
+      <?php require_once("header_logo.php"); ?>
       <?php include_once("menu.php"); ?>
       
     <!--***************************************************************-->
