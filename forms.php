@@ -384,42 +384,42 @@ session_start();
 								        <td ><div class="input-field ">								
 											<select name="T_state" id="T_state">
 											    <option value="" selected>[ Select State ]</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Andaman & Nicobar Island') echo "selected"; ?>>Andaman & Nicobar Island</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Andhra Pradesh') echo "selected"; ?>>Andhra Pradesh</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Arunachal Pradesh') echo "selected"; ?>>Arunachal Pradesh</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Assam') echo "selected"; ?>>Assam</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Bihar') echo "selected"; ?>>Bihar</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Chandigarh') echo "selected"; ?>>Chandigarh</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Chattisgarh') echo "selected"; ?>>Chattisgarh</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Dadar & Nagar Haveli') echo "selected"; ?>>Dadar & Nagar Haveli</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Daman & Diu') echo "selected"; ?>>Daman & Diu</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Delhi') echo "selected"; ?>>Delhi</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Goa') echo "selected"; ?>>Goa</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Gujarat') echo "selected"; ?>>Gujarat</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Haryana') echo "selected"; ?>>Haryana</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Himachal Pradesh') echo "selected"; ?>>Himachal Pradesh</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Jammu & Kashmir') echo "selected"; ?>>Jammu & Kashmir</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Jharkhand') echo "selected"; ?>>Jharkhand</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Karnataka') echo "selected"; ?>>Karnataka</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Kerela') echo "selected"; ?>>Kerela</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Lakshadweep') echo "selected"; ?>>Lakshadweep</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Madhya Pradesh') echo "selected"; ?>>Madhya Pradesh</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Maharashtra') echo "selected"; ?>>Maharashtra</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Manipur') echo "selected"; ?>>Manipur</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Meghalaya') echo "selected"; ?>>Meghalaya</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Mizoram') echo "selected"; ?>>Mizoram</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Nagaland') echo "selected"; ?>>Nagaland</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Orrisa') echo "selected"; ?>>Orrisa</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Others') echo "selected"; ?>>Others</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Pondichery') echo "selected"; ?>>Pondichery</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Punjab') echo "selected"; ?>>Punjab</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Rajasthan') echo "selected"; ?>>Rajasthan</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Sikkim') echo "selected"; ?>>Sikkim</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Tamil Nadu') echo "selected"; ?>>Tamil Nadu</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Tripura') echo "selected"; ?>>Tripura</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Uttar Pradesh') echo "selected"; ?>>Uttar Pradesh</option>
-											    <option <?php if(isset($tstate)&&$tstate=='Uttrakhand') echo "selected"; ?>>Uttrakhand</option>
-												<option <?php if(isset($tstate)&&$tstate=='West Bengal') echo "selected"; ?>>West Bengal</option>          
+											    <option value="Andaman & Nicobar Island" <?php if(isset($tstate)&&$tstate=='Andaman & Nicobar Island') echo "selected"; ?>>Andaman & Nicobar Island</option>
+											    <option value="Andhra Pradesh" <?php if(isset($tstate)&&$tstate=='Andhra Pradesh') echo "selected"; ?>>Andhra Pradesh</option>
+											    <option value="Arunachal Pradesh" <?php if(isset($tstate)&&$tstate=='Arunachal Pradesh') echo "selected"; ?>>Arunachal Pradesh</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Assam') echo "selected"; ?>>Assam</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Bihar') echo "selected"; ?>>Bihar</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Chandigarh') echo "selected"; ?>>Chandigarh</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Chattisgarh') echo "selected"; ?>>Chattisgarh</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Dadar & Nagar Haveli') echo "selected"; ?>>Dadar & Nagar Haveli</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Daman & Diu') echo "selected"; ?>>Daman & Diu</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Delhi') echo "selected"; ?>>Delhi</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Goa') echo "selected"; ?>>Goa</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Gujarat') echo "selected"; ?>>Gujarat</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Haryana') echo "selected"; ?>>Haryana</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Himachal Pradesh') echo "selected"; ?>>Himachal Pradesh</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Jammu & Kashmir') echo "selected"; ?>>Jammu & Kashmir</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Jharkhand') echo "selected"; ?>>Jharkhand</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Karnataka') echo "selected"; ?>>Karnataka</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Kerela') echo "selected"; ?>>Kerela</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Lakshadweep') echo "selected"; ?>>Lakshadweep</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Madhya Pradesh') echo "selected"; ?>>Madhya Pradesh</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Maharashtra') echo "selected"; ?>>Maharashtra</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Manipur') echo "selected"; ?>>Manipur</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Meghalaya') echo "selected"; ?>>Meghalaya</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Mizoram') echo "selected"; ?>>Mizoram</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Nagaland') echo "selected"; ?>>Nagaland</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Orrisa') echo "selected"; ?>>Orrisa</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Others') echo "selected"; ?>>Others</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Pondichery') echo "selected"; ?>>Pondichery</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Punjab') echo "selected"; ?>>Punjab</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Rajasthan') echo "selected"; ?>>Rajasthan</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Sikkim') echo "selected"; ?>>Sikkim</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Tamil Nadu') echo "selected"; ?>>Tamil Nadu</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Tripura') echo "selected"; ?>>Tripura</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Uttar Pradesh') echo "selected"; ?>>Uttar Pradesh</option>
+											    <option value="" <?php if(isset($tstate)&&$tstate=='Uttrakhand') echo "selected"; ?>>Uttrakhand</option>
+												<option value="" <?php if(isset($tstate)&&$tstate=='West Bengal') echo "selected"; ?>>West Bengal</option>          
 											</select></div>
 										</td>
 									</tr>
@@ -438,8 +438,8 @@ session_start();
 											Mobile :        
 										</td>
 										<td ><div class="row">
-												<div class="col s4">
-													<div class="input-field"><input placeholder="countrycode Eg: 91" name="T_mobile_country_code" size="10" length="10" type="text" id="T_mobile_number_country_code" value="<?php if(isset($T_mobile_number_country_code)) echo $T_mobile_number_country_code;?>" onkeypress="return isPinCode(event)">
+												<div class="col s2">
+													<div class="input-field"><input placeholder="countrycode Eg: 91" name="mobileCountryCode" size="3" length="3" type="text" id="T_mobile_number_country_code" value="<?php if(isset($T_mobile_number_country_code)) echo $T_mobile_number_country_code;?>" onkeypress="return isPinCode(event)">
 													</div>
 												</div>
 												<div class="col s8">
@@ -495,11 +495,11 @@ session_start();
 										</td>
 										<td >
 											<select name="P_state" id="P_state">
-												<option value="" selected>[ Select State ]</option>
-												<option  <?php if(isset($pstate)&&$pstate=='Andaman & Nicobar Island') echo "selected"; ?>>Andaman & Nicobar Island</option>
-												<option <?php if(isset($pstate)&&$pstate=='Andhra Pradesh') echo "selected"; ?>>Andhra Pradesh</option>
-												<option <?php if(isset($pstate)&&$pstate=='Arunachal Pradesh') echo "selected"; ?>>Arunachal Pradesh</option>
-												<option <?php if(isset($pstate)&&$pstate=='Assam') echo "selected"; ?>>Assam</option>
+												<option value="" >[ Select State ]</option>
+												<option value="Andaman & Nicobar Island"  <?php if(isset($pstate)&&$pstate=='Andaman & Nicobar Island') echo "selected"; ?>>Andaman & Nicobar Island</option>
+												<option value="Andhra Pradesh" <?php if(isset($pstate)&&$pstate=='Andhra Pradesh') echo "selected"; ?>>Andhra Pradesh</option>
+												<option value="Arunachal Pradesh" <?php if(isset($pstate)&&$pstate=='Arunachal Pradesh') echo "selected"; ?>>Arunachal Pradesh</option>
+												<option value="Assam" <?php if(isset($pstate)&&$pstate=='Assam') echo "selected"; ?>>Assam</option>
 												<option <?php if(isset($pstate)&&$pstate=='Bihar') echo "selected"; ?>>Bihar</option>
 												<option <?php if(isset($pstate)&&$pstate=='Chandigarh') echo "selected"; ?>>Chandigarh</option>
 												<option <?php if(isset($pstate)&&$pstate=='Chattisgarh') echo "selected"; ?>>Chattisgarh</option>
@@ -550,7 +550,7 @@ session_start();
 										</td>
 										<td ><div class="row">
 												<div class="col s4">
-													<input placeholder="country code" name="P_mobile_country_code" type="text" id="P_mobile_country_code" size="10" length="10" value="<?php if(isset($P_mobile_country_code)) echo $P_mobile_country_code;?>"onkeypress="return isNumber(event)">
+													<input placeholder="country code" name="alternateMobileCountryCode" type="text" id="P_mobile_country_code" size="10" length="10" value="<?php if(isset($P_mobile_country_code)) echo $P_mobile_country_code;?>"onkeypress="return isNumber(event)">
 												</div>
 												<div class="col s8">
 													<input placeholder="mobile number Eg:9988776655" name="P_mobile_number" type="text" id="P_mobile_number" size="10" length="10" value="<?php if(isset($P_mobile_number)) echo $P_mobile_number;?>"onkeypress="return isNumber(event)">        
@@ -859,7 +859,14 @@ session_start();
 
 					 	var tempState = $('#T_state').val();
 					 	console.log(tempState);
-					 	$('#P_state').val(tempState).attr('selected',null);
+					 	console.log("h"+$('#P_state').val());
+					 	$("#P_state").find("option").each(function(){
+					 		if($(this).val()==tempState)
+					 		{
+					 			alert($(this).html());
+					 			$(this).attr("selected","");
+					 		}
+					 	});
 
 					 	var tempPin = $('#T_pincode').val();
 					 	$('#P_pincode').val(tempPin);
