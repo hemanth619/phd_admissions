@@ -236,6 +236,16 @@ session_start();
 										<td ><a class="tooltipped" data-position="top" data-delay="300" data-tooltip="1) Name as recorded in the Matriculation/Secondary Examination Certificate. 2) Please do not use any prefix such as Mr. or Ms. etc."><div class="input-field "><input required="required" onkeypress="return isAlpha(event,errorName);" ondrop="return false;" onpaste="return false;" name='Full_Name' type='text' length='50' id='Full_Name' value="<?php if(isset($Full_Name)) echo $Full_Name;?>" size=40 ><label for="Full_Name">Full Name</label></div></a><span id="errorName" style="color: Red; display: none">* Special Characters & integers are not allowed</span>
 										</td>
 									</tr>
+									      
+									<tr  class="nospace">
+										<td >
+									    	Date Of Birth<font color=red>&nbsp;*</font> :        
+									    </td>
+										<td ><div class="row col s6">
+											<input type="date" id="date1" name="date1" value="<?php if(isset($dob)) echo ($dob) ?>" />
+										</td></div>
+									</tr>
+									     
 									<tr class="nospace">
 									    <td >
 									    	Gender<font color=red>&nbsp;*</font> :       
@@ -249,16 +259,7 @@ session_start();
 				      						</p>       
 									    </td>
 									</tr>
-									      
-									<tr  class="nospace">
-										<td >
-									    	Date Of Birth<font color=red>&nbsp;*</font> :        
-									    </td>
-										<td >
-											<input type="date" class="datepicker" id="date1" name="date1" value="<?php if(isset($dob)) echo ($dob) ?>" />
-										</td>
-									</tr>
-									       	      
+
 									<tr class="nospace">
 										<td >
 									    	Father's / Husband's Name<font color=red>&nbsp;*</font> :        

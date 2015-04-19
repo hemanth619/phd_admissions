@@ -20,3 +20,5 @@
 
 [2015-04-16 12:16:18             ::1                   Asia/Kolkata] 0      $$$$$$
 
+[2015-04-19 19:05:45             ::1                   Asia/Kolkata] 1045   $$$Access denied for user 'root'@'localhost' (using password: YES)$$$
+
