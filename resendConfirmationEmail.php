@@ -1,4 +1,5 @@
 <?php
+require_once("QOB/qob.php");
 include_once("backendFunctions.php");
 ?>
 <html>
@@ -10,7 +11,7 @@ if(isset($_POST['Email']))
 {
 	$Email=$_POST['Email'];
 	
-	if(($user=getUserFromEmail($Email))==false)
+	if(($user=getUserByEmail($Email))==false)
 	{
 		var_dump($user);
 		

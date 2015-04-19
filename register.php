@@ -130,7 +130,7 @@ Buttons :   Submit
 
     <!--*********************NAVIGATION BAR****************************-->
     <body>
-      <!-- Dropdown Structure -->
+      <?php require_once("header_logo.php"); ?>
       <?php include_once("menu.php"); ?>
       
     <!--***************************************************************-->
@@ -197,7 +197,7 @@ Buttons :   Submit
               <div id="submit_button" class="center"><button class="waves-effect waves-light btn-large" type='submit' name='submit' value='Submit' >Submit<i class="mdi-content-send right"></i></button></div>
               <!--*******************************************************************-->
 
-            <div class='short_explanation'><a href='reset-pwd-req.php'>Resend Confirmation Mail?</a></div>
+            <div class='short_explanation'><a href='resendConfirmationEmail.php'>Resend Confirmation Mail?</a></div>
         </form>
         <!--*************************************************************-->
 

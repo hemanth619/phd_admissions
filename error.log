@@ -22,3 +22,7 @@
 
 [2015-04-19 19:05:45             ::1                   Asia/Kolkata] 1045   $$$Access denied for user 'root'@'localhost' (using password: YES)$$$
 
+[2015-04-20 02:58:24             ::1                   Asia/Kolkata] 1054   $$$Unknown column 'registered_users.email' in 'where clause'$$$
+
+[2015-04-20 02:58:24             ::1                   Asia/Kolkata] 1054   $$$Unknown column 'notif' in 'field list'$$$
+

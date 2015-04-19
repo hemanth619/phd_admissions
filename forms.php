@@ -438,7 +438,7 @@ session_start();
 											Mobile :        
 										</td>
 										<td ><div class="row">
-												<div class="col s2">
+												<div class="col s4">
 													<div class="input-field"><input placeholder="countrycode Eg: 91" name="mobileCountryCode" size="3" length="3" type="text" id="T_mobile_number_country_code" value="<?php if(isset($T_mobile_number_country_code)) echo $T_mobile_number_country_code;?>" onkeypress="return isPinCode(event)">
 													</div>
 												</div>
@@ -453,10 +453,10 @@ session_start();
 								    <tr class="addpad">
 								    	<td>
 								    		<input type="checkbox" class="filled-in" id="filled-in-box"  />
-      										<label for="filled-in-box">&nbsp;Is the permentant Address Same as</label>
+      										<label for="filled-in-box">&nbsp;Is permentant Address Same as Present</label>
 								    	</td>
 								    	<td>
-								    		<strong>Present address</strong>
+								    		
 								    	</td>
 								    </tr>
 
