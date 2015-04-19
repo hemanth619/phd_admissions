@@ -1,5 +1,6 @@
 <?php
 include("backendFunctions.php");
+include("include/class.phpmailer.php");
 
 
 
@@ -50,6 +51,9 @@ define("C_TIME", time());
 
 //SALT for password Hashing
 define("PASSSALT", "13050412");
+
+//Salt for Random Keys
+define ("RANDSALT", "HaHeKuDeAv");
 
 
 

@@ -1,9 +1,9 @@
 <?PHP
 session_start();
-
-include_once('QOB/qob.php');
-include_once('backendFunctions.php');
-
+require_once('QOB/qob.php');
+require_once('backendFunctions.php');
+require_once('helperFunctions.php');
+//var_dump($_POST);
 
  if(isset($_SESSION['userId']))
   {
@@ -13,71 +13,72 @@ include_once('backendFunctions.php');
   {
     if(isset($_POST['submit']))
     {
-      //displayAlert("Post Value Set");
+
       $conObj = new QoB();
-      $emailAddress = $_POST['emailAddress'];
-      $discipline = $_POST['discipline'];
-      $modeOfRegistration = $_POST['modeOfRegistration'];
-     
-      $password = $_POST['password'];
-      $confirmPassword = $_POST['confirmPassword'];
-      if($password==$confirmPassword)
+      $emailAddress = trim($_POST['emailAddress']);
+      $discipline = trim($_POST['discipline']);
+      $modeOfRegistration = trim($_POST['modeOfRegistration']);
+      
+      $password = trim($_POST['password']);
+      $confirmPassword = trim($_POST['confirmPassword']);
+      if(validateRegisterFormEntries($_POST))
       {
-        $passwordHash=hash("sha512",$password.PASSSALT);
-        $getMailSQL = "SELECT emailAddress FROM registered_users WHERE emailAddress = ?";
-        $values1[]=array($emailAddress => 's');
-        $result1 = $conObj->fetchAll($getMailSQL,$values1);
-        if($conObj->error == "")
+        if($password==$confirmPassword)
         {
-          if($result1 != "")
+          $passwordHash=hash("sha512",$password.PASSSALT);
+          $getMailSQL = "SELECT emailAddress FROM registered_users WHERE emailAddress = ?";
+          $values1[]=array($emailAddress => 's');
+          $result1 = $conObj->fetchAll($getMailSQL,$values1);
+          if($conObj->error == "")
           {
-            // displayAlert("Fetched Something");
-            displayAlert("Your Email is already registered. Proceed to Candidate Login Page to login. Please click on resend confirmation link if you haven't received the confirmation mail.");
-          }
-          else
-          {
-            $conObj->startTransaction();
-            $insertUserSQL = "INSERT INTO registered_users(emailAddress,password,discipline,mode) values($emailAddress,$passwordHash,$discipline,$modeOfRegistration)";
-            $values[]=array($emailAddress => 's');
-            $values[]=array($passwordHash => 's');
-            $values[]=array($discipline => 's');
-            $values[]=array($modeOfRegistration => 's');
-            $result=$conObj->insert($insertUserSQL, $values);
-            if($conObj -> error=="")
+            if($result1 != "")
             {
-              $userId=$conObj->getInsertId();
-              if(sendEmailConfirmationLink($userId))
-              {
-                displayAlert("Registration Successfull. Check your email to confirm registration.");
-                $conObj->completeTransaction();
-                RedirectToURL("confirmreg.php");
-              }
-              else
-              {
-                $conObj->rollbackTransaction();
-                displayAlert("Some Error Occured. Please Try Again");
-              }
+              // displayAlert("Fetched Something");
+              displayAlert("Your Email is already registered. Proceed to Candidate Login Page to login. Please click on resend confirmation link if you haven't received the confirmation mail.");
             }
             else
             {
-              notifyAdmin("Conn. Error. $conObj->error while registration",$emailAddress)
-              displayAlert("Some Error Occured. Admin has been notified. Please Try Again Later.");
+              //$conObj->startTransaction();
+              $insertUserSQL = "INSERT INTO registered_users(emailAddress,password,discipline,mode) values(?,?,?,?)";
+              $values[]=array($emailAddress => 's');
+              $values[]=array($passwordHash => 's');
+              $values[]=array($discipline => 's');
+              $values[]=array($modeOfRegistration => 's');
+              $result=$conObj->insert($insertUserSQL, $values);
+              if($conObj -> error=="")
+              {
+                $userId=$conObj->getInsertId();
+                if(sendEmailConfirmationLink($userId))
+                {
+                  displayAlert("Registration Successfull. Check your email to confirm registration.");
+                  //$conObj->completeTransaction();
+                  RedirectToURL("confirmreg.php");
+                }
+                else
+                {
+                  //$conObj->rollbackTransaction();
+                  displayAlert("Some Error Occured. Please Try Again");
+                }
+              }
+              else
+              {
+                notifyAdmin("Conn. Error. $conObj->error while registration",$emailAddress);
+                displayAlert("Some Error Occured. Admin has been notified. Please Try Again Later.");
+              }
+              
             }
-            
+          }
+          else
+          {
+            notifyAdmin("Conn. Error. $conObj->error while registration in checking email address",$emailAddress);
+            displayAlert("Some Error Occured. Admin has been notified. Please Try Again Later.");
           }
         }
         else
         {
-          notifyAdmin("Conn. Error. $conObj->error while registration in checking email address",$emailAddress)
-          displayAlert("Some Error Occured. Admin has been notified. Please Try Again Later.");
+          displayAlert("Entered Password and Confirm Password doesn't match.");
         }
       }
-      else
-      {
-        displayAlert("Entered Password and Confirm Password doesn't match.");
-      }
-      
-     
     }
   }
 ?>
@@ -169,9 +170,9 @@ Buttons :   Submit
                 <span id='login_password_errorloc' class='error'></span>
               </div>
 
-              <div name="discipline" id="disciplineId" class="input-field col s12">
-                <select>
-                  <option value="" disabled selected>Choose your discipline</option>
+              <div name="Discipline" id="disciplineId" class="input-field col s12">
+                <select name='discipline'>
+                  <option value="" selected>Choose your discipline</option>
                   <option value="Computer Engineering">Computer Engineering</option>
                   <option value="Electronics">Electronics</option>
                   <option value="Mechanical">Mechanical</option>
@@ -181,13 +182,13 @@ Buttons :   Submit
                 <label>Discipline</label>
               </div>
 
-              <div name="modeOfRegistration" id="modeOfRegistrationId" class="input-field col s12">
-                <select>
-                  <option value="" disabled selected>Choose your Mode of Registration</option>
+              <div name="ModeOfRegistration" id="modeOfRegistrationId" class="input-field col s12">
+                <select name="modeOfRegistration">
+                  <option value="" selected>Choose your Mode of Registration</option>
                   <option value="httra">Regular HTTRA</option>
                   <option value="nhttra">Regular NHTTRA</option>
                   <option value="internal">Internal</option>
-                  <option value="internal">External</option>
+                  <option value="external">External</option>
                 </select>
                 <label>Mode of registration</label>
               </div>

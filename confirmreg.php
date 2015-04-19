@@ -1,5 +1,6 @@
 <?PHP
-  include_once("backendFunctions.php");
+  require_once("QOB/qob.php");
+  require_once("backendFunctions.php");
   if(isset($_GET['code']))
   {
     confirmUser($_GET['code']);
@@ -22,9 +23,9 @@
     </p>
     <!-- Form Code Start -->
     <div id='fg_membersite'>
-      <form id='confirm' action='<?php echo $fgmembersite->GetSelfScript(); ?>' method='get' accept-charset='UTF-8'>
+      <form id='confirm' action="confirmreg.php" method='get' accept-charset='UTF-8'>
         <div class='short_explanation'>* required fields</div>
-        <div><span class='error'><?php echo $fgmembersite->GetErrorMessage(); ?></span></div>
+       <!--  <div><span class='error'><?php //echo $fgmembersite->GetErrorMessage(); ?></span></div> -->
         <div class='container'>
             <label for='code' >Confirmation Code:* </label><br/>
             <input type='text' name='code' id='code' maxlength="50" /><br/>

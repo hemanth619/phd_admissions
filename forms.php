@@ -177,12 +177,12 @@ session_start();
 				$Temp_Address = $row['currentAddress'];
 				$T_District = $row['currentDistrict'];
 				$T_pincode = $row['currentPincode'];
-				//$T_phone_number = $row['T_phone_number'];
+				$T_mobile_number_country_code = $row['mobileCountryCode'];
 				$T_mobile_number = $row['mobileNumber'];
 				$perm_Address = $row['permanentAddress'];
 				$P_District = $row['permanentDistrict'];
 				$P_pincode = $row['permanentPincode'];
-				//$P_phone_number = $row['P_phone_number'];
+				$P_mobile_number_country_code = $row['alternateMobileCountryCode'];
 				$P_mobile_number = $row['alternateMobileNumber'];
 				$tstate=$row['currentState'];
 				$pstate=$row['permanentState'];
@@ -716,7 +716,7 @@ session_start();
 										<tr>
 											<td>
 												<?php 
-													$applnNo="DM14P001";
+													$applnNo=$_SESSION['applicationNo'];
 													if (file_exists("upload/" .$applnNo."_PP.png"))
 													{
 														echo '<img src="images/r.png" alt="Uploaded" height="20" width="20">';
