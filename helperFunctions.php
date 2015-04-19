@@ -73,6 +73,42 @@ function followsRegex($regex,$string)
 	}
 }
 
+function validateRegisterFormEntries($formVars)
+{
+	$emailAddress = trim($formVars['emailAddress']);
+	$discipline = trim($formVars['discipline']);
+	$modeOfRegistration = trim($formVars['modeOfRegistration']);
+
+	$password = trim($formVars['password']);
+	$confirmPassword = trim($formVars['confirmPassword']);
+	if($emailAddress=="" || $discipline== "" || $modeOfRegistration==""|| $password=="" || $confirmPassword=="")
+	{
+		displayAlert("Please Fill All The Fields");
+		return false;
+	}
+	else
+	{
+		if($modeOfRegistration!="httra" && $modeOfRegistration!="nhttra" && $modeOfRegistration!="internal" && $modeOfRegistration!="external" )
+		{
+			displayAlert("Enter a valid mode of Registration");
+			return false;
+		}
+
+		if(!filter_var($emailAddress,FILTER_VALIDATE_EMAIL))
+		{
+			displayAlert("Enter A valid Email Address.");
+			return false;
+		}
+
+		if($discipline!="Computer Engineering" && $discipline!="Electronics" && $discipline!="Mechanical" && $discipline!="Mathematics" && $discipline!="Physics")
+		{
+			displayAlert("Enter A valid Discipline.");
+			return false;
+		}
+		return true;
+	}
+}
+
 function validateDate($rawDate,$seperator='-')
 	{
 		//var_dump($rawDate);
@@ -289,6 +325,14 @@ function validatePersonalInfoOnSave($personalInfo)
 		{
 			$count++;
 		}*/
+		if($personalInfo['T_mobile_country_code']=="")
+		{
+			$message.="Country Code for Mobile Number Is Compulsory.\\n";
+		}
+		else if(!hasOnlyNumbers($personalInfo['T_mobile_country_code']))
+		{
+			$message.="Country Code for Mobile Number should be a Number";
+		}
 	}
 
 	/*if($personalInfo['perm_Address']!='')
@@ -330,6 +374,14 @@ function validatePersonalInfoOnSave($personalInfo)
 		{
 			$count++;
 		}*/
+		if($personalInfo['P_mobile_country_code']=="")
+		{
+			$message.="Country Code for Alternate Mobile Number Is Compulsory.\\n";
+		}
+		else if(!hasOnlyNumbers($personalInfo['P_mobile_country_code']))
+		{
+			$message.="Country Code for Alternate Mobile Number should be a Number";
+		}
 	}
 
 	
@@ -588,7 +640,7 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 
 function validateExperienceInfoOnSave($experienceInfo)
 {
-			 //$sql2="insert into  experience(user_ex,org_1,des_1,per_1,work_1,org_2,des_2,per_2,work_2,org_3,des_3,per_3,work_3,org_4,des_4,per_4,work_4,org_5,des_5,per_5,work_5) values('$t','$_POST[org_1]' , '$_POST[des_1]' , '$_POST[per_1]' , '$_POST[work_1]' , '$_POST[org_2]' , '$_POST[des_2]' , '$_POST[per_2]' , '$_POST[work_2]' , '$_POST[org_3]' , '$_POST[des_3]' , '$_POST[per_3]' , '$_POST[work_3]' , '$_POST[org_4]' , '$_POST[des_4]' , '$_POST[per_4]' , '$_POST[work_4]' , '$_POST[org_5]' , '$_POST[des_5]' , '$_POST[per_5]' , '$_POST[work_5]' )";
+	//$sql2="insert into  experience(user_ex,org_1,des_1,per_1,work_1,org_2,des_2,per_2,work_2,org_3,des_3,per_3,work_3,org_4,des_4,per_4,work_4,org_5,des_5,per_5,work_5) values('$t','$_POST[org_1]' , '$_POST[des_1]' , '$_POST[per_1]' , '$_POST[work_1]' , '$_POST[org_2]' , '$_POST[des_2]' , '$_POST[per_2]' , '$_POST[work_2]' , '$_POST[org_3]' , '$_POST[des_3]' , '$_POST[per_3]' , '$_POST[work_3]' , '$_POST[org_4]' , '$_POST[des_4]' , '$_POST[per_4]' , '$_POST[work_4]' , '$_POST[org_5]' , '$_POST[des_5]' , '$_POST[per_5]' , '$_POST[work_5]' )";
 	$message='';
 	if(trim($experienceInfo['org_1'])!='')
 	{
@@ -660,7 +712,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 
 	//work exp 3
 
-	if(trim($experienceInfo['org_3'])!='')
+	/*if(trim($experienceInfo['org_3'])!='')
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['org_3']))
 		{
@@ -758,9 +810,9 @@ function validateExperienceInfoOnSave($experienceInfo)
 		{
 			$message.="Only Alpha Numerics are allowed in Nature Of work in work Experience 5.\\n";
 		}
-	}
+	}*/
 
-		return $message;
+	return $message;
 
 }
 

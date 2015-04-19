@@ -20,3 +20,89 @@
 
 [2015-04-16 12:16:18             ::1                   Asia/Kolkata] 0      $$$$$$
 
+[2015-04-19 21:35:38             ::1                   Asia/Kolkata] 0      $$$$$$
+
+[2015-04-19 21:36:35             ::1                   Asia/Kolkata] 0      $$$$$$
+
+[2015-04-19 21:37:34             ::1                   Asia/Kolkata] 0      $$$$$$
+
+[2015-04-19 21:38:22             ::1                   Asia/Kolkata] 0      $$$$$$
+
+[2015-04-19 21:39:37             ::1                   Asia/Kolkata] 0      $$$$$$
+
+[2015-04-19 21:39:46             ::1                   Asia/Kolkata] 0      $$$$$$
+
+[2015-04-19 21:40:10             ::1                   Asia/Kolkata] 0      $$$$$$
+
+[2015-04-19 22:05:38             ::1                   Asia/Kolkata] 0      $$$$$$
+
+[2015-04-19 22:05:38             ::1                   Asia/Kolkata] 1045   $$$Access denied for user 'root'@'localhost' (using password: YES)$$$
+
+[2015-04-19 22:10:40             ::1                   Asia/Kolkata] 0      $$$$$$
+
+[2015-04-19 22:10:40             ::1                   Asia/Kolkata] 1146   $$$Table 'phd_admission_master.adminnotif' doesn't exist$$$
+
+[2015-04-19 22:16:10             ::1                   Asia/Kolkata] 1052   $$$Column 'userId' in where clause is ambiguous$$$
+
+[2015-04-19 22:16:10             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:17:19             ::1                   Asia/Kolkata] 1052   $$$Column 'userId' in where clause is ambiguous$$$
+
+[2015-04-19 22:17:19             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:18:19             ::1                   Asia/Kolkata] 1052   $$$Column 'userId' in where clause is ambiguous$$$
+
+[2015-04-19 22:18:19             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:18:19             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:21:27             ::1                   Asia/Kolkata] 1052   $$$Column 'userId' in where clause is ambiguous$$$
+
+[2015-04-19 22:21:27             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:21:27             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:22:50             ::1                   Asia/Kolkata] 1052   $$$Column 'userId' in where clause is ambiguous$$$
+
+[2015-04-19 22:22:50             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:22:50             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:24:49             ::1                   Asia/Kolkata] 1052   $$$Column 'userId' in where clause is ambiguous$$$
+
+[2015-04-19 22:24:49             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:24:49             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:35:47             ::1                   Asia/Kolkata] 1052   $$$Column 'userId' in where clause is ambiguous$$$
+
+[2015-04-19 22:35:47             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:35:47             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:38:41             ::1                   Asia/Kolkata] 1052   $$$Column 'userId' in where clause is ambiguous$$$
+
+[2015-04-19 22:38:41             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:38:41             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:43:36             ::1                   Asia/Kolkata] 1052   $$$Column 'userId' in where clause is ambiguous$$$
+
+[2015-04-19 22:43:36             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:43:36             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:47:50             ::1                   Asia/Kolkata] 1052   $$$Column 'userId' in where clause is ambiguous$$$
+
+[2015-04-19 22:47:50             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:47:50             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:52:35             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:53:34             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:53:51             ::1                   Asia/Kolkata] 0      $$$Could not bind values to the query$$$
+
+[2015-04-19 22:56:10             ::1                   Asia/Kolkata] 1052   $$$Column 'userId' in where clause is ambiguous$$$
+

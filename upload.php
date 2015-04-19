@@ -1,10 +1,60 @@
-upload.php
-
 <?PHP
+session_start();
 include('db.php');
 require_once("./include/membersite_config.php");
+if(!isset($_SESSION['userId']))
+{
+	displayAlert("Please Login to Continue");
+	RedirectToURL("login.php");
+}
+else
+{
+	$applicationNo=$_SESSION['applicationNo'];
+	$filename=$_FILES["file"]["name"];
+	if(($filename!=$applicationNo."_PP.png" && $filename!=$applicationNo."_PP.PNG"))
+	{
+		displayAlert("$filename not in Specified Format.");
+		RedirectToURL("forms.php");
+		exit();
+	}
 
-if(!$fgmembersite->CheckLogin())
+	if(($_FILES["file"]["type"] == "image/png")	&& ($_FILES["file"]["size"] < 1048576))
+	{
+		if ($_FILES["file"]["error"] > 0)
+		{
+			//echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
+			displayAlert($_FILES["file"]["error"]);
+		}
+		else
+		{
+			   
+			if(file_exists("upload/" . $_FILES["file"]["name"]))
+			{
+				unlink("upload/" . $_FILES["file"]["name"]);
+			}
+			  
+			move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $_FILES["file"]["name"][$i]);
+			//echo "Stored in: " . "upload/" . $_FILES["file"]["name"][$i];
+			//$filename=$_FILES["file"]["name"][$i];
+			//echo "<script>alert('$filename Uploaded Succesfully');window.location.href='forms.php';	</script>";
+			displayAlert("$filename Uploaded Successfully");
+			RedirectToURL("forms.php");
+		
+		}
+	  }
+	else
+	{
+		//$filename=$_FILES["file"]["name"];
+		echo "<script>
+		alert('$filename not uploaded.Please follow instructions');
+		window.location.href='forms.php';
+		</script>";
+	}
+			
+}
+
+
+/*if(!$fgmembersite->CheckLogin())
 {
     $fgmembersite->RedirectToURL("login.php");
     exit;
@@ -199,4 +249,4 @@ for ($i=0; $i<=7; $i++)
 			</script>";
   }
 ?>
-</html>
+</html>*/

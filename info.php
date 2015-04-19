@@ -1,8 +1,9 @@
 <?php
 session_start();
-include_once('backendFunctions.php');
-include_once('helperFunctions.php');
-include_once('db.php');
+require_once("QOB/qob.php");
+require_once('backendFunctions.php');
+require_once('helperFunctions.php');
+require_once('db.php');
 var_dump($_POST);
 if(isset($_SESSION['email']))
 {
@@ -21,8 +22,8 @@ if(isset($_SESSION['email']))
 		$emptyPersonalInfo=false;
 		if($_POST['date1'])
 		{
-		   $by= date("Y", strtotime($_POST['date1']));
-		   $py=date("Y");
+		   $by= (int)date("Y", strtotime($_POST['date1']));
+		   $py=(int)date("Y");
 		   $age=$py-$by;
 		}
 		else
@@ -32,7 +33,7 @@ if(isset($_SESSION['email']))
 	    $sqlq="delete from personal_info where userId = '$userId'";
 	    $res=mysql_query($sqlq) or die(mysql_error());	
 	    $dob = ($_POST['date1']);
-	    $sql="Insert into  personal_info(userId,fullName,gender,dob,age,fatherName,nationality,maritalStatus,physicallyChallenged,community,minority,primaryEmail,alternateEmail,currentAddress,currentDistrict,currentState,currentPincode,mobileNumber,permanentAddress,permanentDistrict,permanentState,permanentPincode,alternateMobileNumber) values ('$userId','$_POST[Full_Name]' , '$_POST[gender]' , '$dob' , '$age' ,'$_POST[fname]' , '$_POST[nation]' , '$_POST[Marital_status]' , '$_POST[Physically_challenged]' , '$_POST[community]' ,'$_POST[Minority]' , '$_POST[pemail]' , '$_POST[aemail]','$_POST[Temp_Address]' , '$_POST[T_District]' , '$_POST[T_state]' , '$_POST[T_pincode]', '$_POST[T_mobile_number]' , '$_POST[perm_Address]' , '$_POST[P_District]' , '$_POST[P_state]' , '$_POST[P_pincode]'  , '$_POST[P_mobile_number]')";
+	    $sql="Insert into  personal_info(userId,fullName,gender,dob,age,fatherName,nationality,maritalStatus,physicallyChallenged,community,minority,primaryEmail,alternateEmail,currentAddress,currentDistrict,currentState,currentPincode,mobileNumber,mobileCountryCode,permanentAddress,permanentDistrict,permanentState,permanentPincode,alternateMobileNumber,alternateMobileCountryCode) values ('$userId','$_POST[Full_Name]' , '$_POST[gender]' , '$dob' , '$age' ,'$_POST[fname]' , '$_POST[nation]' , '$_POST[Marital_status]' , '$_POST[Physically_challenged]' , '$_POST[community]' ,'$_POST[Minority]' , '$_POST[pemail]' , '$_POST[aemail]','$_POST[Temp_Address]' , '$_POST[T_District]' , '$_POST[T_state]' , '$_POST[T_pincode]', '$_POST[T_mobile_number]' , '$_POST[T_mobile_country_code]' , '$_POST[perm_Address]' , '$_POST[P_District]' , '$_POST[P_state]' , '$_POST[P_pincode]'  , '$_POST[P_mobile_number]', '$_POST[P_mobile_country_code]' )";
 	    $result=mysql_query($sql) or die(mysql_error());
 	    $message=validatePersonalInfoOnSave($_POST);
 
