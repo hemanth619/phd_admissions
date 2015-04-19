@@ -25,6 +25,7 @@ function getDBName()
 function getMasterDBQoBObject()
 {
 	$con=new QoB("localhost","root","isquarer", "phd_admission_master");
+
 	return $con;
 }
 
@@ -300,6 +301,7 @@ function confirmUser($code)
 
 function sendEmailConfirmationLink($con,$user,$userId)
 {
+
 	//displayAlert("In Send Email Confirmation".$userId);
 
     //var_dump($user);
