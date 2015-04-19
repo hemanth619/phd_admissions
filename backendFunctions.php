@@ -33,6 +33,27 @@ function getUserByID($userId)
 	}
 }
 
+
+function getUserByEmail($email)
+{
+	$con=QoB();
+
+	$getUserSQL="SELECT *,personal_info.fullName as name From registered_users inner join personal_info on personal_info.userId=registered_users.userId WHERE email=?";
+
+	$values[]=array($email => 's');
+
+	$result=$con->fetchAll($getUserSQL,$values);
+
+	if($con->error==""&&$result!="")
+	{
+		return $result;
+	}
+	else
+	{
+		notifyAdmin("Conn. Error : $con->error while fetching user by ID",$userId);
+	}
+}
+
 function displayAlert($message)
 {
 	echo '<script>alert("'.$message.'")</script>';
@@ -44,7 +65,9 @@ function notifyAdmin($notification,$userIdentity)
 
 		$ip=$_SERVER['REMOTE_ADDR'];
 
-		$notification="Notify: ".$notification.",  IP: ".$ip;
+		$childDBName=getAppNoPrefix();
+
+		$notification="DB: ".$childDBName."Notify: ".$notification.",  IP: ".$ip;
 
 		$noteCrimeSQL="INSERT INTO adminNotif (userId, notif, ipAddress) VALUES(?,?,?)";
 
@@ -194,6 +217,73 @@ function generateRandomKey()
 	return $randKey;
 }
 
+function confirmUser($code)
+{
+	$getUserByConfirmationLinkSQL="SELECT * FROM email_confirmation WHERE confirmationLink=?";
+
+	$values[0]=array($code=>'s');
+
+	$con=QoB();
+
+	$result=$con->fetchAll($getUserByConfirmationLinkSQL,$values);
+
+	if($con->error=="")
+	{
+		$userId=$result['userId'];
+
+		if($result['isValid']==1 && $result['confirmationStatus']==0)
+		{
+			$con->startTransaction();
+
+			$confirmUserSQL="UPDATE registered_users SET emailConfirmationStatus=1 WHERE userId=?";
+
+			$values[0] = array($userId=>'i');
+
+			$result=$con->update($confirmUserSQL,$values);
+
+			if($con->error=="")
+			{
+				$invalidateConfirmCodeSQL="UPDATE email_confirmation SET isValid=0 AND confirmationStatus=1 WHERE confirmationLink=?";
+
+				$values[0]=array($code=>'s');
+
+				$con->update($invalidateConfirmCodeSQL,$values);
+
+				if($con->error=="")
+				{
+					$con->completeTransaction();
+
+					displayAlert("Your Email Confirmation is successfull. Now you can proceed to Login.");
+
+					RedirectToURL("login.php");
+				}
+				else
+				{
+					$er=$con->error;
+
+					$con->rollbackTransaction();
+
+					notifyAdmin("Conn. Error $er while invalidating confirm code in confirm user.",$userId);
+
+					displayAlert("Some Error Occured. Please Try Again.");
+				}
+			}
+			else
+			{
+				$er=$con->error;
+
+				$con->rollbackTransaction();
+
+				notifyAdmin("Conn. Error $er while updating registrations in confirm user.",$userId);
+
+				displayAlert("Some Error Occured. Please Try Again.");
+			}
+
+		}
+	}
+}
+
+
 
 function sendEmailConfirmationLink($userId)
 {
@@ -247,10 +337,12 @@ function sendEmailConfirmationLink($userId)
 }
 
 
-function resendEmailConfirmationLink($userId)
+function resendEmailConfirmationLink($email)
 {
 
-    $user=getUserByID($userId);
+    $user=getUserByEmail($email);
+
+    $userId=$user['userId'];
 
     $con=QoB();
 
@@ -314,9 +406,11 @@ function resendEmailConfirmationLink($userId)
     
 }
 
-function sendResetPasswordLink()
+function sendResetPasswordLink($emailId)
 {
-	$user=getUserByID($userId);
+	$user=getUserByEmail($emailId);
+
+	$userId=$user['userId'];
 
     $con=QoB();
 
@@ -346,7 +440,7 @@ function sendResetPasswordLink()
 
 			$link = GetAbsoluteURLFolder().
                 '/resetpwd.php?email='.
-                urlencode($user['emailAddress']).'&code='.
+                urlencode($user['emailAddress']).'&token='.
                 urlencode($randomKey);
 
 	        $mailer->Body ="Hello ".$user['name']."\r\n\r\n".
@@ -379,4 +473,24 @@ function sendResetPasswordLink()
     	return false;
     }
 }
+
+function getResetPassRecord($extHash)
+	{
+		$conn=new QoB();
+
+		$fetchUserSQL="SELECT * FROM password_reset WHERE resetLink= ?";
+
+		$values[0]=array($extHash=>'s');
+
+		$result=$conn->fetchAll($fetchUserSQL,$values);
+
+		if($conn->error==""&&$result!="")
+		{	
+			return $result;
+		}
+		else
+		{
+			return false;
+		}
+	}
 ?>

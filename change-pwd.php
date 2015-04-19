@@ -1,18 +1,70 @@
 <?PHP
-  require_once("./include/membersite_config.php");
-  if(!$fgmembersite->CheckLogin())
-  {
-    $fgmembersite->RedirectToURL("login.php");
-    exit;
-  }
+include_once("backendFunctions.php");
 
-  if(isset($_POST['submitted']))
+if(isset($_SESSION['userId']))
+{
+  if(isset($_POST['submit']))
   {
-    if($fgmembersite->ChangePassword())
+    $userId=$_SESSION['userId'];
+
+    $oldPassword=$_POST['oldpwd'];
+
+    $newPassword=$_POST['newpwd'];
+    
+    $confirmNewPassword=$_POST['confirmNewPassword'];
+
+    if($newPassword==$confirmNewPassword)
     {
-      $fgmembersite->RedirectToURL("changed-pwd.html");
+      $oldPasswordHash=hash("sha512",$oldPassword.PASSSALT);
+
+      $user=getUserByID($userId);
+
+      if($user['password']==$oldPasswordHash)
+      {
+        $newPasswordHash=hash("sha512", $newPassword.PASSSALT);
+
+        $values[]=array($newPasswordHash => 's');
+
+        $values[]=array($userId => 's');
+
+        $changePasswordSQL="UPDATE registered_users SET password=? WHERE userId=?";
+
+        $con=QoB();
+
+        $result=$con->update($changePasswordSQL,$values);
+
+        if($con->error=="")
+        {
+          displayAlert("Password changed successfully.");
+
+          RedirectToURL("forms.php");
+        }
+        else
+        {
+          displayAlert("Some Error occured. Please Try Again Later. Admin will be notified.");
+
+          notifyAdmin("Conn. Error : $con->error while Changing Password", $userId);
+
+          RedirectToURL("forms.php");
+        }
+      }
+      else
+      {
+        displayAlert("Old password doesnt match. Try again.");
+      }
+    }
+    else
+    {
+      displayAlert("Passwords in New Password and Confirm New Password fields doesn't match. Try Again.");
     }
   }
+}
+else
+{
+  displayAlert("Please login to continue.");
+
+  RedirectToURL("login.php");
+}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">

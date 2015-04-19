@@ -6,7 +6,7 @@ include_once('QOB/qob.php');
 include_once('backendFunctions.php');
 
 
- if(isset($_SESSION['user_name']))
+ if(isset($_SESSION['userId']))
   {
     RedirectToURL("forms.php");
   }
@@ -18,11 +18,11 @@ include_once('backendFunctions.php');
     {
       //displayAlert("Post Value Set");
       $conObj = new QoB();
-      $userId = strtolower($_POST['email']);
+      $userEmail = strtolower($_POST['email']);
       $password = $_POST['password'];
       $passwordHash=hash("sha512",$password.PASSSALT);
       //$userIdHash = hash("sha512",$userId.SALT);
-      $values1 = array(0 => array($userId => 's'));
+      $values1 = array(0 => array($userEmail => 's'));
       $getUserSQL = "SELECT registered_users.userId, emailConfirmationStatus, password, fullName FROM registered_users left join personal_info on personal_info.userId=registered_users.userId  WHERE emailAddress = ?";
       $result1 = $conObj->fetchAll($getUserSQL,$values1,false);
       if($conObj->error == "")
@@ -128,7 +128,7 @@ include_once('backendFunctions.php');
         <div id="mynav-wrapper" class="nav-wrapper">
           <ul id="nav-mobile" class="left hide-on-med-and-down">
             <li><a class="dropdown-button" href="index.php" data-activates="dropdown1">Home<i class="mdi-navigation-arrow-drop-down right"></i></a></li>
-            <li><a href="registerform.php">Register</a></li>
+            <li><a href="register.php">Register</a></li>
             <li><a href="login.php">Candidate Login</a></li>
             <li><a class="dropdown-button" href="#!" data-activates="dropdown4">Information<i class="mdi-navigation-arrow-drop-down right"></i></a></li>
             <li><a class="dropdown-button" href="#!" data-activates="dropdown5">Contact Us<i class="mdi-navigation-arrow-drop-down right"></i></a></li>

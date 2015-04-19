@@ -5,7 +5,7 @@ include_once('QOB/qob.php');
 include_once('backendFunctions.php');
 
 
- if(isset($_SESSION['register']))
+ if(isset($_SESSION['userId']))
   {
     RedirectToURL("forms.php");
   }
@@ -24,40 +24,60 @@ include_once('backendFunctions.php');
       if($password==$confirmPassword)
       {
         $passwordHash=hash("sha512",$password.PASSSALT);
+        $getMailSQL = "SELECT emailAddress FROM registered_users WHERE emailAddress = ?";
+        $values1[]=array($emailAddress => 's');
+        $result1 = $conObj->fetchAll($getMailSQL,$values1);
+        if($conObj->error == "")
+        {
+          if($result1 != "")
+          {
+            // displayAlert("Fetched Something");
+            displayAlert("Your Email is already registered. Proceed to Candidate Login Page to login. Please click on resend confirmation link if you haven't received the confirmation mail.");
+          }
+          else
+          {
+            $conObj->startTransaction();
+            $insertUserSQL = "INSERT INTO registered_users(emailAddress,password,discipline,mode) values($emailAddress,$passwordHash,$discipline,$modeOfRegistration)";
+            $values[]=array($emailAddress => 's');
+            $values[]=array($passwordHash => 's');
+            $values[]=array($discipline => 's');
+            $values[]=array($modeOfRegistration => 's');
+            $result=$conObj->insert($insertUserSQL, $values);
+            if($conObj -> error=="")
+            {
+              $userId=$conObj->getInsertId();
+              if(sendEmailConfirmationLink($userId))
+              {
+                displayAlert("Registration Successfull. Check your email to confirm registration.");
+                $conObj->completeTransaction();
+                RedirectToURL("confirmreg.php");
+              }
+              else
+              {
+                $conObj->rollbackTransaction();
+                displayAlert("Some Error Occured. Please Try Again");
+              }
+            }
+            else
+            {
+              notifyAdmin("Conn. Error. $conObj->error while registration",$emailAddress)
+              displayAlert("Some Error Occured. Admin has been notified. Please Try Again Later.");
+            }
+            
+          }
+        }
+        else
+        {
+          notifyAdmin("Conn. Error. $conObj->error while registration in checking email address",$emailAddress)
+          displayAlert("Some Error Occured. Admin has been notified. Please Try Again Later.");
+        }
       }
       else
       {
         displayAlert("Entered Password and Confirm Password doesn't match.");
       }
       
-      $getMailSQL = "SELECT emailAddress FROM registered_users WHERE emailAddress = ?";
-      $result1 = $conObj->fetchAll($getMailSQL,false);
-      if($conObj->error == "")
-      {
-        if($result1 != "")
-        {
-          // displayAlert("Fetched Something");
-          if($result1['emailConfirmationStatus']!=1)
-          {
-            echo '<script>alert("Your Email is not yet confirmed. To resend confirmation mail click on Resend Confirmation Mail?")</script>';
-          }
-          else
-          {
-              displayAlert("Your Email is already registered.");
-          }
-        }
-        else
-        {
-          $insertUserSQL = "INSERT INTO registered_users(emailAddress,password,discipline,mode) values($emailAddress,$passwordHash,$discipline,$modeOfRegistration)";
-          $_SESSION['register']=$_POST['regsiter'];
-          $_SESSION['applicationNo']=getAppNoPrefix().$_result1['userId'];
-          RedirectToURL("forms.php");
-        }
-      }
-      else
-      {
-        echo "Database Error. Please Try Again.".$conObj->error;
-      }
+     
     }
   }
 ?>

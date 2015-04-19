@@ -1,11 +1,8 @@
 <?PHP
-  require_once("./include/membersite_config.php");
+  include_once("backendFunctions.php");
   if(isset($_GET['code']))
   {
-    if($fgmembersite->ConfirmUser())
-    {
-      $fgmembersite->RedirectToURL("login.php");
-    }
+    confirmUser($_GET['code']);
   }
 ?>
 
