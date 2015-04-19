@@ -1,0 +1,22 @@
+[2015-04-11 16:45:24             ::1                   Asia/Kolkata] 1045   $$$Access denied for user 'root'@'localhost' (using password: YES)$$$
+
+[2015-04-11 16:46:02             ::1                   Asia/Kolkata] 1146   $$$Table 'dm15ed.users' doesn't exist$$$
+
+[2015-04-11 16:46:20             ::1                   Asia/Kolkata] 1146   $$$Table 'dm15ed.users' doesn't exist$$$
+
+[2015-04-11 16:47:21             ::1                   Asia/Kolkata] 1146   $$$Table 'dm15ed.users' doesn't exist$$$
+
+[2015-04-11 16:48:06             ::1                   Asia/Kolkata] 1146   $$$Table 'dm15ed.users' doesn't exist$$$
+
+[2015-04-11 16:49:12             ::1                   Asia/Kolkata] 1146   $$$Table 'dm15ed.users' doesn't exist$$$
+
+[2015-04-11 16:52:40             ::1                   Asia/Kolkata] 1146   $$$Table 'dm15ed.users' doesn't exist$$$
+
+[2015-04-11 16:53:59             ::1                   Asia/Kolkata] 1146   $$$Table 'dm15ed.users' doesn't exist$$$
+
+[2015-04-16 10:21:18             ::1                   Asia/Kolkata] 1054   $$$Unknown column 'fullName' in 'field list'$$$
+
+[2015-04-16 12:13:38             ::1                   Asia/Kolkata] 0      $$$$$$
+
+[2015-04-16 12:16:18             ::1                   Asia/Kolkata] 0      $$$$$$
+

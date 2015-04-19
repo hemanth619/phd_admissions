@@ -1,0 +1,85 @@
+<?php
+require("../PHPMailer_v5.1/class.phpmailer.php");
+$mail = new PHPMailer();
+
+
+$mail->IsSMTP();
+$mail->SMTPAuth   = true;                  // enable SMTP authentication
+$mail->SMTPSecure = "ssl";                 // sets the prefix to the servier
+$mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+$mail->Port       = 465;                   // set the SMTP port
+
+$mail->Username   = "coe11b005@iiitdm.ac.in";  // GMAIL username
+$mail->Password   = "saijasmine";            // GMAIL password
+
+$mail->From       = "battinojusaikumar@gmail.com";
+$mail->FromName   = "bmw";
+$mail->Subject    = "This is the subject";
+//$mail->Body    = "This is the body when user views in plain text format";
+//$mail->AltBody    = "This is the body when user views in plain text format"; //Text Body
+$mail->WordWrap   = 500; // set word wrap
+
+//$mail->MsgHTML($body);
+
+//$mail->AddReplyTo("replyto@yourdomain.com","Webmaster");
+
+//$mail->AddAttachment("/path/to/file.zip");             // attachment
+//$mail->AddAttachment("/path/to/image.jpg", "new.jpg"); // attachment
+
+//$mail->AddAddress("battinojusaikumar@gmail.com");
+//$mail->AddAddress("coe11b005@iiitdm.ac.in");
+//$mail->Body    = "This is the body when user views in plain text format";
+// for($i=0;$i<2;$i++)
+// {
+ // if($i==0)
+  // {
+   // $mail->AddAddress("battinojusaikumar@gmail.com");
+   // $mail->Body    = "This is the body when user views in plain text format".$i;
+   // $mail->Send();
+  // }
+ // else
+  // {
+   // $mail->AddAddress("battinojusaikumar@gmail.com");
+   // $mail->Body    = "This is the body when user views in plain text format".$i;
+   // $mail->Send();
+  // }
+// }
+
+for($i=25;$i<26;$i++)
+{
+ if($i<100)
+  {
+   $rn="coe11b00".$i;
+   $rn2="coe11b005";
+   $mail->AddAddress($rn2."@iiitdm.ac.in");
+   $url="http://www.samgatha.org/placement_software/index.php?rn=".$rn."&token=".md5("placement2014".$rn);
+   $mail->Body    = $url;
+   $mail->Send();   
+  }
+}
+//$mail->IsHTML(true); // send as HTML
+
+
+
+
+
+
+//$mail->IsSMTP();  // telling the class to use SMTP
+//$mail->Host     = "smtp.gmail.com"; // SMTP server
+//$mail->From     = "battinojusaikumar@gmail.com";
+//$mail->AddAddress("battinojusaikumar@gmail.com");
+//$mail->Subject  = "First PHPMailer Message";
+//$mail->Body     = "Hi! \n\n This is my first e-mail sent through PHPMailer.";
+//$mail->WordWrap = 50;
+
+
+
+// if(!$mail->Send()) {
+// echo 'Message was not sent.';
+// echo 'Mailer error: ' . $mail->ErrorInfo;
+
+// } else {
+
+// echo 'Message has been sent.';
+// }
+?>
