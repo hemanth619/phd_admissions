@@ -1,0 +1,123 @@
+.topMargin{
+	margin-top: 20px;
+}
+
+.extraMargin{
+	margin-top: 30px;
+}
+
+.betweenMargin{
+	margin-top: 20px;
+}
+
+.center{
+	text-align: center;
+}
+
+.collapseMargin{
+	margin-top: 10px;
+}
+
+.requireTag{
+	color: red;
+}
+
+.content{
+	margin-left: 10px;
+	margin-top: 20px;
+}
+
+#discipline_label{
+	font-size: 30px;
+	color: black;
+	font-family: serif;
+	margin-right: 10px;
+	vertical-align: center;
+}
+
+.discipline_options{
+	margin-right: 20px;
+	margin-top: 20px;
+	font-family: sans-serif;
+	font-size: 20px;
+	vertical-align: center;
+}
+
+#submitB{	
+	margin: 10px;
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	padding: 10px;
+	text-shadow: 0px -1px 0px rgba(30, 30, 30, 0.8);
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	background: rgb(46, 184, 230);
+	
+	background: -moz-linear-gradient(90deg, rgb(59, 147, 30) 30%, rgb(51, 204, 51) 70%);
+	background: -webkit-linear-gradient(90deg, rgb(59, 147, 30) 30%, rgb(51, 204, 51) 70%);
+	background: -o-linear-gradient(90deg, rgb(59, 147, 30) 30%, rgb(51, 204, 51) 70%);
+	background: -ms-linear-gradient(90deg, rgb(59, 147, 30) 30%, rgb(51, 204, 51) 70%);
+	background: linear-gradient(0deg, rgb(59, 147, 30) 30%, rgb(51, 204, 51) 70%);
+	
+	-webkit-box-shadow: 4px 5px 4px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    4px 5px 4px rgba(50, 50, 50, 0.75);
+	box-shadow:         4px 5px 4px rgba(50, 50, 50, 0.75);
+}
+
+#submitB:active{
+	color: white;
+
+	background: rgb(0, 61, 153);
+}
+
+#submitB:hover{
+	background: rgb(0, 102, 255);
+	
+	background: -moz-linear-gradient(90deg, rgb(0, 61, 153) 30%, rgb(0, 102, 255) 70%);
+	background: -webkit-linear-gradient(90deg, rgb(0, 61, 153) 30%, rgb(0, 102, 255) 70%);
+	background: -o-linear-gradient(90deg, rgb(0, 61, 153) 30%, rgb(0, 102, 255) 70%);
+	background: -ms-linear-gradient(90deg, rgb(0, 61, 153) 30%, rgb(0, 102, 255) 70%);
+	background: linear-gradient(0deg, rgb(0, 61, 153) 30%, rgb(0, 102, 255) 70%);
+	-webkit-box-shadow: 0px 2px 1px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    0px 2px 1px rgba(50, 50, 50, 0.75);	
+	
+	color: white;
+}
+/*
+#header{
+	vertical-align: center;
+	background-color: #FFF8DC;
+}
+
+#logo{
+	text-align: left;
+	height: 180px;
+	width: 180px;
+	display: inline-block;
+	vertical-align: center;
+}
+
+#name{
+	display: inline-block;
+	text-align: center;
+	vertical-align: center;
+	margin-left: 10px;
+	vertical-align: top;
+}
+#college_name{
+	text-align: center;
+	color: black;
+	font-style: bold;
+	font-family: serif;
+	font-size: 30px;
+}
+
+#sub_headline{
+	text-align: center;
+	color: #778899;
+	font-style: bold;
+	font-family: serif;
+	font-size: 25px;
+}
+*/

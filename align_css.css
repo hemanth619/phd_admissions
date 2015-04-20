@@ -1,0 +1,20 @@
+.center{
+	text-align: center;
+}
+
+.content{
+	margin-left: 10px;
+	margin-top: 20px;	
+}
+
+.topMargin{
+	margin-top: 20px;
+}
+
+.requireTag{
+	color: red;
+}
+
+.superExtraMargin{
+	margin-top: 70px;
+}

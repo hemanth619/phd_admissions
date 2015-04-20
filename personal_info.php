@@ -1,117 +1,149 @@
-<?PHP
-include('db.php');
-require_once("./include/membersite_config.php");
-require_once("helperFunctions.php");
-if(!$fgmembersite->CheckLogin())
-{
-    $fgmembersite->RedirectToURL("login.php");
-    exit;
-}
-
-?>
-<html>
-<head>
-<style type="text/css">
-
-</style>
-
-</head>
-<body style="background-color:#666">
-
-</body>
 <?php
-$t1 = $fgmembersite->UserFullName();
+	session_start();
+	require_once('master_database_connection.php');
+	$appNo = $_GET['app_no'];
+	$arYr = str_split($_SESSION['year'],2);
+	//echo $arYr[1];
+	if($_SESSION['semester'] == "Even")
+		$s = 'E';
+	else
+		$s = 'O';
 
-$sql2="select id_user from fgusers3 where username='$t1'";
-$result2=mysql_query($sql2) or die(mysql_error());
-$applicationNumber='';
-while($row = mysql_fetch_array($result2))
-  {
-	  if($row['id_user'] >= 1 && $row['id_user'] < 10)
-		  {
-			//echo "<h2>Your Application number is DM13D00$row[id]</h2>";
-			$applicationNumber='DM14D00'.$row['id_user'];
-		  }
-	  else if($row['id_user'] >= 10 && $row['id_user'] < 100)
-		  {
-			//echo "<h2>Your Application number is DM13D0$row[id]</h2>";
-			$applicationNumber='DM14D0'.$row['id_user'];
-			//echo "$applicationNumber";
-		  }
-	  else
-		  {
-			//echo "<h2>Your Application number is DM13D$row[id]</h2>";
-			$applicationNumber='DM14D'.$row['id_user'];
-		  }
-		  
-
-  }
-//personal email!=Alternate Email
-//
-
-/*if($_POST['Full_Name']!="")
-{
-	$fullName=$_POST['Full_Name'];
-	if(!hasOnlyAlphabets($fullName))
-	{
-		$k='Enter a Valid name';
-	}
-}*/
-
-
-
-
-if($_POST["Full_Name"]!="" || $_POST["gender"]!="" || $_POST["date1"] !=""  || $_POST["fname"]!="" || $_POST["Nationality"]!="" || $_POST["Marital_status"]!="" || $_POST["Physically_challenged"]!="" || $_POST["community"]!="" || $_POST["pemail"]!="" || $_POST["aemail"]!="" || $_POST["Temp_Address"]!="" || $_POST["T_District"]!="" || $_POST["T_state"]!="" || $_POST["T_pincode"]!="" || $_POST["T_phone_number"]!="" ||$_POST["T_mobile_number"]!="" || $_POST["perm_Address"]!="" || $_POST["P_District"]!="" || $_POST["P_state"]!="" || $_POST["P_pincode"]!="" || $_POST["P_phone_number"]!="" ||$_POST["P_mobile_number"]!="")
-{
-	if($_POST['date1'])
-	{
-	   $by= date("Y", strtotime($_POST['date1']));
-	   $py=date("Y");
-	   $age=$py-$by;
-	}
-	else{$age=0;} 
-    $sqlq="delete from personal_info where user_name = '$t1'";
-    $res=mysql_query($sqlq) or die(mysql_error());	
-    $dob = ($_POST['date1']);
-    $sql="insert into  personal_info(user_name,App_no,Full_Name,gender,dob,age,fname,Nationality,Marital_status,Physically_challenged,community,Minority,pemail,aemail,Temp_Address,T_District,T_state,T_pincode,T_phone_number,T_mobile_number,perm_Address,P_District,P_state,P_pincode,P_phone_number,P_mobile_number) values 
-	
-('$t1','$applicationNumber','$_POST[Full_Name]' , '$_POST[gender]' , '$dob' , '$age' ,'$_POST[fname]' , '$_POST[Nationality]' , '$_POST[Marital_status]' , '$_POST[Physically_challenged]' , '$_POST[community]' ,'$_POST[Minority]' , '$_POST[pemail]' , '$_POST[aemail]','$_POST[Temp_Address]' , '$_POST[T_District]' , '$_POST[T_state]' , '$_POST[T_pincode]', '$_POST[T_phone_number]' , '$_POST[T_mobile_number]' , '$_POST[perm_Address]' , '$_POST[P_District]' , '$_POST[P_state]' , '$_POST[P_pincode]' , $_POST[P_phone_number] , '$_POST[P_mobile_number]')";
-    $result=mysql_query($sql) or die(mysql_error());
-    $message=validatePersonalInfoOnSave($_POST);	
-    if(($message)=='')
-    {
-    	echo "<script>
-
-		alert('Details saved Succesfully.');
-		//showDialog('Sucess','Details saved succesfully.','error',2)
-        //alertify.alert('Details saved Succesfully.');
-		
-        window.location.href='forms.php';
-		</script>";
-    }
-    else
-    {
-    	$message= "Saved but few details entered needs to be changed\\n".$message;
-    	echo "<script>
-
-		alert('$message');
-		
-		
-        window.location.href='forms.php';
-		</script>";
-    }
-
-
-
-    
-}
-else {
-echo "<script>
-		alert('Invalid input please check again');
-		window.location.href='forms.php';
-		</script>";}
-
-
+	$appNoF = "DM".$arYr[1].$s."D".$appNo;
 ?>
 
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><?php echo $appNoF; ?>: Personal Info</title>
+
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	
+		<script type="text/javascript" src="js/jquery.min.js"></script>	
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>	
+
+		<link rel="stylesheet" type="text/css" href="align_css.css">
+	</head>
+	<body>
+		<?php
+			if(isset($_SESSION['adminUserName']))
+			{		
+		?>
+		<p class="topMargin"><h1><center>Application No: <?php echo $appNoF; ?></center></h1></p>		
+
+		<center>
+		<?php include("print_close.php");?>
+		</center>
+
+		<ul class="nav nav-tabs content topMargin">
+			<li role="presentation" class="active"><a href="personal_info.php?app_no=<?php echo $appNo;?>">Personal Info</a></li>	
+			<li role="presentation"><a href="academic_info.php?app_no=<?php echo $appNo;?>">Academic Info</a></li>	
+			<li role="presentation"><a href="experiences.php?app_no=<?php echo $appNo;?>">Experiences</a></li>	
+			<li role="presentation"><a href="enclosures.php?app_no=<?php echo $appNo;?>">Enclosures</a></li>	
+		</ul>		
+		
+		<?php
+			include("semester_database_connection.php");
+			sem_connection($_SESSION['dbName']);
+			
+			global $semDbConnection;
+
+			$query = "select * from personal_info where userId = ".$appNo;
+			$queryResult = mysqli_query($semDbConnection,$query);
+			if($queryResult)
+			{
+				$array = mysqli_fetch_array($queryResult);
+				if($array['physicallyChallenged'] == 0)
+				{
+					$pd = "No";
+				}
+				else
+				{
+					$pd = "Yes";
+				}
+
+				echo '
+					<div class="topMargin content" >															
+						<p class="col-md-6"><strong>Full Name</strong></p>
+						<p class="col-md-6">'.$array['firstName'].' '.$array['lastName'].'</p>
+
+						<p class="col-md-6"><strong>Gender</strong></p>
+						<p class="col-md-6">'.$array['gender'].'</p>
+
+						<p class="col-md-6"><strong>Date Of Birth</strong></p>	
+						<p class="col-md-6">'.$array['dob'].'</p>
+
+						<p class="col-md-6"><strong>Father\'s Name</strong></p>  	
+						<p class="col-md-6">'.$array['fatherName'].'</p>
+
+						<p class="col-md-6"><strong>Nationality</strong></p>  	
+						<p class="col-md-6">'.$array['nationality'].'</p>
+
+						<p class="col-md-6"><strong>Marital Status</strong></p>  	
+						<p class="col-md-6">'.$array['maritalStatus'].'</p>
+
+						<p class="col-md-6"><strong>Physically Challenged</strong></p> 	
+						<p class="col-md-6">'.$pd.'</p>
+
+						<p class="col-md-6"><strong>Community</strong></p>  	
+						<p class="col-md-6">'.$array['community'].'</p>
+
+						<p class="col-md-6"><strong>Personal Email-ID</strong></p>  	
+						<p class="col-md-6">'.$array['primaryEmail'].'</p>
+
+						<p class="col-md-6"><strong>Alternate Email-ID</strong></p>  	
+						<p class="col-md-6">'.$array['alternateEmail'].'</p>
+
+						<p class="col-md-12 topMargin"><strong><ins>Present Address</ins></strong></p>			  	
+						<p class="col-md-6"><strong>Address</strong></p> 	
+						<p class="col-md-6">'.$array['currentAddress'].'</p>
+
+						<p class="col-md-6"><strong>District/City</strong></p>  	
+						<p class="col-md-6">'.$array['currentDistrict'].'</p>
+
+						<p class="col-md-6"><strong>State/UT</strong></p>  	
+						<p class="col-md-6">'.$array['currentState'].'</p>
+
+						<p class="col-md-6"><strong>Pincode</strong></p>  	
+						<p class="col-md-6">'.$array['currentPincode'].'</p>
+
+						<p class="col-md-6"><strong>Mobile</strong></p>			    	
+						<p class="col-md-6">'.$array['mobileNumber'].'</p>
+
+						<p class="col-md-12 topMargin"><strong><ins>Permanent Address</ins></strong></p>			  	
+						<p class="col-md-6"><strong>Address</strong></p>  	
+						<p class="col-md-6">'.$array['permanentAddress'].'</p>
+
+						<p class="col-md-6"><strong>District/City</strong></p>  	
+						<p class="col-md-6">'.$array['permanentDistrict'].'</p>
+
+						<p class="col-md-6"><strong>State/UT</strong></p>  	
+						<p class="col-md-6">'.$array['permanentState'].'</p>
+
+						<p class="col-md-6"><strong>Pincode</strong></p>  	
+						<p class="col-md-6">'.$array['permanentPincode'].'</p>						
+
+						<p class="col-md-6"><strong>Mobile</strong></p>  
+						<p class="col-md-6">'.$array['alternateMobileNumber'].'</p>
+
+					</div>	
+				';
+			}
+			else
+			{
+				echo mysql_error($semDbConnection);
+			}
+			
+
+		?>
+		<?php 
+			}
+			else
+			{
+				echo "<script>window.location = 'logout_anomaly.php';</script>";
+			}		
+		?>	
+	</body>
 </html>
+	
