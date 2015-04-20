@@ -614,7 +614,7 @@ else
 		// 	if(!isValidPercentage($pg_marks)){
 		// 		$message = $message."Enter valid percentage for Masters Degree.\\n";
 		// 	}
-		}
+		//}
 		if($qualificationsInfo["pg_yearOfPassing"]!='')
 		{
 			$passYear_pg = $qualificationsInfo["pg_yearOfPassing"];
