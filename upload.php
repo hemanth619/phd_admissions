@@ -11,14 +11,14 @@ else
 {
 	$applicationNo=$_SESSION['applicationNo'];
 	$filename=$_FILES["file"]["name"];
-	if(($filename!=$applicationNo."_PP.png" && $filename!=$applicationNo."_PP.PNG"))
+	if(($filename!=$applicationNo."_PP.jpg" && $filename!=$applicationNo."_PP.JPG"))
 	{
 		displayAlert("$filename not in Specified Format.");
 		RedirectToURL("forms.php");
 		exit();
 	}
 
-	if(($_FILES["file"]["type"] == "image/png")	&& ($_FILES["file"]["size"] < 1048576))
+	if(($_FILES["file"]["type"] == "image/jpg")	&& ($_FILES["file"]["size"] < 1048576))
 	{
 		if ($_FILES["file"]["error"] > 0)
 		{

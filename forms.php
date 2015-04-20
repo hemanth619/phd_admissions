@@ -7,6 +7,13 @@ session_start();
 	    $fgmembersite->RedirectToURL("login.php");
 	    exit;
 	}*/
+
+	if(!isset($_SESSION['userId']))
+	{
+		displayAlert("Please Login to continue");
+		RedirectToURL("login.php");
+	}
+	var_dump($_FILES);
 ?>
 
 <!DOCTYPE html">
@@ -81,8 +88,9 @@ session_start();
 			//echo 'empty result';
 		}
 		else
-			while($row = mysql_fetch_array($result1))
-		  	{
+			{
+				($row = mysql_fetch_array($result1));
+		  	
 				$univ_10 = $row['10_instituteName'];
 				$univ_12 = $row['12_instituteName'];
 				$univ_bd = $row['ug_university'];
@@ -161,8 +169,8 @@ session_start();
 				
 		$sql3 = "select * from personal_info where userId='$userId'";
 		$result3=mysql_query($sql3) or die(mysql_error());
-		while($row = mysql_fetch_array($result3))
-		  	{
+		($row = mysql_fetch_array($result3));
+		  	//var_dump($row);
 				$Full_Name = $row['fullName'];
 				$gender = $row['gender'];
 				$dob=$row['dob'];
@@ -175,11 +183,13 @@ session_start();
 				$pemail = $row['primaryEmail'];
 				$aemail = $row['alternateEmail'];
 				$Temp_Address = $row['currentAddress'];
+				//echo $Temp_Address;
 				$T_District = $row['currentDistrict'];
 				$T_pincode = $row['currentPincode'];
 				$T_mobile_number_country_code = $row['mobileCountryCode'];
 				$T_mobile_number = $row['mobileNumber'];
 				$perm_Address = $row['permanentAddress'];
+				//echo $perm_Address;
 				$P_District = $row['permanentDistrict'];
 				$P_pincode = $row['permanentPincode'];
 				$P_mobile_number_country_code = $row['alternateMobileCountryCode'];
@@ -187,7 +197,7 @@ session_start();
 				$tstate=$row['currentState'];
 				$pstate=$row['permanentState'];
 				
-			}
+			
 				
 		//return  mysql_num_rows($result);
 	?>
@@ -220,6 +230,9 @@ session_start();
 				</div>
 			</div>
 		</div>
+
+
+		<div style="font-size: 20px; padding-top: 8px;"><center><strong>Application No: <?php echo ($_SESSION["applicationNo"]);?></strong></center> </div>
 
 		<div class="row">
 			<div class="col s11">
@@ -361,10 +374,10 @@ session_start();
 
 									<tr class="nospace">
 										<td>
-									    	Address<font color=red>&nbsp;*</font> :        
+									    	H.No/Street<font color=red>&nbsp;*</font> :        
 									    </td>
 									    <td ><div class="input-field">
-									    	<textarea name='Temp_Address' type='text' placeholder="Enter our Address" id='Temp_Address' size='40' value="<?php if(isset($Temp_Address)) echo $Temp_Address;?>" length='250' class="materialize-textarea"></textarea></div>       
+									    	<input name='Temp_Address' type='text' placeholder="Enter your Address" id='Temp_Address' size='40' value="<?php if(isset($Temp_Address)) echo $Temp_Address;?>" length='250' /></div>       
 									    </td>
 									</tr>
 
@@ -473,10 +486,10 @@ session_start();
 
 									<tr class="nospace">
 										<td>
-											Address<font color=red>&nbsp;*</font> : 
+											H.NO/Street<font color=red>&nbsp;*</font> : 
 										</td>
 										<td ><div class="input-field">
-											<textarea name="perm_Address" placeholder="Permenent address" class="materialize-textarea" type="text" id="perm_Address" size="40" value="<?php if(isset($perm_Address)) echo $perm_Address ;?>" length="250"  ></textarea> </div>      
+											<input name="perm_Address" placeholder="Permenent address" type="text" id="perm_Address" size="40" value="<?php if(isset($perm_Address)) echo $perm_Address ;?>" length="250"  /> </div>      
 									 	</td>
 									</tr>
 
@@ -717,7 +730,7 @@ session_start();
 											<td>
 												<?php 
 													$applnNo=$_SESSION['applicationNo'];
-													if (file_exists("upload/" .$applnNo."_PP.png"))
+													if (file_exists(__DIR__."/upload/" .$applnNo."_PP.jpg"))
 													{
 														echo '<img src="images/r.png" alt="Uploaded" height="20" width="20">';
 													}
@@ -729,22 +742,22 @@ session_start();
 												?>
 											</td>
 											<td>
-												<label for="file">Passport Photo<font color=red>*</font>:</label>
+												<label for="fileToUpload">Passport Photo<font color=red>*</font>:</label>
 											</td>
 											<td>
-												<div class="file-field input-field">
-											      <input class="file-path validate" type="text"/><div class="btn waves-effect waves-light"><span>Upload Photo</span>
-											      <input type="file" name="file[]" id="file7" /></div>
-											    </div>
+												
+											      <!-- <input class="file-path validate" type="text"/><div class="btn waves-effect waves-light"><span>Upload Photo</span> -->
+											      <input type="file" name="fileToUpload" id="fileToUpload" />
+											    
 											</td>
 											<td>
 												<?php 
-												if (file_exists("upload/" .$applnNo."_PP.png"))
+												if (file_exists("upload/" .$applnNo."_PP.jpg"))
 												{
 													echo $applnNo.'_PP.png';
 
 													echo '<script type="text/javascript">
-													//document.getElementById("file7).disabled=true;
+													//document.getElementById("fileToUpload").disabled=true;
 													</script>';
 												}
 												?>
@@ -791,12 +804,14 @@ session_start();
 							    <i class="mdi-content-save right"></i>
 							</button>
 						</div>
+						</form>
+					</div>
+				<form action = "validate.php" method="POST"> 
 						<div class="col s3">
 							<button class="btn waves-effect waves-light" type="submit" name="Submit" value="Submit">Submit
 								<i class="mdi-content-send right"></i>
 							</button>
 						</div>
-					</div>
 				</form>
 				</div>
 			</div>
@@ -851,22 +866,22 @@ session_start();
 				$('#filled-in-box').change(function(){
 					 if($(this).is(":checked")) {
 						
-						var tempAddress = $('textarea#Temp_Address').val();
-					 	$('textarea#perm_Address').val(tempAddress);
+						var tempAddress = $('#Temp_Address').val();
+					 	$('#perm_Address').val(tempAddress);
 
 					 	var tempDistrict = $('#T_District').val();
 					 	$('#P_District').val(tempDistrict);
 
 					 	var tempState = $('#T_state').val();
-					 	console.log(tempState);
-					 	console.log("h"+$('#P_state').val());
-					 	$("#P_state").find("option").each(function(){
-					 		if($(this).val()==tempState)
-					 		{
-					 			alert($(this).html());
-					 			$(this).attr("selected","");
-					 		}
-					 	});
+					 	//console.log(tempState);
+					 	$('#P_state').val(tempState);
+					 	// $("#P_state").find("option").each(function(){
+					 	// 	if($(this).val()==tempState)
+					 	// 	{
+					 	// 		alert($(this).html());
+					 	// 		$(this).attr("selected","");
+					 	// 	}
+					 	// });
 
 					 	var tempPin = $('#T_pincode').val();
 					 	$('#P_pincode').val(tempPin);

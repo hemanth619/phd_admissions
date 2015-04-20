@@ -1,5 +1,7 @@
 <?PHP
-include_once("backendFunctions.php");
+require_once("QOB/qob.php");
+
+require_once("backendFunctions.php");
 
 if(isset($_SESSION['userId']))
 {

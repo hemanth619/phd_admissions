@@ -325,11 +325,11 @@ function validatePersonalInfoOnSave($personalInfo)
 		{
 			$count++;
 		}*/
-		if($personalInfo['T_mobile_country_code']=="")
+		if($personalInfo['mobileCountryCode']=="")
 		{
 			$message.="Country Code for Mobile Number Is Compulsory.\\n";
 		}
-		else if(!hasOnlyNumbers($personalInfo['T_mobile_country_code']))
+		else if(!hasOnlyNumbers($personalInfo['mobileCountryCode']))
 		{
 			$message.="Country Code for Mobile Number should be a Number";
 		}
@@ -374,11 +374,11 @@ function validatePersonalInfoOnSave($personalInfo)
 		{
 			$count++;
 		}*/
-		if($personalInfo['P_mobile_country_code']=="")
+		if($personalInfo['alternateMobileCountryCode']=="")
 		{
 			$message.="Country Code for Alternate Mobile Number Is Compulsory.\\n";
 		}
-		else if(!hasOnlyNumbers($personalInfo['P_mobile_country_code']))
+		else if(!hasOnlyNumbers($personalInfo['alternateMobileCountryCode']))
 		{
 			$message.="Country Code for Alternate Mobile Number should be a Number";
 		}

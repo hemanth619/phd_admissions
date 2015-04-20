@@ -4,7 +4,9 @@ require_once("QOB/qob.php");
 require_once('backendFunctions.php');
 require_once('helperFunctions.php');
 require_once('db.php');
-var_dump($_POST);
+//var_dump($_FILES);
+//displayAlert(var_dump($_FILES));
+//echo "<script>alert('something')</script>";
 if(isset($_SESSION['email']))
 {
 	$userId=$_SESSION['userId'];
@@ -33,7 +35,7 @@ if(isset($_SESSION['email']))
 	    $sqlq="delete from personal_info where userId = '$userId'";
 	    $res=mysql_query($sqlq) or die(mysql_error());	
 	    $dob = ($_POST['date1']);
-	    $sql="Insert into  personal_info(userId,fullName,gender,dob,age,fatherName,nationality,maritalStatus,physicallyChallenged,community,minority,primaryEmail,alternateEmail,currentAddress,currentDistrict,currentState,currentPincode,mobileNumber,mobileCountryCode,permanentAddress,permanentDistrict,permanentState,permanentPincode,alternateMobileNumber,alternateMobileCountryCode) values ('$userId','$_POST[Full_Name]' , '$_POST[gender]' , '$dob' , '$age' ,'$_POST[fname]' , '$_POST[nation]' , '$_POST[Marital_status]' , '$_POST[Physically_challenged]' , '$_POST[community]' ,'$_POST[Minority]' , '$_POST[pemail]' , '$_POST[aemail]','$_POST[Temp_Address]' , '$_POST[T_District]' , '$_POST[T_state]' , '$_POST[T_pincode]', '$_POST[T_mobile_number]' , '$_POST[T_mobile_country_code]' , '$_POST[perm_Address]' , '$_POST[P_District]' , '$_POST[P_state]' , '$_POST[P_pincode]'  , '$_POST[P_mobile_number]', '$_POST[P_mobile_country_code]' )";
+	    $sql="Insert into  personal_info(userId,fullName,gender,dob,age,fatherName,nationality,maritalStatus,physicallyChallenged,community,minority,primaryEmail,alternateEmail,currentAddress,currentDistrict,currentState,currentPincode,mobileNumber,mobileCountryCode,permanentAddress,permanentDistrict,permanentState,permanentPincode,alternateMobileNumber,alternateMobileCountryCode) values ('$userId','$_POST[Full_Name]' , '$_POST[gender]' , '$dob' , '$age' ,'$_POST[fname]' , '$_POST[nation]' , '$_POST[Marital_status]' , '$_POST[Physically_challenged]' , '$_POST[community]' ,'$_POST[Minority]' , '$_POST[pemail]' , '$_POST[aemail]','$_POST[Temp_Address]' , '$_POST[T_District]' , '$_POST[T_state]' , '$_POST[T_pincode]', '$_POST[T_mobile_number]' , '$_POST[mobileCountryCode]' , '$_POST[perm_Address]' , '$_POST[P_District]' , '$_POST[P_state]' , '$_POST[P_pincode]'  , '$_POST[P_mobile_number]', '$_POST[alternateMobileCountryCode]' )";
 	    $result=mysql_query($sql) or die(mysql_error());
 	    $message=validatePersonalInfoOnSave($_POST);
 
@@ -116,25 +118,80 @@ if(isset($_SESSION['email']))
 			window.location.href='forms.php';
 			</script>";
 	}	*/
+//$fileLocation= __DIR__."/upload/" . $_FILES["fileToUpload"]["name"];
+						//displayAlert($fileLocation);
+	$applicationNo=$_SESSION['applicationNo'];
+	if(isset($_FILES['file']))
+		{
+			displayAlert("File Found");
+			$filename=$_FILES["file"]["name"];
+
+			if(($filename!=$applicationNo."_PP.jpg" && $filename!=$applicationNo."_PP.JPG"))
+			{
+				//displayAlert("$filename not in Specified Format.");
+
+				$message.="Uploaded Photo Not in Specified format.\\n";
+				//RedirectToURL("forms.php");
+				//exit();
+			}
+			else
+			{
+				if(($_FILES["file"]["type"] == "image/jpg")	&& ($_FILES["file"]["size"] < 1048576))
+				{
+					if ($_FILES["file"]["error"] > 0)
+					{
+						//echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
+						displayAlert($_FILES["file"]["error"]);
+					}
+					else
+					{
+						
+						$fileLocation= __DIR__."/upload/" . $_FILES["file"]["name"];
+						displayAlert($fileLocation);
+						if(file_exists(__DIR__."/upload/" . $_FILES["file"]["name"]))
+						{
+							unlink(__DIR__."/upload/" . $_FILES["file"]["name"]);
+						}
+						  
+						move_uploaded_file($_FILES["file"]["tmp_name"], __DIR__."upload/" . $_FILES["file"]["name"][$i]);
+						//echo "Stored in: " . "upload/" . $_FILES["file"]["name"][$i];
+						//$filename=$_FILES["file"]["name"][$i];
+						//echo "<script>alert('$filename Uploaded Succesfully');window.location.href='forms.php';	</script>";
+						//displayAlert("$filename Uploaded Successfully");
+						//RedirectToURL("forms.php");
+					
+					}
+				  }
+				else
+				{
+					//$filename=$_FILES["file"]["name"];
+					$message.="Photo not uploaded.\\n";
+				}
+			}
+
+		}
+	
+
+	
 
 	 if(($message)=='')
     {
     	displayAlert("Details Saved Succesfully!");
 		
-        RedirectToURL("forms.php");
+        //RedirectToURL("forms.php");
     }
     else
     {
     	$message= "Saved but few details entered needs to be changed\\n".$message;
     	displayAlert($message);
-    	RedirectToURL("forms.php");
+    	//RedirectToURL("forms.php");
     }
 }
 else
 {
 	echo "Please login To Continue... ";
 	displayAlert("Please Login To Continue");
-	RedirectToURL("login.php");
+	//RedirectToURL("login.php");
 }
 
 ?>
