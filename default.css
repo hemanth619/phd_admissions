@@ -18,6 +18,48 @@ html{
 	color: #FFF ;
 }
 
+#instiLogo{
+	width:50px;
+	position:relative;
+	float:left
+}
+
+#instiLogo{
+	width:50px;
+	position:relative;
+	float:left
+}
+
+#instiLogoInside{
+	margin:0;
+	padding:0;
+	height: 120px;
+	width: 120px;
+}
+
+#instiLogoOutside{
+	position:absolute;
+	left:10px;
+	top:0;
+	height: 120px;
+	width: 120px;
+}
+
+#instiLogoOutside{
+	animation: rev 8s infinite linear;
+	-moz-animation:rev 8s infinite linear;
+}
+@keyframes rev{
+	0%{transform:rotate(0deg)}
+	50%{transform:rotate(180deg)}
+	100%{transform:rotate(359deg)}
+}
+@-moz-keyframes rev{
+	0%{transform:rotate(0deg)}
+	50%{transform:rotate(180deg)}
+	100%{transform:rotate(359deg)}
+}
+
 .mycontainer{
 	padding-top: 10px;
 	padding-left: 120px;
