@@ -170,28 +170,37 @@ Buttons :   Submit
                 <span id='login_password_errorloc' class='error'></span>
               </div>
 
-              <div name="Discipline" id="disciplineId" class="input-field col s12">
-                <select name='discipline'>
-                  <option value="" selected>Choose your discipline</option>
-                  <option value="Computer Engineering">Computer Engineering</option>
-                  <option value="Electronics">Electronics</option>
-                  <option value="Mechanical">Mechanical</option>
-                  <option value="Mathematics">Maths</option>
-                  <option value="Physics">Physics</option>
-                </select>
-                <label>Discipline</label>
+              <div name="Discipline" id="disciplineId" class="input-field col s12">Select a discipline<br/>
+                  <input class="with-gap" checked value="Computer Engineering" <?php if(isset($discipline)&&$discipline=='Computer Engineering') echo 'checked="checked"'; ?> name="discipline" type="radio" id="coe"  />
+                  <label for="coe">Computer Engineering</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input class="with-gap" value="Electronics" <?php if(isset($discipline)&&$discipline=='Electronics') echo 'checked="checked"'; ?> name="discipline" type="radio" id="electronics"  />
+                  <label for="electronics">Electronics</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input class="with-gap" value="Mechanical" <?php if(isset($discipline)&&$discipline=='Mechanical') echo 'checked="checked"'; ?> name="discipline" type="radio" id="mech"  />
+                  <label for="mech">Mechanical Engineering</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input class="with-gap" value="Mathematics" <?php if(isset($discipline)&&$discipline=='Mathematics') echo 'checked="checked"'; ?> name="discipline" type="radio" id="maths"  />
+                  <label for="maths">Maths</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input class="with-gap" value="Physics" <?php if(isset($discipline)&&$discipline=='Physics') echo 'checked="checked"'; ?> name="discipline" type="radio" id="physics"  />
+                  <label for="physics">Phsics</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </div>
 
-              <div name="ModeOfRegistration" id="modeOfRegistrationId" class="input-field col s12">
-                <select name="modeOfRegistration">
+              <div name="ModeOfRegistration" id="modeOfRegistrationId" class="input-field col s12">Choose your Mode of Registration
+                  <input class="with-gap" checked value="httra" <?php if(isset($gender)&&$gender=='httra') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="rhttra"  />
+                  <label for="rhttra">Regular HTTRA</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input class="with-gap" value="nhttra" <?php if(isset($gender)&&$gender=='nhttra') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="rnhttra"  />
+                  <label for="rnhttra">Regular NHTTRA</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input class="with-gap" value="internal" <?php if(isset($gender)&&$gender=='internal') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="inter"  />
+                  <label for="inter">Internal</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input class="with-gap" value="external" <?php if(isset($gender)&&$gender=='external') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="ext"  />
+                  <label for="ext">External</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <!-- <select name="modeOfRegistration">
                   <option value="" selected>Choose your Mode of Registration</option>
                   <option value="httra">Regular HTTRA</option>
                   <option value="nhttra">Regular NHTTRA</option>
                   <option value="internal">Internal</option>
                   <option value="external">External</option>
                 </select>
-                <label>Mode of registration</label>
-              </div>
+                <label>Mode of registration</label> -->
+              </div><br/>
 
               <!--*****************************SUBMIT BUTTON*************************-->
               <div id="submit_button" class="center"><button class="waves-effect waves-light btn-large" type='submit' name='submit' value='Submit' >Submit<i class="mdi-content-send right"></i></button></div>
