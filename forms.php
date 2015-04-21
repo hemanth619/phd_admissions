@@ -237,7 +237,7 @@ session_start();
 		<div class="row">
 			<div class="col s11">
 				<div class="mycontainer">
-				<form name="form1" method="post" action="info.php">
+				<form name="form1" method="post" action="info.php" enctype="multipart/form-data">
 				<ul class="collapsible popout" data-collapsible="expandable" >
 					<li id="personal_info_tab">
 	      				<div class="collapsible-header active"><i class="small mdi-action-assignment-ind"></i>Personal Info</div>
@@ -252,7 +252,7 @@ session_start();
 									      
 									<tr  class="nospace">
 										<td >
-									    	Date Of Birth<font color=red>&nbsp;*</font> :        
+									    	Date Of Birth(dd-mm-yyyy)<font color=red>&nbsp;*</font> :        
 									    </td>
 										<td ><div class="row col s6">
 											<input type="date" id="date1" name="date1" value="<?php if(isset($dob)) echo ($dob) ?>" />
@@ -563,7 +563,7 @@ session_start();
 										</td>
 										<td ><div class="row">
 												<div class="col s4">
-													<input placeholder="country code" name="alternateMobileCountryCode" type="text" id="P_mobile_country_code" size="10" length="10" value="<?php if(isset($P_mobile_country_code)) echo $P_mobile_country_code;?>"onkeypress="return isNumber(event)">
+													<input placeholder="country code" name="alternateMobileCountryCode" type="text" id="P_mobile_country_code" size="10" length="10" value="<?php if(isset($P_mobile_number_country_code)) echo $P_mobile_number_country_code;?>"onkeypress="return isNumber(event)">
 												</div>
 												<div class="col s8">
 													<input placeholder="mobile number Eg:9988776655" name="P_mobile_number" type="text" id="P_mobile_number" size="10" length="10" value="<?php if(isset($P_mobile_number)) echo $P_mobile_number;?>"onkeypress="return isNumber(event)">        
@@ -756,9 +756,9 @@ session_start();
 												{
 													echo $applnNo.'_PP.png';
 
-													echo '<script type="text/javascript">
-													//document.getElementById("fileToUpload").disabled=true;
-													</script>';
+													// echo '<script type="text/javascript">
+													// document.getElementById("fileToUpload").disabled=true;
+													// </script>';
 												}
 												?>
 											</td>

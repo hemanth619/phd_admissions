@@ -4,7 +4,7 @@ require_once("QOB/qob.php");
 require_once('backendFunctions.php');
 require_once('helperFunctions.php');
 require_once('db.php');
-//var_dump($_FILES);
+var_dump($_FILES);
 //displayAlert(var_dump($_FILES));
 //echo "<script>alert('something')</script>";
 if(isset($_SESSION['email']))
@@ -118,13 +118,14 @@ if(isset($_SESSION['email']))
 			window.location.href='forms.php';
 			</script>";
 	}	*/
-//$fileLocation= __DIR__."/upload/" . $_FILES["fileToUpload"]["name"];
+$fileLocation= __DIR__."\upload\\" . $_FILES["fileToUpload"]["name"];
 						//displayAlert($fileLocation);
+echo $fileLocation." is the location";
 	$applicationNo=$_SESSION['applicationNo'];
-	if(isset($_FILES['file']))
+	if($_FILES['fileToUpload']['name']!='')
 		{
 			displayAlert("File Found");
-			$filename=$_FILES["file"]["name"];
+			$filename=$_FILES["fileToUpload"]["name"];
 
 			if(($filename!=$applicationNo."_PP.jpg" && $filename!=$applicationNo."_PP.JPG"))
 			{
@@ -136,24 +137,24 @@ if(isset($_SESSION['email']))
 			}
 			else
 			{
-				if(($_FILES["file"]["type"] == "image/jpg")	&& ($_FILES["file"]["size"] < 1048576))
+				if(($_FILES["fileToUpload"]["type"] == "image/jpg" || $_FILES["fileToUpload"]["type"] == "image/jpeg" )	&& ($_FILES["fileToUpload"]["size"] < 2048576))
 				{
-					if ($_FILES["file"]["error"] > 0)
+					if ($_FILES["fileToUpload"]["error"] > 0)
 					{
 						//echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
-						displayAlert($_FILES["file"]["error"]);
+						displayAlert($_FILES["fileToUpload"]["error"]);
 					}
 					else
 					{
 						
-						$fileLocation= __DIR__."/upload/" . $_FILES["file"]["name"];
+						//$fileLocation= __DIR__."/upload/" . $_FILES["fileToUpload"]["name"];
 						displayAlert($fileLocation);
-						if(file_exists(__DIR__."/upload/" . $_FILES["file"]["name"]))
+						if(file_exists($fileLocation))
 						{
-							unlink(__DIR__."/upload/" . $_FILES["file"]["name"]);
+							unlink($fileLocation);
 						}
 						  
-						move_uploaded_file($_FILES["file"]["tmp_name"], __DIR__."upload/" . $_FILES["file"]["name"][$i]);
+						move_uploaded_file($_FILES["fileToUpload"]["tmp_name"],$fileLocation);
 						//echo "Stored in: " . "upload/" . $_FILES["file"]["name"][$i];
 						//$filename=$_FILES["file"]["name"][$i];
 						//echo "<script>alert('$filename Uploaded Succesfully');window.location.href='forms.php';	</script>";

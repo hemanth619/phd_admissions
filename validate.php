@@ -3,7 +3,8 @@ session_start();
 require_once('db.php');
 //require_once("./include/membersite_config.php");
 require_once('QOB/qob.php');
-require_once("./helperFunctions.php");
+require_once("helperFunctions.php");
+require_once('backendFunctions.php');
 
 /*if(!$fgmembersite->CheckLogin())
 {
@@ -28,7 +29,8 @@ if(!$result1||mysql_num_rows($result1)<1)
 }
 else
 {
-	while($qualificationsInfo = mysql_fetch_array($result1))
+	//$qualificationsInfo=array();
+	$qualificationsInfo = mysql_fetch_array($result1);
 	{
 		$univ_10 = $qualificationsInfo['10_instituteName'];
 		$univ_12 = $qualificationsInfo['12_instituteName'];
@@ -85,7 +87,8 @@ if(!$result2||mysql_num_rows($result2)<1){
 }
 else
 {
-	while($experienceInfo = mysql_fetch_array($result2))
+	//$experienceInfo=array();
+	$experienceInfo = mysql_fetch_array($result2);
 	{
 		$org_1 = $experienceInfo['org_1'];
 		$org_2 = $experienceInfo['org_2'];
@@ -116,7 +119,8 @@ else
 	//echo $sql3;
 	$result3=mysql_query($sql3) or die(mysql_error());
 	//var_dump($result3);
-	while($personalInfo = mysql_fetch_array($result3))
+	//$personalInfo=array();
+	$personalInfo = mysql_fetch_array($result3);
 	{
 		$Full_Name = $personalInfo['fullName'];
 		$gender = $personalInfo['gender'];
@@ -142,10 +146,10 @@ else
 		$tstate=$personalInfo['currentState'];
 		$pstate=$personalInfo['permanentState'];
 
-		var_dump($personalInfo);
+		//var_dump($personalInfo);
 	}
 
-	
+	var_dump($personalInfo);
 	
 
 
@@ -245,6 +249,7 @@ else
 	
 		$currentTimestamp=time();
 		//var_dump($personalInfo);
+		echo $personalInfo['dob']." is the dob";
 		if(($dob=dateStringToTimestamp($personalInfo['dob']))==false)
 		{
 			$message.="Enter a Valid date\\n";
