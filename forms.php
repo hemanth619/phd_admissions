@@ -238,11 +238,8 @@ session_start();
 			<div class="col s11">
 				<div class="mycontainer">
 				<form name="form1" method="post" action="info.php" enctype="multipart/form-data">
-				<ul class="collapsible popout" data-collapsible="expandable" >
-					<li id="personal_info_tab">
-	      				<div class="collapsible-header active"><i class="small mdi-action-assignment-ind"></i>Personal Info</div>
-						<div class="collapsible-body">
-						  	<div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div>
+	      				<div style="background-color: #5c6bc0; color: white;" id="personal_info_tab" >&nbsp;<i class="small mdi-action-assignment-ind"></i><span style="font-size: 26px;">&nbsp;Personal Info<span></div>
+	      					<div><div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div>
 								<table align="center" class="table hoverable" id="personal_info">
 									<tr class="nospace">
 										<td >Name<font color=red>&nbsp;*</font> :</td>
@@ -255,7 +252,7 @@ session_start();
 									    	Date Of Birth(dd-mm-yyyy)<font color=red>&nbsp;*</font> :        
 									    </td>
 										<td ><div class="row col s6">
-											<input type="date" id="date1" name="date1" value="<?php if(isset($dob)) echo ($dob) ?>" />
+											<input type="date" class="datepicker" id="date1" name="date1" value="<?php if(isset($dob)) echo ($dob) ?>" />
 										</td></div>
 									</tr>
 									     
@@ -572,12 +569,11 @@ session_start();
 										</td>
 									</tr>
 								</table>
-						</div>
-					</li>
-					<li id="qualification_info_tab">
-	      				<div class="collapsible-header"><i class="mdi-action-assignment"></i>Academic Info</div>
-						<div class="collapsible-body"><div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div><div >
-						 	<span style="font-size:20px;padding-top: 4px;"><strong><center>Qualifications</center></strong></span>
+							</div>
+
+	      				<div id="qualification_info_tab" style="background-color: #43a047; color: white;">&nbsp;<i class="small mdi-action-assignment"></i><span style="font-size: 30px;">&nbsp;Academic Info</span></div>
+						<div ><div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div><div >
+						 	<div style="font-size:22px;padding-top: 4px; padding-bottom: 4px;"><strong><center>Qualifications</center></strong></div>
 						 	<div id="acad_head">
 								<table style="font-weight:bold;font-size:13px;">
 							        <tr>
@@ -639,7 +635,7 @@ session_start();
 						                <td width="10%"><input type="text" length="4" name="year_12" id="year_12" value="<?php if(isset($year_12)) echo $year_12;?>" style="width:92%" title="4 Characters" onkeypress="return isPinCode(event)"/></td>                
 						            </tr>
 						            <tr class="nopsace">
-						                <td width="13%">Bachelor Degree or Equi.<font color="red"> *</font></td>
+						                <td width="13%">BachelorDegree or Equi.<font color="red">*</font></td>
 						                <td width="20%"><input class="validate[required]" type="text" name="bd_univ" id="bd_univ" value="<?php if(isset($univ_bd)) echo $univ_bd;?>" style="width:95%" length="95" title="95 Characters" onkeypress="return isAlpha(event,errorBachelor);"/><span id="errorBachelor" style="color: Red; display: none">* Special Characters & integers are not allowed</span></td>
 						                <td width="15%"><input class="validate[required]" type="text" placeholder="Eg: Computer Science Engg" name="bd_degree" id="bd_degree" value="<?php if(isset($degree_bd)) echo $degree_bd;?>" style="width:93%" length="45" title="45 Characters" onkeypress="return isAlpha(event,errorBachelorDegree);" /><span id="errorBachelorDegree" style="color: Red; display: none">* Special Characters & integers are not allowed</span></td>
 										<td width="9%">
@@ -697,107 +693,94 @@ session_start();
 										<td><input type="text" name="per_3" value="<?php if(isset($per_3)) echo $per_3;?>" length="10" onkeypress="return isAlphaNumeric(event,errorPeriod);" ></td>
 										<td><input type="text" name="work_3" value="<?php if(isset($work_3)) echo $work_3;?>" length="45" onkeypress="return isAlpha(event,errorOrg);" ></td>
 									</tr>
-									<tr>
-										<td><input type="text" name="org_4" value="<?php if(isset($org_4)) echo $org_4;?>" length="95" onkeypress="return isAlphaNumeric(event,errorOrg);"></td>
-										<td><input type="text" name="des_4" value="<?php if(isset($des_4)) echo $des_4;?>" length="75" onkeypress="return isAlpha(event,errorOrg);" ></td>
-										<td><input type="text" name="per_4" value="<?php if(isset($per_4)) echo $per_4;?>" length="10" onkeypress="return isAlphaNumeric(event,errorPeriod);" ></td>
-										<td><input type="text" name="work_4" value="<?php if(isset($work_4)) echo $work_4;?>" length="45" onkeypress="return isAlpha(event,errorOrg);" ></td>
-									</tr>
-									<tr>
-										<td><input type="text" name="org_5" value="<?php if(isset($org_5)) echo $org_5;?>" length="95" onkeypress="return isAlphaNumeric(event,errorOrg);" ></td>
-										<td><input type="text" name="des_5" value="<?php if(isset($des_5)) echo $des_5;?>" length="75" onkeypress="return isAlpha(event,errorOrg);" ></td>
-										<td><input type="text" name="per_5" value="<?php if(isset($per_5)) echo $per_5;?>" length="10" onkeypress="return isAlphaNumeric(event,errorPeriod);" ></td>
-										<td><input type="text" name="work_5" value="<?php if(isset($work_5)) echo $work_5;?>" length="45" onkeypress="return isAlpha(event,errorOrg);" ></td>
-									</tr>
 								</table> 
 					    	</div>
 						</div>
 					</div>
-					</li>
-					<li id="Enclosures_info_tab">
-	      				<div class="collapsible-header"><i class="mdi-editor-attach-file"></i>Enclosures</div>
-						<div class="collapsible-body"><div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div>
-							<div id="enclo_wrap">
-								<div align="left">
-									<large><u>Note</u></large><br>
-									<small><font color=red>1)Please upload .png file only and not exceeding 1MB.</font></small><br>
-									<small><font color=red>2)Uploaded file should be of the format application.number_filename.<br>Eg:DM14D001_PP.png</font>
-									</small><br>
-									<small><font color=red>3)File name is according to the uploaded file name. </font></small><br><br>
-									<table>
 
-										<tr>
-											<td>
-												<?php 
-													$applnNo=$_SESSION['applicationNo'];
-													if (file_exists(__DIR__."/upload/" .$applnNo."_PP.jpg"))
-													{
-														echo '<img src="images/r.png" alt="Uploaded" height="20" width="20">';
-													}
+					<br />
+      				<div style="background-color: #fb8c00; color: white;" id="Enclosures_info_tab" >&nbsp;<i class=" small mdi-editor-attach-file"></i><span style="font-size: 26px;">Enclosures</span></div>
+					<div ><div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div>
+						<div id="enclo_wrap">
+							<div align="left">
+								<large><u>Note</u></large><br>
+								<small><font color=red>1)Please upload .png file only and not exceeding 1MB.</font></small><br>
+								<small><font color=red>2)Uploaded file should be of the format application.number_filename.<br>Eg:DM14D001_PP.png</font>
+								</small><br>
+								<small><font color=red>3)File name is according to the uploaded file name. </font></small><br><br>
+								<table>
 
-													else{
-														echo '<img src="images/w.png" alt="Not uploaded" height="20" width="20">';
-													}
-
-												?>
-											</td>
-											<td>
-												<label for="fileToUpload">Passport Photo<font color=red>*</font>:</label>
-											</td>
-											<td>
-												
-											      <!-- <input class="file-path validate" type="text"/><div class="btn waves-effect waves-light"><span>Upload Photo</span> -->
-											      <input type="file" name="fileToUpload" id="fileToUpload" />
-											    
-											</td>
-											<td>
-												<?php 
-												if (file_exists("upload/" .$applnNo."_PP.jpg"))
+									<tr>
+										<td>
+											<?php 
+												$applnNo=$_SESSION['applicationNo'];
+												if (file_exists(__DIR__."/upload/" .$applnNo."_PP.jpg"))
 												{
-													echo $applnNo.'_PP.png';
-
-													// echo '<script type="text/javascript">
-													// document.getElementById("fileToUpload").disabled=true;
-													// </script>';
+													echo '<img src="images/r.png" alt="Uploaded" height="20" width="20">';
 												}
-												?>
-											</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li id="decleration_info_tab">
-	      				<div class="collapsible-header"><i class="mdi-image-filter-drama"></i>Declaration</div>
-						<div class="collapsible-body"><div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div>
-							<div>
-								<p>I hereby declare that I have carefully read the instructions and particulars relevant to this admission and that the entries made in this application form are correct to the best of my knowledge and belief. If selected for admission, I promise to abide by the rules and regulations of the Institute.
-								I note that the decision of the institute is final in regard to selection for admission and assignment to a particular field of study.
-								The Institute shall have the right to expel me from the Institute at any time after my admission, provided it is satisfied that I was admitted
-								on false particulars furnished by me or my antecedents prove that my continuance in the Institute is not desirable. I agree that I shall abide by the
-								decision of the Institute, which shall be final.</p>
-								<div id="declare">
-									<div align="left"> 
-										<large><u>Note: </u></large><br>
-										<small><font color=red>1)Once you submit,the application cannot be modified further. <br> </font></small>
-										<small><font color=red>2)Once you click the submit button, you will prompted to download the PDF copy of the application.</font></small><br>
-									</div>
-										
-									<div class="row ">
-										<div class="input-field col s6 col-offset-6"><input type="text" name="regplace" length="45" title="45 characters" id="place" onkeypress="return isAlpha(event,errorDecPlace);"><span id="errorDecPlace" style="color: Red; display: none">* Special Characters & integers are not allowed</span>
-										<label for="place">Place:</label></div>
-									</div>
 
-									<div class="row center">
-										<div class="input-field col s6"><input type="text" name="regdate" autocomplete="off" disabled='true' value="<?php echo date("d/m/Y") ?>">
-										<label for="date">Date:</label></div>
-									</div>
+												else{
+													echo '<img src="images/w.png" alt="Not uploaded" height="20" width="20">';
+												}
+
+											?>
+										</td>
+										<td>
+											<label for="fileToUpload">Passport Photo<font color=red>*</font>:</label>
+										</td>
+										<td>
+										      <div class="file-field input-field"><input class="file-path validate" type="text"/><div class="btn waves-effect waves-light"><span>Upload</span>
+										      <input type="file" name="fileToUpload" id="fileToUpload" /></div></div>
+										    
+										</td>
+										<td>
+											<?php 
+											if (file_exists("upload/" .$applnNo."_PP.jpg"))
+											{
+												echo $applnNo.'_PP.png';
+
+												// echo '<script type="text/javascript">
+												// document.getElementById("fileToUpload").disabled=true;
+												// </script>';
+											}
+											?>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<br />
+
+      				<div style="background-color: #795548; color: white;" id="decleration_info_tab">&nbsp;<i class="small mdi-image-filter-drama"></i>&nbsp;<span style="font-size: 26px;">Declaration<span></div>
+					<div ><div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div>
+						<div>
+							<p>I hereby declare that I have carefully read the instructions and particulars relevant to this admission and that the entries made in this application form are correct to the best of my knowledge and belief. If selected for admission, I promise to abide by the rules and regulations of the Institute.
+							I note that the decision of the institute is final in regard to selection for admission and assignment to a particular field of study.
+							The Institute shall have the right to expel me from the Institute at any time after my admission, provided it is satisfied that I was admitted
+							on false particulars furnished by me or my antecedents prove that my continuance in the Institute is not desirable. I agree that I shall abide by the
+							decision of the Institute, which shall be final.</p>
+							<div id="declare">
+								<div align="left"> 
+									<large><u>Note: </u></large><br>
+									<small><font color=red>1)Once you submit,the application cannot be modified further. <br> </font></small>
+									<small><font color=red>2)Once you click the submit button, you will prompted to download the PDF copy of the application.</font></small><br>
+								</div>
+									
+								<div class="row ">
+									<div class="input-field col s6 col-offset-6"><input type="text" name="regplace" length="45" title="45 characters" id="place" onkeypress="return isAlpha(event,errorDecPlace);"><span id="errorDecPlace" style="color: Red; display: none">* Special Characters & integers are not allowed</span>
+									<label for="place">Place:</label></div>
+								</div>
+
+								<div class="row center">
+									<div class="input-field col s6"><input type="text" name="regdate" autocomplete="off" disabled='true' value="<?php echo date("d/m/Y") ?>">
+									<label for="date">Date:</label></div>
 								</div>
 							</div>
 						</div>
-					</li>
-				</ul>
+					</div>
+
 					<div class="row" id="submit_button">
 						<div class="col s3 offset-s3">
 							<button class="btn waves-effect waves-light" type="submit" name="Save" value="Save">Save
