@@ -17,7 +17,7 @@ require_once('helperFunctions.php');
       $conObj = new QoB();
       $emailAddress = trim($_POST['emailAddress']);
       $discipline = trim($_POST['discipline']);
-      $modeOfRegistration = trim($_POST['modeOfRegistration']);
+      $modeOfRegistration = trim($_POST['registrationMode']);
       
       $password = trim($_POST['password']);
       $confirmPassword = trim($_POST['confirmPassword']);
@@ -176,7 +176,7 @@ Buttons :   Submit
                   <input class="with-gap" value="Electronics" <?php if(isset($discipline)&&$discipline=='Electronics') echo 'checked="checked"'; ?> name="discipline" type="radio" id="electronics"  />
                   <label for="electronics">Electronics</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <input class="with-gap" value="Mechanical" <?php if(isset($discipline)&&$discipline=='Mechanical') echo 'checked="checked"'; ?> name="discipline" type="radio" id="mech"  />
-                  <label for="mech">Mechanical Engineering</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label for="mech">Mechanical Engineering</label>&nbsp;&nbsp;
                   <input class="with-gap" value="Mathematics" <?php if(isset($discipline)&&$discipline=='Mathematics') echo 'checked="checked"'; ?> name="discipline" type="radio" id="maths"  />
                   <label for="maths">Maths</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <input class="with-gap" value="Physics" <?php if(isset($discipline)&&$discipline=='Physics') echo 'checked="checked"'; ?> name="discipline" type="radio" id="physics"  />
@@ -184,13 +184,13 @@ Buttons :   Submit
               </div>
 
               <div name="ModeOfRegistration" id="modeOfRegistrationId" class="input-field col s12">Choose your Mode of Registration
-                  <input class="with-gap" checked value="httra" <?php if(isset($gender)&&$gender=='httra') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="rhttra"  />
+                  <input class="with-gap" checked value="httra" <?php if(isset($modeOfRegistration)&&$modeOfRegistration=='httra') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="rhttra"  />
                   <label for="rhttra">Regular HTTRA</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input class="with-gap" value="nhttra" <?php if(isset($gender)&&$gender=='nhttra') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="rnhttra"  />
+                  <input class="with-gap" value="nhttra" <?php if(isset($modeOfRegistration)&&$modeOfRegistration=='nhttra') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="rnhttra"  />
                   <label for="rnhttra">Regular NHTTRA</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input class="with-gap" value="internal" <?php if(isset($gender)&&$gender=='internal') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="inter"  />
-                  <label for="inter">Internal</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input class="with-gap" value="external" <?php if(isset($gender)&&$gender=='external') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="ext"  />
+                  <input class="with-gap" value="internal" <?php if(isset($modeOfRegistration)&&$modeOfRegistration=='internal') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="inter"  />
+                  <label for="inter">Internal</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input class="with-gap" value="external" <?php if(isset($modeOfRegistration)&&$modeOfRegistration=='external') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="ext"  />
                   <label for="ext">External</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <!-- <select name="modeOfRegistration">
                   <option value="" selected>Choose your Mode of Registration</option>

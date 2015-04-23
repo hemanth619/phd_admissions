@@ -354,6 +354,10 @@ else
 
 		if($experienceInfo['des_1']!='')
 		{
+			if(trim($experienceInfo['org_1'])=="")
+			{
+				$message.="You cant enter a Designation Without Organisation in Work experience 1.<br/>";
+			}
 			if(!hasOnlyAlphabets($experienceInfo['des_1']))
 			{
 				$message.="Enter A valid Designation. Only Alphabets are Allowed in Work Experience 1.\\n";
@@ -362,6 +366,10 @@ else
 
 		if($experienceInfo['per_1']!='')
 		{
+			if(trim($experienceInfo['org_1'])=="")
+			{
+				$message.="You cant enter Work Period Without Organisation in Work experience 1.<br/>";
+			}
 			if(!hasOnlyAlphaNumerics($experienceInfo['per_1']))
 			{
 				$message.="Enter A valid Experience Period. Only Alpha Numerics are Allowed in Work Experience 1.\\n";
@@ -370,6 +378,10 @@ else
 
 		if($experienceInfo['work_1']!='')
 		{
+			if(trim($experienceInfo['org_1'])=="")
+			{
+				$message.="You cant enter nature of work Without Organisation in Work experience 1.<br/>";
+			}
 			if(!hasOnlyAlphaNumerics($experienceInfo['work_1']))
 			{
 				$message.="Only Alpha Numerics are allowed in Nature Of work in work Experience 1.\\n";
@@ -390,6 +402,10 @@ else
 
 		if($experienceInfo['des_2']!='')
 		{
+			if(trim($experienceInfo['org_2'])=="")
+			{
+				$message.="You cant enter a Designation Without Organisation in Work experience 2.<br/>";
+			}
 			if(!hasOnlyAlphabets($experienceInfo['des_2']))
 			{
 				$message.="Enter A valid Designation. Only Alphabets are Allowed in Work Experience 2.\\n";
@@ -398,6 +414,10 @@ else
 
 		if($experienceInfo['per_2']!='')
 		{
+			if(trim($experienceInfo['org_2'])=="")
+			{
+				$message.="You cant enter Period Of work Without Organisation in Work experience 2.<br/>";
+			}
 			if(!hasOnlyAlphaNumerics($experienceInfo['per_2']))
 			{
 				$message.="Enter A valid Experience Period. Only Alpha Numerics are Allowed in Work Experience 2.\\n";
@@ -406,6 +426,10 @@ else
 
 		if($experienceInfo['work_2']!='')
 		{
+			if(trim($experienceInfo['org_2'])=="")
+			{
+				$message.="You cant enter Nature of work Without Organisation in Work experience 2.<br/>";
+			}
 			if(!hasOnlyAlphaNumerics($experienceInfo['work_2']))
 			{
 				$message.="Only Alpha Numerics are allowed in Nature Of work in work Experience 2.\\n";
@@ -775,7 +799,8 @@ else
 
 		if($message=='')
 		{
-			$sql5 ="update registered_users set applicationSubmitStatus='1' where userId='$userId'";
+			$submitPlace=$_POST['regplace'];
+			$sql5 ="update registered_users set applicationSubmitStatus='1',submitPlace='$submitPlace' where userId='$userId'";
 		    $result4=mysql_query($sql5) or die(mysql_error());
 			echo "<script>
 				alert('Application submitted Succesfully');

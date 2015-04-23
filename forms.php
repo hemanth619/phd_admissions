@@ -15,6 +15,13 @@ session_start();
 		displayAlert("Please Login to continue");
 		RedirectToURL("login.php");
 	}
+	$userId=$_SESSION['userId'];
+	$user=getUserByID($userId);
+
+	if($user['applicationSubmitStatus']==1)
+	{
+		RedirectToURL("thank-you.php");
+	}
 	//var_dump($_FILES);
 ?>
 
@@ -138,36 +145,36 @@ session_start();
 				// $bd_class = $row['bd_class'];
 			}	
 				
-		/*$sqlQuery2 = "select * from experience where user_ex='$userName'";
+		$sqlQuery2 = "select * from experience where userId='$userId'";
 		$resultQuery2=mysql_query($sqlQuery2) or die(mysql_error());
 		if(!$resultQuery2||mysql_num_rows($resultQuery2)<1)
 		{
 			//echo 'empty result';
 		}
-		else
-			while($row = mysql_fetch_array($resultQuery2))
-		  	{
+		else{
+			$row = mysql_fetch_array($resultQuery2);
+		  	
 				$org_1 = $row['org_1'];
 				$org_2 = $row['org_2'];
-				$org_3 = $row['org_3'];
-				$org_4 = $row['org_4'];
-				$org_5 = $row['org_5'];
+				//$org_3 = $row['org_3'];
+				//$org_4 = $row['org_4'];
+				//$org_5 = $row['org_5'];
 				$des_1 = $row['des_1'];
 				$des_2 = $row['des_2'];
-				$des_3 = $row['des_3'];
-				$des_4 = $row['des_4'];
-				$des_5 = $row['des_5'];
+				//$des_3 = $row['des_3'];
+				//$des_4 = $row['des_4'];
+				//$des_5 = $row['des_5'];
 				$per_1 = $row['per_1'];
 				$per_2 = $row['per_2'];
-				$per_3 = $row['per_3'];
-				$per_4 = $row['per_4'];
-				$per_5 = $row['per_5'];
+				//$per_3 = $row['per_3'];
+				//$per_4 = $row['per_4'];
+				//$per_5 = $row['per_5'];
 				$work_1 = $row['work_1'];
 				$work_2 = $row['work_2'];
-				$work_3 = $row['work_3'];
-				$work_4 = $row['work_4'];
-				$work_5 = $row['work_5'];
-			}*/	
+				//$work_3 = $row['work_3'];
+				//$work_4 = $row['work_4'];
+				//$work_5 = $row['work_5'];
+			}	
 				
 		$sql3 = "select * from personal_info where userId='$userId'";
 		$result3=mysql_query($sql3) or die(mysql_error());
@@ -239,13 +246,13 @@ session_start();
 		<div class="row">
 			<div class="col s11">
 				<div class="mycontainer">
-				<form name="form1" method="post" action="info.php" enctype="multipart/form-data">
-	      				<div style="background-color: #5c6bc0; color: white;" id="personal_info_tab" >&nbsp;<i class="small mdi-action-assignment-ind"></i><span style="font-size: 26px;">&nbsp;Personal Info<span></div>
+					<form name="form1" method="post" action="info.php" enctype="multipart/form-data">
+	      				<div style="background-color: #5c6bc0; color: white;" id="personal_info_tab" >&nbsp;<i class="small mdi-action-assignment-ind"></i><span style="font-size: 26px;">&nbsp;Personal Info</span></div>
 	      					<div><div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div>
-								<table align="center" class="table hoverable" id="personal_info">
+							<table align="center" class="table hoverable" id="personal_info">
 									<tr class="nospace">
 										<td >Name<font color=red>&nbsp;*</font> :</td>
-										<td ><a class="tooltipped" data-position="top" data-delay="300" data-tooltip="1) Name as recorded in the Matriculation/Secondary Examination Certificate. 2) Please do not use any prefix such as Mr. or Ms. etc."><div class="input-field "><input required="required" onkeypress="return isAlpha(event,errorName);" ondrop="return false;" onpaste="return false;" name='Full_Name' type='text' length='50' id='Full_Name' value="<?php if(isset($Full_Name)) echo $Full_Name;?>" size=40 ><label for="Full_Name">Full Name</label></div></a><span id="errorName" style="color: Red; display: none">* Special Characters & integers are not allowed</span>
+										<td ><a class="tooltipped" data-position="top" data-delay="300" data-tooltip="1) Name as recorded in the Matriculation/Secondary Examination Certificate. 2) Please do not use any prefix such as Mr. or Ms. etc."><div class="input-field "><input required="required" onkeypress="return isAlpha(event,errorName);" ondrop="return false;" onpaste="return false;" name='Full_Name' type='text' length='100' id='Full_Name' value="<?php if(isset($Full_Name)) echo $Full_Name;?>"  ><label for="Full_Name">Full Name</label></div></a><span id="errorName" style="color: Red; display: none">* Special Characters & integers are not allowed</span>
 										</td>
 									</tr>
 									      
@@ -254,11 +261,11 @@ session_start();
 									    	Date Of Birth(dd-mm-yyyy)<font color=red>&nbsp;*</font> :        
 									    </td>
 										<td ><div class="row col s6">
-											<input type="date" class="datepicker" id="date1" name="date1" value="<?php if(isset($dob)) echo ($dob) ?>" />
-										</td></div>
+											<input type="date" class="datepicker" id="date1" name="date1" value="<?php if(isset($dob)) echo ($dob) ?>" /></div>
+										</td>
 									</tr>
 									     
-									<tr class="nospace">
+									<tr >
 									    <td >
 									    	Gender<font color=red>&nbsp;*</font> :       
 									    </td>
@@ -277,11 +284,11 @@ session_start();
 									    	Father's / Husband's Name<font color=red>&nbsp;*</font> :        
 									    </td>
 										<td ><a class="tooltipped" data-position="top" data-delay="300" data-tooltip="Please do not use any prefix such as Shri or Dr. etc."><div class="input-field ">
-									        <input name=fname onkeypress="return isAlpha(event,errorFatherName);" ondrop="return false;" onpaste="return false;" type='text' length='40'  id='fname' value="<?php if(isset($fname)) echo $fname;?>"><label for="fname">Father /Husband's Name</label></div></a><span id="errorFatherName" style="color: Red; display: none">* Special Characters & integers are not allowed</span>  
+									        <input name=fname onkeypress="return isAlpha(event,errorFatherName);" ondrop="return false;" onpaste="return false;" type='text' length='100'  id='fname' value="<?php if(isset($fname)) echo $fname;?>"><label for="fname">Father /Husband's Name</label></div></a><span id="errorFatherName" style="color: Red; display: none">* Special Characters & integers are not allowed</span>  
 									    </td>
 									</tr>
 
-									<tr class="nospace">
+									<tr >
 										<td>
 									    	Nationality<font color=red>&nbsp;*</font> :        
 										</td>
@@ -294,7 +301,7 @@ session_start();
 									    </td>
 									</tr>
 										  <!-- Modified 10 Jan 2011-->
-									<tr class="nospace">
+									<tr >
 										<td>
 									    	Marital Status<font color=red>&nbsp;*</font> :       
 									    </td>
@@ -347,7 +354,7 @@ session_start();
 										</td>
 									    <td >
 									    	<div class="input-field ">
-									    	<input name='pemail' type="email" length='30' id="pemail" value="<?php if(isset($pemail)) echo $pemail;?>" size=40 title='Personal Email-ID' placeholder='someone@somemail.com' class='validate'></div>
+									    	<input name='pemail' type="email" length='100' id="pemail" value="<?php if(isset($pemail)) echo $pemail;?>" size=50 title='Personal Email-ID' placeholder='someone@somemail.com' class='validate'></div>
 										</td>
 									</tr>
 
@@ -356,7 +363,7 @@ session_start();
 									    	Alternate Email-ID :        
 										</td>
 									    <td ><div class="input-field ">
-									    	<input name='aemail' type="email" length='30' id="aemail" onblur="checkMails()" value="<?php if(isset($aemail)) echo $aemail;?>" size=40 title='Alternate Email-ID' placeholder='otherone@somemail.com' class='validate' /> </div>     
+									    	<input name='aemail' type="email" length='100' id="aemail" onblur="checkMails()" value="<?php if(isset($aemail)) echo $aemail;?>" size=50 title='Alternate Email-ID' placeholder='otherone@somemail.com' class='validate' /> </div>     
 									   	</td>
 									</tr>
 
@@ -385,54 +392,17 @@ session_start();
 									    	District/City<font color=red>&nbsp;*</font> :        
 										</td>
 										<td ><div class="input-field">
-									    	<input name='T_District' type='text' id='T_District' size='30' value="<?php if(isset($T_District)) echo $T_District;?>" length='30' onkeypress='return isAlpha(event,errorTempDistrict)' /></div><span id="errorTempDistrict" style="color: Red; display: none">* Special Characters & integers are not allowed</span>        
+									    	<input name='T_District' type='text' id='T_District' size='30' value="<?php if(isset($T_District)) echo $T_District;?>" length='100' /></div>       
 										</td>
 									</tr>
 
 									<tr class="nospace">
 										<td>
-									    	State/UT<font color=red>&nbsp;*</font> :        
+									    	State, Country<font color=red>&nbsp;*</font> :        
 								    	</td>
-								        <td ><div class="input-field ">								
-											<select name="T_state" id="T_state">
-											    <option value="" selected>[ Select State ]</option>
-											    <option value="Andaman & Nicobar Island" <?php if(isset($tstate)&&$tstate=='Andaman & Nicobar Island') echo "selected"; ?>>Andaman & Nicobar Island</option>
-											    <option value="Andhra Pradesh" <?php if(isset($tstate)&&$tstate=='Andhra Pradesh') echo "selected"; ?>>Andhra Pradesh</option>
-											    <option value="Arunachal Pradesh" <?php if(isset($tstate)&&$tstate=='Arunachal Pradesh') echo "selected"; ?>>Arunachal Pradesh</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Assam') echo "selected"; ?>>Assam</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Bihar') echo "selected"; ?>>Bihar</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Chandigarh') echo "selected"; ?>>Chandigarh</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Chattisgarh') echo "selected"; ?>>Chattisgarh</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Dadar & Nagar Haveli') echo "selected"; ?>>Dadar & Nagar Haveli</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Daman & Diu') echo "selected"; ?>>Daman & Diu</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Delhi') echo "selected"; ?>>Delhi</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Goa') echo "selected"; ?>>Goa</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Gujarat') echo "selected"; ?>>Gujarat</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Haryana') echo "selected"; ?>>Haryana</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Himachal Pradesh') echo "selected"; ?>>Himachal Pradesh</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Jammu & Kashmir') echo "selected"; ?>>Jammu & Kashmir</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Jharkhand') echo "selected"; ?>>Jharkhand</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Karnataka') echo "selected"; ?>>Karnataka</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Kerela') echo "selected"; ?>>Kerela</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Lakshadweep') echo "selected"; ?>>Lakshadweep</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Madhya Pradesh') echo "selected"; ?>>Madhya Pradesh</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Maharashtra') echo "selected"; ?>>Maharashtra</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Manipur') echo "selected"; ?>>Manipur</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Meghalaya') echo "selected"; ?>>Meghalaya</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Mizoram') echo "selected"; ?>>Mizoram</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Nagaland') echo "selected"; ?>>Nagaland</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Orrisa') echo "selected"; ?>>Orrisa</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Others') echo "selected"; ?>>Others</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Pondichery') echo "selected"; ?>>Pondichery</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Punjab') echo "selected"; ?>>Punjab</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Rajasthan') echo "selected"; ?>>Rajasthan</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Sikkim') echo "selected"; ?>>Sikkim</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Tamil Nadu') echo "selected"; ?>>Tamil Nadu</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Tripura') echo "selected"; ?>>Tripura</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Uttar Pradesh') echo "selected"; ?>>Uttar Pradesh</option>
-											    <option value="" <?php if(isset($tstate)&&$tstate=='Uttrakhand') echo "selected"; ?>>Uttrakhand</option>
-												<option value="" <?php if(isset($tstate)&&$tstate=='West Bengal') echo "selected"; ?>>West Bengal</option>          
-											</select></div>
+								        <td ><div class="input-field ">
+								        		<input name="T_state" type="text" id="T_state" size="30" length="100" value="<?php if(isset($tstate)) echo '$tstate'; ?>" />							
+											</div>
 										</td>
 									</tr>
 
@@ -451,12 +421,12 @@ session_start();
 										</td>
 										<td ><div class="row">
 												<div class="col s4">
-													<div class="input-field"><input placeholder="countrycode Eg: 91" name="mobileCountryCode" size="3" length="3" type="text" id="T_mobile_number_country_code" value="<?php if(isset($T_mobile_number_country_code)) echo $T_mobile_number_country_code;?>" onkeypress="return isPinCode(event)">
+													<div class="input-field"><input placeholder="countrycode Eg: 91" name="mobileCountryCode" size="3" length="3" type="text" id="T_mobile_number_country_code" value="<?php if(isset($T_mobile_number_country_code)) echo $T_mobile_number_country_code;?>" onkeypress="return isPinCode(event)" />
 													</div>
 												</div>
 												<div class="col s8">
 													<div class="input-field">
-										    	    <input placeholder="mobile number Eg:9988776655" name="T_mobile_number" size="10" length="10" type=text id="T_mobile_number" value="<?php if(isset($T_mobile_number)) echo $T_mobile_number;?>" onkeypress="return isPinCode(event)"></div>        
+										    	    <input placeholder="mobile number Eg:9988776655" name="T_mobile_number" size="10" length="10" type=text id="T_mobile_number" value="<?php if(isset($T_mobile_number)) echo $T_mobile_number;?>" onkeypress="return isPinCode(event)" /></div>        
 												</div>								    		
 								    		</div>
 								    	</td>
@@ -465,7 +435,7 @@ session_start();
 								    <tr class="addpad">
 								    	<td>
 								    		<input type="checkbox" class="filled-in" id="filled-in-box"  />
-      										<label for="filled-in-box">&nbsp;Is permentant Address Same as Present</label>
+	  										<label for="filled-in-box">&nbsp;Is permentant Address Same as Present</label>
 								    	</td>
 								    	<td>
 								    		
@@ -497,54 +467,18 @@ session_start();
 									  		District/City<font color=red>&nbsp;*</font> :        
 									  	</td>
 										<td >
-											<input name="P_District" type=text id="P_District" size="40" value="<?php if(isset($P_District)) echo $P_District;?>" onkeypress="return isAlpha(event,errorPermDistrict)" length="30" ><span id="errorPermDistrict" style="color: Red; display: none">* Special Characters & integers are not allowed</span>        
+											<input name="P_District" type=text id="P_District" size="40" value="<?php if(isset($P_District)) echo $P_District;?>" length="100" >       
 										</td>
 									</tr>
 
 									<tr class="nospace">
 										<td>
-											State/UT<font color=red>&nbsp;*</font> :        
+											State, Country<font color=red>&nbsp;*</font> :        
 										</td>
 										<td >
-											<select name="P_state" id="P_state">
-												<option value="" >[ Select State ]</option>
-												<option value="Andaman & Nicobar Island"  <?php if(isset($pstate)&&$pstate=='Andaman & Nicobar Island') echo "selected"; ?>>Andaman & Nicobar Island</option>
-												<option value="Andhra Pradesh" <?php if(isset($pstate)&&$pstate=='Andhra Pradesh') echo "selected"; ?>>Andhra Pradesh</option>
-												<option value="Arunachal Pradesh" <?php if(isset($pstate)&&$pstate=='Arunachal Pradesh') echo "selected"; ?>>Arunachal Pradesh</option>
-												<option value="Assam" <?php if(isset($pstate)&&$pstate=='Assam') echo "selected"; ?>>Assam</option>
-												<option <?php if(isset($pstate)&&$pstate=='Bihar') echo "selected"; ?>>Bihar</option>
-												<option <?php if(isset($pstate)&&$pstate=='Chandigarh') echo "selected"; ?>>Chandigarh</option>
-												<option <?php if(isset($pstate)&&$pstate=='Chattisgarh') echo "selected"; ?>>Chattisgarh</option>
-												<option <?php if(isset($pstate)&&$pstate=='Dadar & Nagar Haveli') echo "selected"; ?>>Dadar & Nagar Haveli</option>
-												<option <?php if(isset($pstate)&&$pstate=='Daman & Diu') echo "selected"; ?>>Daman & Diu</option>
-												<option <?php if(isset($pstate)&&$pstate=='Delhi') echo "selected"; ?>>Delhi</option>
-												<option <?php if(isset($pstate)&&$pstate=='Goa') echo "selected"; ?>>Goa</option>
-												<option <?php if(isset($pstate)&&$pstate=='Gujarat') echo "selected"; ?>>Gujarat</option>
-												<option <?php if(isset($pstate)&&$pstate=='Haryana') echo "selected"; ?>>Haryana</option>
-												<option <?php if(isset($pstate)&&$pstate=='Himachal Pradesh') echo "selected"; ?>>Himachal Pradesh</option>
-												<option <?php if(isset($pstate)&&$pstate=='Jammu & Kashmir') echo "selected"; ?>>Jammu & Kashmir</option>
-												<option <?php if(isset($pstate)&&$pstate=='Jharkhand') echo "selected"; ?>>Jharkhand</option>
-												<option <?php if(isset($pstate)&&$pstate=='Karnataka') echo "selected"; ?>>Karnataka</option>
-												<option <?php if(isset($pstate)&&$pstate=='Kerela') echo "selected"; ?>>Kerela</option>
-												<option <?php if(isset($pstate)&&$pstate=='Lakshadweep') echo "selected"; ?>>Lakshadweep</option>
-												<option <?php if(isset($pstate)&&$pstate=='Madhya Pradesh') echo "selected"; ?>>Madhya Pradesh</option>
-												<option <?php if(isset($pstate)&&$pstate=='Maharashtra') echo "selected"; ?>>Maharashtra</option>
-												<option <?php if(isset($pstate)&&$pstate=='Manipur') echo "selected"; ?>>Manipur</option>
-												<option <?php if(isset($pstate)&&$pstate=='Meghalaya') echo "selected"; ?>>Meghalaya</option>
-												<option <?php if(isset($pstate)&&$pstate=='Mizoram') echo "selected"; ?>>Mizoram</option>
-												<option <?php if(isset($pstate)&&$pstate=='Nagaland') echo "selected"; ?>>Nagaland</option>
-												<option <?php if(isset($pstate)&&$pstate=='Orrisa') echo "selected"; ?>>Orrisa</option>
-												<option <?php if(isset($pstate)&&$pstate=='Others') echo "selected"; ?>>Others</option>
-												<option <?php if(isset($pstate)&&$pstate=='Pondichery') echo "selected"; ?>>Pondichery</option>
-												<option <?php if(isset($pstate)&&$pstate=='Punjab') echo "selected"; ?>>Punjab</option>
-												<option <?php if(isset($pstate)&&$pstate=='Rajasthan') echo "selected"; ?>>Rajasthan</option>
-												<option <?php if(isset($pstate)&&$pstate=='Sikkim') echo "selected"; ?>>Sikkim</option>
-												<option <?php if(isset($pstate)&&$pstate=='Tamil Nadu') echo "selected"; ?>>Tamil Nadu</option>
-												<option <?php if(isset($pstate)&&$pstate=='Tripura') echo "selected"; ?>>Tripura</option>
-												<option <?php if(isset($pstate)&&$pstate=='Uttar Pradesh') echo "selected"; ?>>Uttar Pradesh</option>
-												<option <?php if(isset($pstate)&&$pstate=='Uttrakhand') echo "selected"; ?>>Uttrakhand</option>
-												<option <?php if(isset($pstate)&&$pstate=='West Bengal') echo "selected"; ?>>West Bengal</option>          
-											</select>
+											<div class="input-field ">
+								        		<input name="P_state" type="text" id="P_state" size="30" length="100" value="<?php if(isset($pstate)) echo '$pstate'; ?>" />							
+											</div>
 										</td>
 									</tr>
 
@@ -570,11 +504,12 @@ session_start();
 											</div>										
 										</td>
 									</tr>
-								</table>
-							</div>
+							</table>
+						</div>
 
 	      				<div id="qualification_info_tab" style="background-color: #43a047; color: white;">&nbsp;<i class="small mdi-action-assignment"></i><span style="font-size: 30px;">&nbsp;Academic Info</span></div>
-						<div ><div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div><div >
+						<div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div>
+						<div >
 						 	<div style="font-size:22px;padding-top: 4px; padding-bottom: 4px;"><strong><center>Qualifications</center></strong></div>
 						 	<div id="acad_head">
 								<table style="font-weight:bold;font-size:13px;">
@@ -603,7 +538,7 @@ session_start();
 						            </tr>
 						            <tr >
 						                <td width="13%">Class 10th OR Equi.<font color="red">&nbsp;*</font></td>
-						                <td width="20%"><input type="text" name="univ_10" id="univ_10" value="<?php if(isset($univ_10)) echo $univ_10;?>" style="width:95%" length="95" onkeypress="return isAlpha(event,errorTenthClass);" title="95 Characters" /><span id="errorTenthClass" style="color: Red; display: none">* Special Characters & integers are not allowed</span></td>
+						                <td width="20%"><input type="text" name="univ_10" id="univ_10" value="<?php if(isset($univ_10)) echo $univ_10;?>" style="width:95%" length="95"  title="95 Characters" /></td>
 						                <td width="15%"><input type="text" name="degree_10" id="degree_10" value="Class 10th OR Equi." style="width:93%"  readonly/></td>
 						                
 						                <td width="10%">
@@ -620,7 +555,7 @@ session_start();
 						            </tr>
 						            <tr >
 						                <td width="13%">Class 12th OR Equi.<font color="red">&nbsp;*</font></td>
-						                <td width="20%"><input type="text" name="univ_12" id="univ_12" value="<?php if(isset($univ_12)) echo $univ_12;?>" style="width:95%" length="95" title="95 Characters" onkeypress="return isAlpha(event,errorTwelfthClass);" /><span id="errorTwelfthClass" style="color: Red; display: none">* Special Characters & integers are not allowed</span></td>
+						                <td width="20%"><input type="text" name="univ_12" id="univ_12" value="<?php if(isset($univ_12)) echo $univ_12;?>" style="width:95%" length="95" title="95 Characters" /></td>
 						                <td width="15%"><input type="text" name="degree_12" id="degree_12" value="Class 12th OR Equi." style="width:93%" readonly/></td>
 						                
 						            	<td width="9%">
@@ -638,8 +573,8 @@ session_start();
 						            </tr>
 						            <tr class="nopsace">
 						                <td width="13%">BachelorDegree or Equi.<font color="red">*</font></td>
-						                <td width="20%"><input class="validate[required]" type="text" name="bd_univ" id="bd_univ" value="<?php if(isset($univ_bd)) echo $univ_bd;?>" style="width:95%" length="95" title="95 Characters" onkeypress="return isAlpha(event,errorBachelor);"/><span id="errorBachelor" style="color: Red; display: none">* Special Characters & integers are not allowed</span></td>
-						                <td width="15%"><input class="validate[required]" type="text" placeholder="Eg: Computer Science Engg" name="bd_degree" id="bd_degree" value="<?php if(isset($degree_bd)) echo $degree_bd;?>" style="width:93%" length="45" title="45 Characters" onkeypress="return isAlpha(event,errorBachelorDegree);" /><span id="errorBachelorDegree" style="color: Red; display: none">* Special Characters & integers are not allowed</span></td>
+						                <td width="20%"><input class="validate[required]" type="text" name="bd_univ" id="bd_univ" value="<?php if(isset($univ_bd)) echo $univ_bd;?>" style="width:95%" length="95" title="95 Characters" /></td>
+						                <td width="15%"><input class="validate[required]" type="text" placeholder="Eg: Computer Science Engg" name="bd_degree" id="bd_degree" value="<?php if(isset($degree_bd)) echo $degree_bd;?>" style="width:93%" length="45" title="45 Characters" /></td>
 										<td width="9%">
 											<select name="bd_grade" id="bd_grade" >
 							                   
@@ -654,8 +589,8 @@ session_start();
 						            </tr>
 						            <tr class="nopsace">
 						                <td width="13%">Masters degree or Equi.</td>
-						                <td width="20%"><input type="text" name="pg_univ" id="pg_univ" value="<?php if(isset($univ_pg)) echo $univ_pg;?>" style="width:95%" length="95" title="95 Characters" onkeypress="return isAlpha(event,errorMasters);"/><span id="errorMasters" style="color: Red; display: none">* Special Characters & integers are not allowed</span></td>
-						                <td width="15%"><input type="text" name="pg_degree" placeholder="Eg: Mechanical Engg" id="pg_degree" value="<?php if(isset($degree_pg)) echo $degree_pg;?>" style="width:93%" length="45" title="45 Characters" onkeypress="return isAlpha(event,errorMastersDegree);" /><span id="errorMastersDegree" style="color: Red; display: none">* Special Characters & integers are not allowed</span></td>
+						                <td width="20%"><input type="text" name="pg_univ" id="pg_univ" value="<?php if(isset($univ_pg)) echo $univ_pg;?>" style="width:95%" length="95" title="95 Characters" /></td>
+						                <td width="15%"><input type="text" name="pg_degree" placeholder="Eg: Mechanical Engg" id="pg_degree" value="<?php if(isset($degree_pg)) echo $degree_pg;?>" style="width:93%" length="45" title="45 Characters" /></td>
 						                <td width="9%">
 							                <select name="pg_grade" id="pg_grade">
 							    				<option value="MAR-100"<?php if(isset($grade_pg)&&$grade_pg=="MAR-100") echo "selected"; ?>>% out of 100</option>
@@ -689,131 +624,126 @@ session_start();
 										<td><input type="text" name="per_2" value="<?php if(isset($per_2)) echo $per_2;?>" length="10" onkeypress="return isAlphaNumeric(event,errorPeriod);" ></td>
 										<td><input type="text" name="work_2" value="<?php if(isset($work_2)) echo $work_2;?>" length="45" onkeypress="return isAlpha(event,errorOrg);" ></td>
 									</tr>
-									<tr>
-										<td><input type="text" name="org_3" value="<?php if(isset($org_3)) echo $org_3;?>" length="95" onkeypress="return isAlphaNumeric(event,errorOrg);"></td>
-										<td><input type="text" name="des_3" value="<?php if(isset($des_3)) echo $des_3;?>" length="75" onkeypress="return isAlpha(event,errorOrg);" ></td>
-										<td><input type="text" name="per_3" value="<?php if(isset($per_3)) echo $per_3;?>" length="10" onkeypress="return isAlphaNumeric(event,errorPeriod);" ></td>
-										<td><input type="text" name="work_3" value="<?php if(isset($work_3)) echo $work_3;?>" length="45" onkeypress="return isAlpha(event,errorOrg);" ></td>
-									</tr>
 								</table> 
 					    	</div>
 						</div>
-					</div>
 
-					<br />
-      				<div style="background-color: #fb8c00; color: white;" id="Enclosures_info_tab" >&nbsp;<i class=" small mdi-editor-attach-file"></i><span style="font-size: 26px;">Enclosures</span></div>
-					<div ><div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div>
-						<div id="enclo_wrap">
-							<div align="left">
-								<large><u>Note</u></large><br>
-								<small><font color=red>1)Please upload .png file only and not exceeding 1MB.</font></small><br>
-								<small><font color=red>2)Uploaded file should be of the format application.number_filename.<br>Eg:DM14D001_PP.png</font>
-								</small><br>
-								<small><font color=red>3)File name is according to the uploaded file name. </font></small><br><br>
-								<table>
+						<br />
+	      				<div style="background-color: #fb8c00; color: white;" id="Enclosures_info_tab" >&nbsp;<i class=" small mdi-editor-attach-file"></i><span style="font-size: 26px;">Enclosures</span></div>
+						<div ><div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div>
+							<div id="enclo_wrap">
+								<div align="left">
+									<large><u>Note</u></large><br>
+									<small><font color=red>1)Please upload .png file only and not exceeding 1MB.</font></small><br>
+									<small><font color=red>2)Uploaded file should be of the format application.number_filename.<br>Eg:DM14D001_PP.png</font>
+									</small><br>
+									<small><font color=red>3)File name is according to the uploaded file name. </font></small><br><br>
+									<table>
 
-									<tr>
-										<td>
-											<?php 
-												$applnNo=$_SESSION['applicationNo'];
-												if (file_exists(__DIR__."/upload/" .$applnNo."_PP.jpg"))
+										<tr>
+											<td>
+												<?php 
+													$applnNo=$_SESSION['applicationNo'];
+													if (file_exists(__DIR__."/upload/" .$applnNo."_PP.jpg"))
+													{
+														echo '<img src="images/r.png" alt="Uploaded" height="20" width="20">';
+													}
+
+													else{
+														echo '<img src="images/w.png" alt="Not uploaded" height="20" width="20">';
+													}
+
+												?>
+											</td>
+											<td>
+												<label for="fileToUpload">Passport Photo<font color=red>*</font>:</label>
+											</td>
+											<td>
+											      <div class="file-field input-field"><input class="file-path validate" type="text"/><div class="btn waves-effect waves-light"><span>Browse</span>
+											      <input type="file" name="fileToUpload" id="fileToUpload" /></div></div>
+											    
+											</td>
+											<td>
+												<?php 
+												if (file_exists("upload/" .$applnNo."_PP.jpg"))
 												{
-													echo '<img src="images/r.png" alt="Uploaded" height="20" width="20">';
+													echo $applnNo.'_PP.png';
+
+													// echo '<script type="text/javascript">
+													// document.getElementById("fileToUpload").disabled=true;
+													// </script>';
 												}
-
-												else{
-													echo '<img src="images/w.png" alt="Not uploaded" height="20" width="20">';
-												}
-
-											?>
-										</td>
-										<td>
-											<label for="fileToUpload">Passport Photo<font color=red>*</font>:</label>
-										</td>
-										<td>
-										      <div class="file-field input-field"><input class="file-path validate" type="text"/><div class="btn waves-effect waves-light"><span>Upload</span>
-										      <input type="file" name="fileToUpload" id="fileToUpload" /></div></div>
-										    
-										</td>
-										<td>
-											<?php 
-											if (file_exists("upload/" .$applnNo."_PP.jpg"))
-											{
-												echo $applnNo.'_PP.png';
-
-												// echo '<script type="text/javascript">
-												// document.getElementById("fileToUpload").disabled=true;
-												// </script>';
-											}
-											?>
-										</td>
-									</tr>
-								</table>
+												?>
+											</td>
+										</tr>
+									</table>
+								</div>
 							</div>
 						</div>
-					</div>
+
+						<br />
+						<div class="row" >
+							<div class="col s3 offset-s6">
+								<button class="btn waves-effect waves-light blue darken-4" type="submit" name="Save" value="Save">Save
+								    <i class="mdi-content-save right"></i>
+								</button>
+							</div>
+						</div>
+					</form>
 
 					<br />
 
-      				<div style="background-color: #795548; color: white;" id="decleration_info_tab">&nbsp;<i class="small mdi-image-filter-drama"></i>&nbsp;<span style="font-size: 26px;">Declaration<span></div>
-					<div ><div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div>
-						<div>
-							<p>I hereby declare that I have carefully read the instructions and particulars relevant to this admission and that the entries made in this application form are correct to the best of my knowledge and belief. If selected for admission, I promise to abide by the rules and regulations of the Institute.
-							I note that the decision of the institute is final in regard to selection for admission and assignment to a particular field of study.
-							The Institute shall have the right to expel me from the Institute at any time after my admission, provided it is satisfied that I was admitted
-							on false particulars furnished by me or my antecedents prove that my continuance in the Institute is not desirable. I agree that I shall abide by the
-							decision of the Institute, which shall be final.</p>
-							<div id="declare">
-								<div align="left"> 
-									<large><u>Note: </u></large><br>
-									<small><font color=red>1)Once you submit,the application cannot be modified further. <br> </font></small>
-									<small><font color=red>2)Once you click the submit button, you will prompted to download the PDF copy of the application.</font></small><br>
-								</div>
-									
-								<div class="row ">
-									<div class="input-field col s6 col-offset-6"><input type="text" name="regplace" length="45" title="45 characters" id="place" onkeypress="return isAlpha(event,errorDecPlace);"><span id="errorDecPlace" style="color: Red; display: none">* Special Characters & integers are not allowed</span>
-									<label for="place">Place:</label></div>
-								</div>
+					<form action = "validate.php" method="POST"> 
+	      				<div style="background-color: #795548; color: white;" id="decleration_info_tab">&nbsp;<i class="small mdi-image-filter-drama"></i>&nbsp;<span style="font-size: 26px;">Declaration</span></div>
+						<div ><div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div>
+							<div>
+								<p>I hereby declare that I have carefully read the instructions and particulars relevant to this admission and that the entries made in this application form are correct to the best of my knowledge and belief. If selected for admission, I promise to abide by the rules and regulations of the Institute.
+								I note that the decision of the institute is final in regard to selection for admission and assignment to a particular field of study.
+								The Institute shall have the right to expel me from the Institute at any time after my admission, provided it is satisfied that I was admitted
+								on false particulars furnished by me or my antecedents prove that my continuance in the Institute is not desirable. I agree that I shall abide by the
+								decision of the Institute, which shall be final.</p>
+								<div id="declare">
+									<div align="left"> 
+										<large><u>Note: </u></large><br>
+										<small><font color=red>1)Once you submit,the application cannot be modified further. <br> </font></small>
+										<small><font color=red>2)Once you click the submit button, you will prompted to download the PDF copy of the application.</font></small><br>
+									</div>
+										
+									<div class="row ">
+										<div class="input-field col s6 col-offset-6"><input type="text" name="regplace" length="45" title="45 characters" id="place" onkeypress="return isAlpha(event,errorDecPlace);"><span id="errorDecPlace" style="color: Red; display: none">* Special Characters & integers are not allowed</span>
+										<label for="place">Place:</label></div>
+									</div>
 
-								<div class="row center">
-									<div class="input-field col s6"><input type="text" name="regdate" autocomplete="off" disabled='true' value="<?php echo date("d/m/Y") ?>">
-									<label for="date">Date:</label></div>
+									<div class="row center">
+										<div class="input-field col s6"><input type="text" name="regdate" autocomplete="off" disabled='true' value="<?php echo date("d/m/Y") ?>">
+										<label for="date">Date:</label></div>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="row" id="submit_button">
-						<div class="col s3 offset-s3">
-							<button class="btn waves-effect waves-light" type="submit" name="Save" value="Save">Save
-							    <i class="mdi-content-save right"></i>
-							</button>
+						<div  id="submit_button" class="row col s3 offset-s6">	
+										<button class="btn waves-effect waves-light" type="submit" name="Submit" value="Submit">Submit
+											<i class="mdi-content-send right"></i>
+										</button>
 						</div>
-						</form>
-					</div>
-					<div style="margin-top: -62px !important;" class="row col s3 offset-s6">
-				<form action = "validate.php" method="POST"> 
-						
-							<button class="btn waves-effect waves-light" type="submit" name="Submit" value="Submit">Submit
-								<i class="mdi-content-send right"></i>
-							</button>
-				</form>
-				</div>
+					</form>
 				</div>
 			</div>
-			<div id="navtopbottom" class="col s1 center">
-				<div style="top: 45px; right: 24px; postion: fixed; padding: 10px;">
-			    	<a href="#personal_info_tab" class="btn-floating btn-large purple accent-3">
-			        	<i style="font-size: 25px;" class="fa fa-chevron-circle-up"></i>
-			    	</a>
-			    </div>
+		</div>
+		
+		<div id="navtopbottom" class="col s1 center">
+			<div style="top: 45px; right: 24px; postion: fixed; padding: 10px;">
+		    	<a href="#personal_info_tab" class="btn-floating btn-large purple accent-3">
+		        	<i style="font-size: 25px;" class="fa fa-chevron-circle-up"></i>
+		    	</a>
+		    </div>
 
-			    <div style="right: 24px; postion: fixed;">
-			    	<a href="#submit_button" class="btn-floating btn-large green accent-3">
-			        	<i style="font-size: 25px;" class="fa fa-chevron-circle-down"></i>
-			    	</a>
-			    </div>
-			</div>
+		    <div style="right: 24px; postion: fixed;">
+		    	<a href="#submit_button" class="btn-floating btn-large green accent-3">
+		        	<i style="font-size: 25px;" class="fa fa-chevron-circle-down"></i>
+		    	</a>
+		    </div>
 		</div>
 
 		<input type="hidden" value="<?php echo $applnNo ?>" name="appln_number">

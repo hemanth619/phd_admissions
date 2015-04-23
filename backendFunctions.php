@@ -89,6 +89,11 @@ function displayAlert($message)
 	echo '<script>alert("'.$message.'")</script>';
 }
 
+function displayAlertAndRedirect($message,$url)
+{
+	echo '<script>alert("'.$message.'"); window.location.href="'.$url.'"</script>';
+}
+
 function notifyAdmin($notification,$userIdentity="")
 	{
 		$conn= getMasterDBQoBObject();
@@ -237,6 +242,8 @@ function confirmUser($code)
 
 	$result=$con->fetchAll($getUserByConfirmationLinkSQL,$values);
 
+	//var_dump($result);
+
 	if($con->error=="")
 	{
 		$userId=$result['userId'];
@@ -253,7 +260,7 @@ function confirmUser($code)
 
 			if($con->error=="")
 			{
-				$invalidateConfirmCodeSQL="UPDATE email_confirmation SET isValid=0 , emailConfirmationStatus=1 WHERE confirmationLink=?";
+				$invalidateConfirmCodeSQL="UPDATE email_confirmation SET isValid=0, confirmationStatus=1 WHERE confirmationLink=?";
 
 				$values[0]=array($code=>'s');
 
@@ -263,9 +270,9 @@ function confirmUser($code)
 				{
 					$con->completeTransaction();
 
-					displayAlert("Your Email Confirmation is successfull. Now you can proceed to Login.");
+					displayAlertAndRedirect("Your Email Confirmation is successfull. Now you can proceed to Login.","login.php");
 
-					RedirectToURL("login.php");
+					//RedirectToURL("login.php");
 				}
 				else
 				{

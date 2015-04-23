@@ -28,7 +28,7 @@
        <!--  <div><span class='error'><?php //echo $fgmembersite->GetErrorMessage(); ?></span></div> -->
         <div class='container'>
             <label for='code' >Confirmation Code:* </label><br/>
-            <input type='text' name='code' id='code' maxlength="50" /><br/>
+            <input type='text' name='code' id='code' /><br/>
             <span id='register_code_errorloc' class='error'></span>
         </div>
         <div class='container'>
