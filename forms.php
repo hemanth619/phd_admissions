@@ -832,6 +832,8 @@ session_start();
 				    selectMonths: true, // Creates a dropdown to control month
 				    selectYears: 35, // Creates a dropdown of 15 years to control year
 				    today: '',
+				    format: 'dd/mm/yyyy',
+				    formatsubmit: 'dd/mm/yyyy',
   					clear: 'Clear selection',
   					close: 'Ok'
 				  });

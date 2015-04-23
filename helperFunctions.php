@@ -109,7 +109,7 @@ function validateRegisterFormEntries($formVars)
 	}
 }
 
-function validateDate($rawDate,$seperator='-')
+function validateDate($rawDate,$seperator='/')
 	{
 		var_dump($rawDate);
 		$ndate=explode($seperator,$rawDate);
@@ -168,9 +168,9 @@ function validateDate($rawDate,$seperator='-')
 		}
 	}
 
-function dateStringToTimestamp($dateString,$seperator='-')
+function dateStringToTimestamp($dateString,$seperator='/')
 {
-	var_dump($dateString);
+	//var_dump($dateString);
 	$isValidDate=validateDate($dateString,$seperator);
 	//var_dump($isValidDate);
 	if($isValidDate)
@@ -207,7 +207,7 @@ function validatePersonalInfoOnSave($personalInfo)
 		$fullName=$personalInfo['Full_Name'];
 		if(!hasOnlyAlphabets($fullName))
 		{
-			$message='Enter a Valid name. Only Alphabets.\\n';
+			$message='Enter a Valid name. Only Alphabets.<br/>';
 		}
 		/*else
 		{
@@ -217,20 +217,20 @@ function validatePersonalInfoOnSave($personalInfo)
 	
 	if($personalInfo['gender']!='Male'&&$personalInfo['gender']!='Female')
 	{
-		$message.='Enter Gender.\\n';
+		$message.='Enter Gender.<br/>';
 	}
 	//2
 	if($personalInfo['date1']!='')
 	{
 		$currentTimestamp=time();
-		$dob=dateStringToTimestamp($personalInfo['date1'],'-');
+		$dob=dateStringToTimestamp($personalInfo['date1'],'/');
 		if($dob==false)
 		{
-			$message.="Enter a Valid date in Date Of Birth.\\n";
+			$message.="Enter a Valid date in Date Of Birth.<br/>";
 		}
 		else if($dob>=$currentTimestamp)
 		{
-			$message.="Date of Birth cant be greater than current date.\\n";
+			$message.="Date of Birth cant be greater than current date.<br/>";
 		}
 
 		/*else
@@ -243,7 +243,7 @@ function validatePersonalInfoOnSave($personalInfo)
 	{
 		if(!hasOnlyAlphabets($personalInfo['fname']))
 		{
-			$message.="Enter a Valid Father's Name. Only Alphabets are Allowed\\n";
+			$message.="Enter a Valid Father's Name. Only Alphabets are Allowed<br/>";
 		}
 		/*else
 		{
@@ -255,7 +255,7 @@ function validatePersonalInfoOnSave($personalInfo)
 	{
 		if(!(filter_var($personalInfo['pemail'], FILTER_VALIDATE_EMAIL)))
 		{
-			$message.="Enter a valid Primary Email Address.\\n";
+			$message.="Enter a valid Primary Email Address.<br/>";
 		}
 		/*else
 		{
@@ -268,7 +268,7 @@ function validatePersonalInfoOnSave($personalInfo)
 		$check=true;
 		if(!(filter_var($personalInfo['aemail'], FILTER_VALIDATE_EMAIL)))
 		{
-			$message.="Enter a valid Alternate Email Address.\\n";
+			$message.="Enter a valid Alternate Email Address.<br/>";
 			$check=false;
 		}
 
@@ -280,7 +280,7 @@ function validatePersonalInfoOnSave($personalInfo)
 
 		if(trim($personalInfo['pemail'])!=''&&trim($personalInfo['pemail'])==trim($personalInfo['aemail']))
 		{
-			$message.="Primary and Alternate Email Can't be same. Fill in different one else leave it.\\n";
+			$message.="Primary and Alternate Email Can't be same. Fill in different one else leave it.<br/>";
 			$check=false;
 		}
 		
@@ -295,7 +295,7 @@ function validatePersonalInfoOnSave($personalInfo)
 	{
 		if(!hasOnlyCharacters('0-9-',$personalInfo['T_pincode']))
 		{
-			$message.="Please Enter  Valid Pincode. Numerics Only.\\n";
+			$message.="Please Enter  Valid Pincode. Numerics Only.<br/>";
 		}
 		/*else
 		{
@@ -308,7 +308,7 @@ function validatePersonalInfoOnSave($personalInfo)
 
 		if(!hasOnlyNumbers($personalInfo['T_phone_number']))
 		{
-			$message.="Please Enter Valid phone number. Enter Only Numbers.\\n";
+			$message.="Please Enter Valid phone number. Enter Only Numbers.<br/>";
 		}
 		/*else
 		{
@@ -320,7 +320,7 @@ function validatePersonalInfoOnSave($personalInfo)
 	{
 		if(!hasOnlyNumbers($personalInfo['T_mobile_number']))
 		{
-			$message.="Please Enter Valid mobile number. Enter Only Numbers.\\n";
+			$message.="Please Enter Valid mobile number. Enter Only Numbers.<br/>";
 		}
 		/*else
 		{
@@ -328,7 +328,7 @@ function validatePersonalInfoOnSave($personalInfo)
 		}*/
 		if($personalInfo['mobileCountryCode']=="")
 		{
-			$message.="Country Code for Mobile Number Is Compulsory.\\n";
+			$message.="Country Code for Mobile Number Is Compulsory.<br/>";
 		}
 		else if(!hasOnlyNumbers($personalInfo['mobileCountryCode']))
 		{
@@ -345,7 +345,7 @@ function validatePersonalInfoOnSave($personalInfo)
 	{
 		if(!hasOnlyCharacters('0-9-',$personalInfo['P_pincode']))
 		{
-			$message.="Enter Valid Pincode in Permanent Address.\\n";
+			$message.="Enter Valid Pincode in Permanent Address.<br/>";
 		}
 		/*else
 		{
@@ -357,7 +357,7 @@ function validatePersonalInfoOnSave($personalInfo)
 	{
 		if(!hasOnlyNumbers($personalInfo['P_phone_number']))
 		{
-			$message.="Enter valid phone number in Permanent Address. Enter Only Numbers.\\n";
+			$message.="Enter valid phone number in Permanent Address. Enter Only Numbers.<br/>";
 		}
 		/*else
 		{
@@ -369,7 +369,7 @@ function validatePersonalInfoOnSave($personalInfo)
 	{
 		if(!hasOnlyNumbers($personalInfo['P_mobile_number']))
 		{
-			$message.="Enter Valid mobile number in Permanent Address. Enter Only Numbers.\\n";
+			$message.="Enter Valid mobile number in Permanent Address. Enter Only Numbers.<br/>";
 		}
 		/*else
 		{
@@ -377,7 +377,7 @@ function validatePersonalInfoOnSave($personalInfo)
 		}*/
 		if($personalInfo['alternateMobileCountryCode']=="")
 		{
-			$message.="Country Code for Alternate Mobile Number Is Compulsory.\\n";
+			$message.="Country Code for Alternate Mobile Number Is Compulsory.<br/>";
 		}
 		else if(!hasOnlyNumbers($personalInfo['alternateMobileCountryCode']))
 		{
@@ -397,239 +397,239 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 	if(trim($qualificationsInfo["univ_10"])!=''){
 		$univName_10 = $qualificationsInfo["univ_10"];
 		if(!hasOnlyAlphabets($univName_10)){
-			$message = $message."Enter the valid class 10 Board name. Only Alphabhets.\\n";
+			$message = $message."Enter the valid class 10 Board name. Only Alphabhets.<br/>";
 		}
 	}
 	//var_dump($qualificationsInfo["grade_10"]);
 	if(($qualificationsInfo["grade_10"]!='MAR-100') && ($qualificationsInfo["grade_10"]!='CGP-10') && ($qualificationsInfo["grade_10"]!='CPI-4') && ($qualificationsInfo["grade_10"]!='CPI-8') ){
-		$message = $message."Enter valid 10th Evalution of marks.\\n";
+		$message = $message."Enter valid 10th Evalution of marks.<br/>";
 	}
 	if(trim($qualificationsInfo["marks_10"])!=''){
 		//var_dump($qualificationsInfo["marks_10"]);
 		$marks_10 = $qualificationsInfo["marks_10"];
 		if(!isValidPercentage($marks_10)){
-			$message = $message."Enter valid percentage for class 10.\\n";
+			$message = $message."Enter valid percentage for class 10.<br/>";
 		}
 	}
 	if(trim($qualificationsInfo["year_10"])!=''){
 		$passYear_10 = $qualificationsInfo["year_10"];
 		if(!hasOnlyNumbers($passYear_10)){
-			$message = $message."Enter valid year of passsing for class 10th.\\n";
+			$message = $message."Enter valid year of passsing for class 10th.<br/>";
 		}
 	}
 	/*********  CLASS 12 Validation  ************/
 	if(trim($qualificationsInfo["univ_12"])!=''){
 		$univName_12 = $qualificationsInfo["univ_12"];
 		if(!hasOnlyAlphabets($univName_12)){
-			$message = $message."Enter the valid class 12th Board name. Only Alphabhets.\\n";
+			$message = $message."Enter the valid class 12th Board name. Only Alphabhets.<br/>";
 		}
 	}
 	if(($qualificationsInfo["grade_12"]!='MAR-100') && ($qualificationsInfo["grade_12"]!='CGP-10') && ($qualificationsInfo["grade_12"]!='CPI-4') && ($qualificationsInfo["grade_12"]!='CPI-8') ){
-		$message = $message."Enter valid Evalution of marks for class 12th.\\n";
+		$message = $message."Enter valid Evalution of marks for class 12th.<br/>";
 	}
 	if($qualificationsInfo["marks_12"]!=''){
 		$marks_12 = $qualificationsInfo["marks_12"];
 		if(!isValidPercentage($marks_12)){
-			$message = $message."Enter valid percentage for class 12.\\n";
+			$message = $message."Enter valid percentage for class 12.<br/>";
 		}
 	}
 	if($qualificationsInfo["year_12"]!=''){
 		$passYear_12 = $qualificationsInfo["year_12"];
 		if(!hasOnlyNumbers($passYear_12)){
-			$message = $message."Enter valid year of passsing for Board 12.\\n";
+			$message = $message."Enter valid year of passsing for Board 12.<br/>";
 		}
 	}
 	/************ bachelor degree validation  ***************/
 	if(trim($qualificationsInfo["bd_univ"])!=''){
 		$bd_univName = $qualificationsInfo["bd_univ"];
 		if(!hasOnlyAlphabets($bd_univName)){
-			$message = $message."Enter the valid Bachelor Degree University name. Only Alphabhets.\\n";
+			$message = $message."Enter the valid Bachelor Degree University name. Only Alphabhets.<br/>";
 		}
 	}
 	if(trim($qualificationsInfo["bd_degree"])!=''){
 		$bd_degree = $qualificationsInfo["bd_degree"];
 		if(!hasOnlyAlphaNumerics($bd_degree)){
-			$message = $message."Enter the Valid Bachelor Degree Equivalent.\\n";
+			$message = $message."Enter the Valid Bachelor Degree Equivalent.<br/>";
 		}
 	}
 	if(($qualificationsInfo["bd_grade"]!='MAR-100') && ($qualificationsInfo["bd_grade"]!='CGP-10') && ($qualificationsInfo["bd_grade"]!='CPI-4') && ($qualificationsInfo["bd_grade"]!='CPI-8') ){
-		$message = $message."Enter valid Evalution of marks for Bachelor degree.\\n";
+		$message = $message."Enter valid Evalution of marks for Bachelor degree.<br/>";
 	}
 	if($qualificationsInfo["bd_marks"]!=''){
 		$bd_marks = $qualificationsInfo["bd_marks"];
 		if(!isValidPercentage($bd_marks)){
-			$message = $message."Enter valid percentage for Bachelor Degree.\\n";
+			$message = $message."Enter valid percentage for Bachelor Degree.<br/>";
 		}
 	}
 	if($qualificationsInfo["bd_year"]!=''){
 		$passYear_bd = $qualificationsInfo["bd_year"];
 		if(!hasOnlyNumbers($passYear_bd)){
-			$message = $message."Enter valid year of passsing for Bachelor Degree.\\n";
+			$message = $message."Enter valid year of passsing for Bachelor Degree.<br/>";
 		}
 	}
 	/**************  Masters degree validation  ****************/
 	if(trim($qualificationsInfo["pg_univ"])!=''){
 		$pg_univName = $qualificationsInfo["pg_univ"];
 		if(!hasOnlyAlphabets($pg_univName)){
-			$message = $message."Enter the valid Masters Degree University name. Only Alphabhets.\\n";
+			$message = $message."Enter the valid Masters Degree University name. Only Alphabhets.<br/>";
 		}
 	}
 	if(trim($qualificationsInfo["pg_degree"])!=''){
 		$pg_degree = $qualificationsInfo["pg_degree"];
 		if(!hasOnlyAlphaNumerics($pg_degree)){
-			$message = $message."Enter the Valid Masters Degree Equivalent.\\n";
+			$message = $message."Enter the Valid Masters Degree Equivalent.<br/>";
 		}
 	}
 	if(($qualificationsInfo["pg_grade"]!='MAR-100') && ($qualificationsInfo["pg_grade"]!='CGP-10') && ($qualificationsInfo["pg_grade"]!='CPI-4') && ($qualificationsInfo["pg_grade"]!='CPI-8') ){
-		$message = $message."Enter valid Evalution of marks for Masters degree.\\n";
+		$message = $message."Enter valid Evalution of marks for Masters degree.<br/>";
 	}
 	if($qualificationsInfo["pg_marks"]!=''){
 		$pg_marks = $qualificationsInfo["pg_marks"];
 		if(!isValidPercentage($pg_marks)){
-			$message = $message."Enter valid percentage for Masters Degree.\\n";
+			$message = $message."Enter valid percentage for Masters Degree.<br/>";
 		}
 	}
 	if($qualificationsInfo["pg_year"]!=''){
 		$passYear_pg = $qualificationsInfo["pg_year"];
 		if(!hasOnlyNumbers($passYear_pg)){
-			$message = $message."Enter valid year of passsing for masters degree.\\n";
+			$message = $message."Enter valid year of passsing for masters degree.<br/>";
 		}
 	}
 	/**************   Other degree validation  ********************/
 /*	if(trim($qualificationsInfo["o_univ"])!=''){
 		$o_univName = $qualificationsInfo["o_univ"];
 		if(!hasOnlyAlphabets($o_univName)){
-			$message = $message."Enter the valid others Degree University name. Only Alphabhets.\\n";
+			$message = $message."Enter the valid others Degree University name. Only Alphabhets.<br/>";
 		}
 	}
 	if(trim($qualificationsInfo["o_degree"])!=''){
 		$o_degree = $qualificationsInfo["o_degree"];
 		if(!hasOnlyAlphaNumerics($o_degree)){
-			$message = $message."Enter the Valid others Degree Equivalent.\\n";
+			$message = $message."Enter the Valid others Degree Equivalent.<br/>";
 		}
 	}
 	if(($qualificationsInfo["o_grade"]!='MAR-100') && ($qualificationsInfo["o_grade"]!='CGP-10') && ($qualificationsInfo["o_grade"]!='CPI-4') && ($qualificationsInfo["o_grade"]!='CPI-8') ){
-		$message = $message."Enter valid Evalution of marks for others.\\n";
+		$message = $message."Enter valid Evalution of marks for others.<br/>";
 	}
 	if($qualificationsInfo["o_marks"]!=''){
 		$o_marks = $qualificationsInfo["o_marks"];
 		if(!isValidPercentage($o_marks)){
-			$message = $message."Enter valid percentage for other Degree.\\n";
+			$message = $message."Enter valid percentage for other Degree.<br/>";
 		}
 	}
 	if($qualificationsInfo["o_year"]!=''){
 		$passYear_o = $qualificationsInfo["o_year"];
 		if(!hasOnlyNumbers($passYear_o)){
-			$message = $message."Enter valid year of passsing for other.\\n";
+			$message = $message."Enter valid year of passsing for other.<br/>";
 		}
 	}*/
 	/************* B.tech CGPA validation *************/
 /*	if($qualificationsInfo["bd_1"]!=''){
 		$bd_cgpa1 = $qualificationsInfo["bd_1"];
 		if(!isValidPercentage($bd_cgpa1)){
-			$message = $message."Enter valid percentage for B.E/B.tech I sem.\\n";
+			$message = $message."Enter valid percentage for B.E/B.tech I sem.<br/>";
 		}
 	}
 	if($qualificationsInfo["bd_2"]!=''){
 		$bd_cgpa2 = $qualificationsInfo["bd_2"];
 		if(!isValidPercentage($bd_cgpa1)){
-			$message = $message."Enter valid percentage for B.E/B.tech II sem.\\n";
+			$message = $message."Enter valid percentage for B.E/B.tech II sem.<br/>";
 		}
 	}
 	if($qualificationsInfo["bd_3"]!=''){
 		$bd_cgpa3 = $qualificationsInfo["bd_3"];
 		if(!isValidPercentage($bd_cgpa1)){
-			$message = $message."Enter valid percentage for B.E/B.tech III sem.\\n";
+			$message = $message."Enter valid percentage for B.E/B.tech III sem.<br/>";
 		}
 	}
 	if($qualificationsInfo["bd_4"]!=''){
 		$bd_cgpa4 = $qualificationsInfo["bd_4"];
 		if(!isValidPercentage($bd_cgpa1)){
-			$message = $message."Enter valid percentage for B.E/B.tech IV sem.\\n";
+			$message = $message."Enter valid percentage for B.E/B.tech IV sem.<br/>";
 		}
 	}
 	if($qualificationsInfo["bd_5"]!=''){
 		$bd_cgpa5 = $qualificationsInfo["bd_5"];
 		if(!isValidPercentage($bd_cgpa1)){
-			$message = $message."Enter valid percentage for B.E/B.tech V sem.\\n";
+			$message = $message."Enter valid percentage for B.E/B.tech V sem.<br/>";
 		}
 	}
 	if($qualificationsInfo["bd_6"]!=''){
 		$bd_cgpa6 = $qualificationsInfo["bd_6"];
 		if(!isValidPercentage($bd_cgpa1)){
-			$message = $message."Enter valid percentage for B.E/B.tech VI sem.\\n";
+			$message = $message."Enter valid percentage for B.E/B.tech VI sem.<br/>";
 		}
 	}
 	if($qualificationsInfo["bd_7"]!=''){
 		$bd_cgpa7 = $qualificationsInfo["bd_7"];
 		if(!isValidPercentage($bd_cgpa1)){
-			$message = $message."Enter valid percentage for B.E/B.tech VII sem.\\n";
+			$message = $message."Enter valid percentage for B.E/B.tech VII sem.<br/>";
 		}
 	}
 	if($qualificationsInfo["bd_8"]!=''){
 		$bd_cgpa8 = $qualificationsInfo["bd_8"];
 		if(!isValidPercentage($bd_cgpa1)){
-			$message = $message."Enter valid percentage for B.E/B.tech VIII sem.\\n";
+			$message = $message."Enter valid percentage for B.E/B.tech VIII sem.<br/>";
 		}
 	}
 	if($qualificationsInfo["bd_9"]!=''){
 		$bd_cgpa9 = $qualificationsInfo["bd_9"];
 		if(!isValidPercentage($bd_cgpa1)){
-			$message = $message."Enter valid percentage for B.E/B.tech IX sem.\\n";
+			$message = $message."Enter valid percentage for B.E/B.tech IX sem.<br/>";
 		}
 	}
 	if($qualificationsInfo["bd_10"]!=''){
 		$bd_cgpa10 = $qualificationsInfo["bd_10"];
 		if(!isValidPercentage($bd_cgpa1)){
-			$message = $message."Enter valid percentage for B.E/B.tech X sem.\\n";
+			$message = $message."Enter valid percentage for B.E/B.tech X sem.<br/>";
 		}
 	}*/
 /*	if($qualificationsInfo["bd_agr"]!=''){
 		$bd_cgpaagr = $qualificationsInfo["bd_agr"];
 		if(!isValidPercentage($bd_cgpaagr)){
-			$message = $message."Enter valid aggregate percentage for B.E/B.tech.\\n";
+			$message = $message."Enter valid aggregate percentage for B.E/B.tech.<br/>";
 		}
 	}*/
 /*	if(trim($qualificationsInfo["bd_class"])!=''){
 		$bd_agrclass = $qualificationsInfo["bd_class"];
 		if(!hasOnlyAlphaNumerics($bd_agrclass)){
-			$message = $message."Enter valid class for B.E/B.tech.\\n";
+			$message = $message."Enter valid class for B.E/B.tech.<br/>";
 		}
 	}
 	if($qualificationsInfo["md_1"]!=''){
 		$md_cgpa1 = $qualificationsInfo["md_1"];
 		if(!isValidPercentage($md_cgpa1)){
-			$message = $message."Enter valid aggregate percentage for M.E/M.tech.\\n";
+			$message = $message."Enter valid aggregate percentage for M.E/M.tech.<br/>";
 		}
 	}
 	if($qualificationsInfo["md_2"]!=''){
 		$md_cgpa2 = $qualificationsInfo["md_2"];
 		if(!isValidPercentage($md_cgpa2)){
-			$message = $message."Enter valid aggregate percentage for M.E/M.tech.\\n";
+			$message = $message."Enter valid aggregate percentage for M.E/M.tech.<br/>";
 		}
 	}
 	if($qualificationsInfo["md_3"]!=''){
 		$md_cgpa3 = $qualificationsInfo["md_3"];
 		if(!isValidPercentage($md_cgpa3)){
-			$message = $message."Enter valid aggregate percentage for M.E/M.tech.\\n";
+			$message = $message."Enter valid aggregate percentage for M.E/M.tech.<br/>";
 		}
 	}
 	if($qualificationsInfo["md_4"]!=''){
 		$md_cgpa4 = $qualificationsInfo["md_4"];
 		if(!isValidPercentage($md_cgpa4)){
-			$message = $message."Enter valid aggregate percentage for M.E/M.tech.\\n";
+			$message = $message."Enter valid aggregate percentage for M.E/M.tech.<br/>";
 		}
 	}*/
 /*	if($qualificationsInfo["md_agr"]!=''){
 		$md_cgpaagr = $qualificationsInfo["md_agr"];
 		if(!isValidPercentage($md_cgpaagr)){
-			$message = $message."Enter valid aggregate percentage for M.E/M.tech.\\n";
+			$message = $message."Enter valid aggregate percentage for M.E/M.tech.<br/>";
 		}
 	}
 	if(trim($qualificationsInfo["md_class"])!=''){
 		$md_agrClass = $qualificationsInfo["md_class"];
 		if(!hasOnlyAlphaNumerics($md_agrClass)){
-			$message = $message."Enter valid aggregate percentage for M.E/M.tech.\\n";
+			$message = $message."Enter valid aggregate percentage for M.E/M.tech.<br/>";
 		}
 	}*/
 
@@ -647,7 +647,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['org_1']))
 		{
-			$message.="Enter a Valid Organisation name. Only Alphanumerics are Allowed in Work Experience 1.\\n";
+			$message.="Enter a Valid Organisation name. Only Alphanumerics are Allowed in Work Experience 1.<br/>";
 		}
 	}
 
@@ -655,7 +655,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphabets($experienceInfo['des_1']))
 		{
-			$message.="Enter A valid Designation. Only Alphabets are Allowed in Work Experience 1.\\n";
+			$message.="Enter A valid Designation. Only Alphabets are Allowed in Work Experience 1.<br/>";
 		}
 	}
 
@@ -663,7 +663,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['per_1']))
 		{
-			$message.="Enter A valid Experience Period. Only Alpha Numerics are Allowed in Work Experience 1.\\n";
+			$message.="Enter A valid Experience Period. Only Alpha Numerics are Allowed in Work Experience 1.<br/>";
 		}
 	}
 
@@ -671,7 +671,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['work_1']))
 		{
-			$message.="Only Alpha Numerics are allowed in Nature Of work in work Experience 1.\\n";
+			$message.="Only Alpha Numerics are allowed in Nature Of work in work Experience 1.<br/>";
 		}
 	}
 
@@ -683,7 +683,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['org_2']))
 		{
-			$message.="Enter a Valid Organisation name. Only Alphanumerics are Allowed in Work Experience 2.\\n";
+			$message.="Enter a Valid Organisation name. Only Alphanumerics are Allowed in Work Experience 2.<br/>";
 		}
 	}
 
@@ -691,7 +691,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphabets($experienceInfo['des_2']))
 		{
-			$message.="Enter A valid Designation. Only Alphabets are Allowed in Work Experience 2.\\n";
+			$message.="Enter A valid Designation. Only Alphabets are Allowed in Work Experience 2.<br/>";
 		}
 	}
 
@@ -699,7 +699,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['per_2']))
 		{
-			$message.="Enter A valid Experience Period. Only Alpha Numerics are Allowed in Work Experience 2.\\n";
+			$message.="Enter A valid Experience Period. Only Alpha Numerics are Allowed in Work Experience 2.<br/>";
 		}
 	}
 
@@ -707,7 +707,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['work_2']))
 		{
-			$message.="Only Alpha Numerics are allowed in Nature Of work in work Experience 2.\\n";
+			$message.="Only Alpha Numerics are allowed in Nature Of work in work Experience 2.<br/>";
 		}
 	}
 
@@ -717,7 +717,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['org_3']))
 		{
-			$message.="Enter a Valid Organisation name. Only Alphanumerics are Allowed in Work Experience 3.\\n";
+			$message.="Enter a Valid Organisation name. Only Alphanumerics are Allowed in Work Experience 3.<br/>";
 		}
 	}
 
@@ -725,7 +725,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphabets($experienceInfo['des_3']))
 		{
-			$message.="Enter A valid Designation. Only Alphabets are Allowed in Work Experience 3.\\n";
+			$message.="Enter A valid Designation. Only Alphabets are Allowed in Work Experience 3.<br/>";
 		}
 	}
 
@@ -733,7 +733,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['per_3']))
 		{
-			$message.="Enter A valid Experience Period. Only Alpha Numerics are Allowed in Work Experience 3.\\n";
+			$message.="Enter A valid Experience Period. Only Alpha Numerics are Allowed in Work Experience 3.<br/>";
 		}
 	}
 
@@ -741,7 +741,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['work_3']))
 		{
-			$message.="Only Alpha Numerics are allowed in Nature Of work in work Experience 3.\\n";
+			$message.="Only Alpha Numerics are allowed in Nature Of work in work Experience 3.<br/>";
 		}
 	}
 
@@ -751,7 +751,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['org_4']))
 		{
-			$message.="Enter a Valid Organisation name. Only Alphanumerics are Allowed in Work Experience 4.\\n";
+			$message.="Enter a Valid Organisation name. Only Alphanumerics are Allowed in Work Experience 4.<br/>";
 		}
 	}
 
@@ -759,7 +759,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphabets($experienceInfo['des_4']))
 		{
-			$message.="Enter A valid Designation. Only Alphabets are Allowed in Work Experience 4.\\n";
+			$message.="Enter A valid Designation. Only Alphabets are Allowed in Work Experience 4.<br/>";
 		}
 	}
 
@@ -767,7 +767,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['per_4']))
 		{
-			$message.="Enter A valid Experience Period. Only Alpha Numerics are Allowed in Work Experience 4.\\n";
+			$message.="Enter A valid Experience Period. Only Alpha Numerics are Allowed in Work Experience 4.<br/>";
 		}
 	}
 
@@ -775,7 +775,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['work_4']))
 		{
-			$message.="Only Alpha Numerics are allowed in Nature Of work in work Experience 4.\\n";
+			$message.="Only Alpha Numerics are allowed in Nature Of work in work Experience 4.<br/>";
 		}
 	}
 
@@ -785,7 +785,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['org_5']))
 		{
-			$message.="Enter a Valid Organisation name. Only Alphanumerics are Allowed in Work Experience 5.\\n";
+			$message.="Enter a Valid Organisation name. Only Alphanumerics are Allowed in Work Experience 5.<br/>";
 		}
 	}
 
@@ -793,7 +793,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphabets($experienceInfo['des_5']))
 		{
-			$message.="Enter A valid Designation. Only Alphabets are Allowed in Work Experience 5.\\n";
+			$message.="Enter A valid Designation. Only Alphabets are Allowed in Work Experience 5.<br/>";
 		}
 	}
 
@@ -801,7 +801,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['per_5']))
 		{
-			$message.="Enter A valid Experience Period. Only Alpha Numerics are Allowed in Work Experience 5.\\n";
+			$message.="Enter A valid Experience Period. Only Alpha Numerics are Allowed in Work Experience 5.<br/>";
 		}
 	}
 
@@ -809,7 +809,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['work_5']))
 		{
-			$message.="Only Alpha Numerics are allowed in Nature Of work in work Experience 5.\\n";
+			$message.="Only Alpha Numerics are allowed in Nature Of work in work Experience 5.<br/>";
 		}
 	}*/
 

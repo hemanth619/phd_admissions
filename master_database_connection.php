@@ -4,7 +4,7 @@
 
 	$serverName = 'localhost';
 	$userName = 'root';
-	$password = 'root';
+	$password = 'isquarer';
 	$masterDbName = "phd_admission_master";
 
 	// Create connection
