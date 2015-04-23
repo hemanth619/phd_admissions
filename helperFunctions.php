@@ -386,6 +386,13 @@ function validatePersonalInfoOnSave($personalInfo)
 		}
 	}
 
+	if($personalInfo['typeOfTransaction']!='dd'&&$personalInfo['typeOfTransaction']!='onlineTransfer')
+	{
+		$message.="Enter A Valid Mode Of Payment.<br/>";
+	}
+
+	
+
 	
 		return $message;
 	

@@ -680,6 +680,27 @@ session_start();
 											</td>
 										</tr>
 									</table>
+									<table>
+										<tr>
+											<td>
+												Type of Transaction<font color=red>&nbsp;*</font>&nbsp;:
+											</td>
+											<td>
+												<p>
+													<input type="radio" name="typeOfTransaction" checked class="with-gap" value='dd'<?php if(isset($typeOfTransaction)&&$typeOfTransaction=='dd') echo 'checked="checked"'; ?> id="dd" /><label for="dd">Demand Draft</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											       <input type="radio" name="typeOfTransaction" class="with-gap" value='onlineTransfer'<?php if(isset($typeOfTransaction)&&$typeOfTransaction=='onlineTransfer') echo 'checked="checked"'; ?> id="onlineTransfer" /><label for="onlineTransfer">Online Transfer</label>
+												</p>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												DD/UTR NO<font color=red>&nbsp;*</font>&nbsp;:
+											</td>
+											<td><div class="input-field row col s8">
+												<input name="transactionNo" placeholder="Transaction No" type="text" id="dd_utr_no" size="50" value="<?php if(isset($dd_utr_no)) echo $dd_utr_no ;?>" length="50" onkeypress="return isAlphaNumeric(event,errorDDno);" /></div><span id="errorDDno" style="color: Red; display: none">* Special Characters are not allowed</span>
+											</td>
+										</tr>
+									</table>
 								</div>
 							</div>
 						</div>

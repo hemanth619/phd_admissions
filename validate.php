@@ -145,7 +145,7 @@ else
 		$P_mobile_number = $personalInfo['alternateMobileNumber'];
 		$tstate=$personalInfo['currentState'];
 		$pstate=$personalInfo['permanentState'];
-
+		$transactionNo=$personalInfo['transactionNo'];
 		//var_dump($personalInfo);
 	}
 
@@ -166,7 +166,7 @@ else
 	<body>
 	<?php
 
-	if(!isset($Full_Name) || !isset($gender) || !isset($dob)  || !isset($fname)  || !isset($nation) || !isset($marital) || !isset($pc) || !isset($com) || !isset($pemail)  || !isset($Temp_Address) || !isset($T_District) || !isset($tstate) || !isset($T_pincode)  || !isset($perm_Address) || !isset($P_District) || !isset($pstate) || !isset($P_pincode))
+	if(!isset($Full_Name) || !isset($gender) || !isset($dob)  || !isset($fname)  || !isset($nation) || !isset($marital) || !isset($pc) || !isset($com) || !isset($pemail)  || !isset($Temp_Address) || !isset($T_District) || !isset($tstate) || !isset($T_pincode)  || !isset($perm_Address) || !isset($P_District) || !isset($pstate) || !isset($P_pincode) || !isset($transactionNo))
 	{
 		echo '<a href="forms.php">Personal Information</a> not saved. Please save the information before you submit.';
 		echo '</head> <body></body></html>'; 
@@ -195,7 +195,7 @@ else
 
 
 
-	if($Full_Name=="" || $gender=="" || ($dob=='1970-01-01')  || $fname==""  || $nation="" || $marital=="" || $pc=="" || ($com=="") || ($pemail=="")  || ($Temp_Address=="") || ($T_District=="") || ($tstate=="") || ($T_pincode=="")  ||($perm_Address=="") || ($P_District=="") || ($pstate=="") || ($P_pincode==""))
+	if($Full_Name=="" || $gender=="" || ($dob=='1970-01-01')  || $fname==""  || $nation="" || $marital=="" || $pc=="" || ($com=="") || ($pemail=="")  || ($Temp_Address=="") || ($T_District=="") || ($tstate=="") || ($T_pincode=="")  ||($perm_Address=="") || ($P_District=="") || ($pstate=="") || ($P_pincode=="" || $transactionNo==""))
 	{
 		    echo "<br />";
 			echo '<center><span style="font-size: 24px;"><a href="forms.php">Some fields are empty in personal information. Make sure you have filled in all the required fields.</a></span></center>';
