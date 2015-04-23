@@ -196,6 +196,7 @@ function isValidPercentage($string)
 		return false;
 }
 
+
 //if($_POST["Full_Name"]!="" || $_POST["gender"]!="" || $_POST["date1"] !=""  || $_POST["fname"]!="" || $_POST["Nationality"]!="" || $_POST["Marital_status"]!="" || $_POST["Physically_challenged"]!="" || $_POST["community"]!="" || $_POST["pemail"]!="" || $_POST["aemail"]!="" || $_POST["Temp_Address"]!="" || $_POST["T_District"]!="" || $_POST["T_state"]!="" || $_POST["T_pincode"]!="" || $_POST["T_phone_number"]!="" ||$_POST["T_mobile_number"]!="" || $_POST["perm_Address"]!="" || $_POST["P_District"]!="" || $_POST["P_state"]!="" || $_POST["P_pincode"]!="" || $_POST["P_phone_number"]!="" ||$_POST["P_mobile_number"]!="")
 function validatePersonalInfoOnSave($personalInfo)
 {
@@ -419,23 +420,23 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 		}
 		else if($qualificationsInfo['grade_10']=='CGP-10')
 		{
-			if(!isValidPercentage($marks_10))
+			if(!(isValidPercentage($marks_10)&&$marks_10<=10))
 			{
-				$message = $message."Enter valid percentage for class 10.<br/>";
+				$message = $message."Enter valid CGPA/10 for class 10.<br/>";
 			}
 		}
 		else if($qualificationsInfo['grade_10']=='CPI-8')
 		{
-			if(!isValidPercentage($marks_10))
+			if(!(isValidPercentage($marks_10)&&$marks_10<=8))
 			{
-				$message = $message."Enter valid percentage for class 10.<br/>";
+				$message = $message."Enter valid CPI/8 for class 10.<br/>";
 			}
 		}
 		else if($qualificationsInfo['grade_10']=='CPI-4')
 		{
-			if(!isValidPercentage($marks_10))
+			if(!(isValidPercentage($marks_10)&&$marks_10<=4))
 			{
-				$message = $message."Enter valid percentage for class 10.<br/>";
+				$message = $message."Enter valid CPI/4 for class 10.<br/>";
 			}
 		}
 		
