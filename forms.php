@@ -791,13 +791,14 @@ session_start();
 						</div>
 						</form>
 					</div>
+					<div style="margin-top: -62px !important;" class="row col s3 offset-s6">
 				<form action = "validate.php" method="POST"> 
-						<div class="col s3">
+						
 							<button class="btn waves-effect waves-light" type="submit" name="Submit" value="Submit">Submit
 								<i class="mdi-content-send right"></i>
 							</button>
-						</div>
 				</form>
+				</div>
 				</div>
 			</div>
 			<div id="navtopbottom" class="col s1 center">

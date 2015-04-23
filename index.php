@@ -6,7 +6,7 @@
 <?php include 'header.php' ?>
 </head>
 <body>
-    
+<?php require_once("header_logo.php"); ?>
 <ul id="nav">
     <?php include 'menu.php' ?>
 </ul>
