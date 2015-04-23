@@ -1,8 +1,6 @@
 <?PHP
 session_start();
 	include_once('db.php');
-	require_once('QOB/qob.php');
-	require_once('backendFunctions.php');
 	/*require_once("./include/membersite_config.php");
 	if(!$fgmembersite->CheckLogin())
 	{
@@ -15,7 +13,7 @@ session_start();
 		displayAlert("Please Login to continue");
 		RedirectToURL("login.php");
 	}
-	//var_dump($_FILES);
+	var_dump($_FILES);
 ?>
 
 <!DOCTYPE html">
@@ -689,12 +687,6 @@ session_start();
 										<td><input type="text" name="per_2" value="<?php if(isset($per_2)) echo $per_2;?>" length="10" onkeypress="return isAlphaNumeric(event,errorPeriod);" ></td>
 										<td><input type="text" name="work_2" value="<?php if(isset($work_2)) echo $work_2;?>" length="45" onkeypress="return isAlpha(event,errorOrg);" ></td>
 									</tr>
-									<tr>
-										<td><input type="text" name="org_3" value="<?php if(isset($org_3)) echo $org_3;?>" length="95" onkeypress="return isAlphaNumeric(event,errorOrg);"></td>
-										<td><input type="text" name="des_3" value="<?php if(isset($des_3)) echo $des_3;?>" length="75" onkeypress="return isAlpha(event,errorOrg);" ></td>
-										<td><input type="text" name="per_3" value="<?php if(isset($per_3)) echo $per_3;?>" length="10" onkeypress="return isAlphaNumeric(event,errorPeriod);" ></td>
-										<td><input type="text" name="work_3" value="<?php if(isset($work_3)) echo $work_3;?>" length="45" onkeypress="return isAlpha(event,errorOrg);" ></td>
-									</tr>
 								</table> 
 					    	</div>
 						</div>
@@ -711,7 +703,6 @@ session_start();
 								</small><br>
 								<small><font color=red>3)File name is according to the uploaded file name. </font></small><br><br>
 								<table>
-
 									<tr>
 										<td>
 											<?php 
@@ -746,6 +737,27 @@ session_start();
 												// </script>';
 											}
 											?>
+										</td>
+									</tr>
+								</table>
+								<table>
+									<tr>
+										<td>
+											Type of Transaction<font color=red>&nbsp;*</font>&nbsp;:
+										</td>
+										<td>
+											<p>
+												<input type="radio" name="typeOfTransaction" checked class="with-gap" value='dd'<?php if(isset($typeOfTransaction)&&$typeOfTransaction=='dd') echo 'checked="checked"'; ?> id="dd" /><label for="dd">Demand Draft</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										        <input type="radio" name="typeOfTransaction" class="with-gap" value='onlineTransfer'<?php if(isset($typeOfTransaction)&&$typeOfTransaction=='onlineTransfer') echo 'checked="checked"'; ?> id="onlineTransfer" /><label for="onlineTransfer">Online Transfer</label>
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											DD/UTR NO<font color=red>&nbsp;*</font>&nbsp;:
+										</td>
+										<td><div class="input-field row col s8">
+											<input name="dd_utr_no" placeholder="Transaction No" type="text" id="dd_utr_no" size="50" value="<?php if(isset($dd_utr_no)) echo $dd_utr_no ;?>" length="50" onkeypress="return isAlphaNumeric(event,errorDDno);" /></div><span id="errorDDno" style="color: Red; display: none">* Special Characters are not allowed</span>
 										</td>
 									</tr>
 								</table>
