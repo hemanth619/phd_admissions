@@ -1,13 +1,22 @@
 <?PHP
+session_start();
 include('db.php');
-require_once("./include/membersite_config.php");
+require_once("QOB/qob.php");
+/*require_once("./include/membersite_config.php");
 
 if(!$fgmembersite->CheckLogin())
 {
     $fgmembersite->RedirectToURL("login.php");
     exit;
-}
+}*/
 
+require_once('backendFunctions.php');
+if(!isset($_SESSION['userId']))
+{
+    RedirectToURL("login.php");
+    exit();
+}
+$userId=$_SESSION['userId'];
 ?>
 <?php
 require("fpdf/fpdf.php");
@@ -51,7 +60,6 @@ $pdf->Line(15,15,15,285);
 $pdf->Line(195,15,195,285);
 $pdf->Line(15,285,195,285);
 
-$t1 = $fgmembersite->UserFullName();
 
 
 
@@ -66,7 +74,7 @@ $t1 = $fgmembersite->UserFullName();
         $Full_Name = $row['fullName'];
         $gender = $row['gender'];
         $dob = $row['dob'];
-        $nationality = $row['Nationality'];
+        $nationality = $row['nationality'];
         $community = $row['community'];
         $fname = $row['fatherName'];
         $pemail = $row['primaryEmail'];
@@ -84,6 +92,8 @@ $t1 = $fgmembersite->UserFullName();
         //$P_phone_number = $row['P_phone_number'];
         $P_mobile_number = $row['alternateMobileNumber'];
     }
+    $t1 = $Full_Name;
+
 	
 $sql3="select discipline,mode from registered_users where userId='$userId'";
 $result3=mysql_query($sql3) or die(mysql_error());
@@ -188,11 +198,11 @@ $pdf->Cell(2*strlen($head),10,$head,0,1);
 $pdf->SetFont('Arial');
 $pdf->Cell(10,10,$Temp_Address.",".$T_District."-".$T_pincode.",".$T_state);
 $pdf->Ln();
-$head = 'Phone : ';
-$pdf->Cell(2*strlen($head),10,$head,0,0);
-$pdf->Cell(10,10,$T_phone_number);
-//$pdf->Ln();
-$pdf->Cell(30);
+// $head = 'Phone : ';
+// $pdf->Cell(2*strlen($head),10,$head,0,0);
+// $pdf->Cell(10,10,$T_phone_number);
+// //$pdf->Ln();
+// $pdf->Cell(30);
 $head = 'Email : ';
 $pdf->Cell(2*strlen($head),10,$head,0,0);
 $pdf->Cell(10,10,$pemail);
@@ -205,11 +215,11 @@ $pdf->Cell(2*strlen($head),10,$head,0,1);
 $pdf->SetFont('Arial');
 $pdf->Cell(10,10,$perm_Address.",".$P_District."-".$P_pincode.",".$P_state);
 $pdf->Ln();
-$head = 'Phone : ';
-$pdf->Cell(2*strlen($head),10,$head,0,0);
-$pdf->Cell(10,10,$P_phone_number);
-//$pdf->Ln();
-$pdf->Cell(30);
+// $head = 'Phone : ';
+// $pdf->Cell(2*strlen($head),10,$head,0,0);
+// $pdf->Cell(10,10,$P_phone_number);
+// //$pdf->Ln();
+// $pdf->Cell(30);
 $head = ' Alternate Email : ';
 $pdf->Cell(2*strlen($head),10,$head,0,0);
 $pdf->Cell(10,10,$aemail);
@@ -220,7 +230,7 @@ $pdf->Ln();
 //***********END OF FORM1***********
 
 //**************FORM-2**********
-$sql1 = "select * from qualifications where user_key='$t1'";
+$sql1 = "select * from qualifications where userId='$userId'";
  // $sql1="insert into personal_info(App_no) values ('$temp')";
   $result1=mysql_query($sql1) or die(mysql_error());
   if(!$result1||mysql_num_rows($result1)<1){//echo 'empty result';

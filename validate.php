@@ -241,7 +241,7 @@ else
 		}
 
 	
-		if($personalInfo['gender']!='Male'||$personalInfo['gender']!='Female')
+		if($personalInfo['gender']!='Male' && $personalInfo['gender']!='Female')
 		{
 			$message.='Enter Gender\\n';
 		}
@@ -275,19 +275,23 @@ else
 	
 	
 	
-		$check=true;
-		if(!(filter_var($personalInfo['alternateEmail'], FILTER_VALIDATE_EMAIL)))
+		//$check=true;
+		if($personalInfo['alternateEmail']!='')
 		{
-			$message.="Enter a valid Alternate Email Address.\\n";
-			$check=false;
-		}
+			if(!(filter_var($personalInfo['alternateEmail'], FILTER_VALIDATE_EMAIL)))
+			{
+				$message.="Enter a valid Alternate Email Address.\\n";
+				//$check=false;
+			}
 
 
-		if($personalInfo['primaryEmail']==$personalInfo['alternateEmail'])
-		{
-			$message.="Primary and Alternate Email Can't be same. Fill in different one else leave it.\\n";
-			$check=false;
+			if($personalInfo['primaryEmail']==$personalInfo['alternateEmail'])
+			{
+				$message.="Primary and Alternate Email Can't be same. Fill in different one else leave it.\\n";
+				//$check=false;
+			}
 		}
+		
 
 	
 		if(!hasOnlyCharacters('0-9-',$personalInfo['currentPincode']))
@@ -519,9 +523,9 @@ else
 			$message = $message."Enter the valid class 10 Board name. Only Alphabhets.\\n";
 		}
 	
-		if(($qualificationsInfo["10_gradeFormat"]!='% out of 100') && ($qualificationsInfo["10_gradeFormat"]!='CGPA out of 10') && ($qualificationsInfo["10_gradeFormat"]!='CPI out of 4') && ($qualificationsInfo["10_gradeFormat"]!='CPI out of 8') )
+		if(($qualificationsInfo["10_gradeFormat"]!='MAR-100') && ($qualificationsInfo["10_gradeFormat"]!='CGP-10') && ($qualificationsInfo["10_gradeFormat"]!='CPI-4') && ($qualificationsInfo["10_gradeFormat"]!='CPI-8') )
 		{
-			$message = $message."Enter valid 10th Evalution of marks.\\n";
+			$message = $message."Enter valid Grading Format for 10th or Equivalent Degree.\\n";
 		}
 	
 		$marks_10 = $qualificationsInfo["10_aggregate"];
@@ -545,9 +549,9 @@ else
 			$message = $message."Enter the valid class 12th Board name. Only Alphabhets.\\n";
 		}
 	
-		if(($qualificationsInfo["12_gradeFormat"]!='% out of 100') && ($qualificationsInfo["12_gradeFormat"]!='CGPA out of 10') && ($qualificationsInfo["12_gradeFormat"]!='CPI out of 4') && ($qualificationsInfo["12_gradeFormat"]!='CPI out of 8') )
+		if(($qualificationsInfo["12_gradeFormat"]!='MAR-100') && ($qualificationsInfo["12_gradeFormat"]!='CGP-10') && ($qualificationsInfo["12_gradeFormat"]!='CPI-4') && ($qualificationsInfo["12_gradeFormat"]!='CPI-8') )
 		{
-			$message = $message."Enter valid Evalution of marks for class 12th.\\n";
+			$message = $message."Enter valid Grading Format for class 12th or Equivalent Degree.\\n";
 		}
 	
 		$marks_12 = $qualificationsInfo["12_aggregate"];
@@ -578,9 +582,9 @@ else
 			$message = $message."Enter the Valid Bachelor Degree Equivalent.\\n";
 		}
 	
-		if(($qualificationsInfo["ug_gradeFormat"]!='% out of 100') && ($qualificationsInfo["ug_gradeFormat"]!='CGPA out of 10') && ($qualificationsInfo["ug_gradeFormat"]!='CPI out of 4') && ($qualificationsInfo["ug_gradeFormat"]!='CPI out of 8') )
+		if(($qualificationsInfo["ug_gradeFormat"]!='MAR-100') && ($qualificationsInfo["ug_gradeFormat"]!='CGP-10') && ($qualificationsInfo["ug_gradeFormat"]!='CPI-4') && ($qualificationsInfo["ug_gradeFormat"]!='CPI-8') )
 		{
-			$message = $message."Enter valid Evalution of marks for Bachelor degree.\\n";
+			$message = $message."Enter valid Grading Format for Bachelor degree.\\n";
 		}
 	
 		// $bd_marks = $qualificationsInfo["bd_marks"];
@@ -610,9 +614,9 @@ else
 				$message = $message."Enter the Valid Masters Degree Equivalent.\\n";
 			}
 		}
-		if(($qualificationsInfo["pg_gradeFormat"]!='% out of 100') || ($qualificationsInfo["pg_gradeFormat"]!='CGPA out of 10') || ($qualificationsInfo["pg_gradeFormat"]!='CPI out of 4') || ($qualificationsInfo["pg_gradeFormat"]!='CPI out of 8') )
+		if(($qualificationsInfo["pg_gradeFormat"]!='MAR-100') && ($qualificationsInfo["pg_gradeFormat"]!='CGP-10') && ($qualificationsInfo["pg_gradeFormat"]!='CPI-4') && ($qualificationsInfo["pg_gradeFormat"]!='CPI-8') )
 		{
-			$message = $message."Enter valid Evalution of marks for Masters degree.\\n";
+			$message = $message."Enter valid Grade Format for Masters degree.\\n";
 		}
 		// if($qualificationsInfo["pg_marks"]!=''){
 		// 	$pg_marks = $qualificationsInfo["pg_marks"];
@@ -771,7 +775,7 @@ else
 
 		if($message=='')
 		{
-			$sql5 ="update registered_users set applicationSubmitStatus='1' where username='$t1'";
+			$sql5 ="update registered_users set applicationSubmitStatus='1' where userId='$userId'";
 		    $result4=mysql_query($sql5) or die(mysql_error());
 			echo "<script>
 				alert('Application submitted Succesfully');

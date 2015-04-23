@@ -1,6 +1,8 @@
 <?PHP
 session_start();
 	include_once('db.php');
+	require_once('QOB/qob.php');
+	require_once('backendFunctions.php');
 	/*require_once("./include/membersite_config.php");
 	if(!$fgmembersite->CheckLogin())
 	{
@@ -13,7 +15,7 @@ session_start();
 		displayAlert("Please Login to continue");
 		RedirectToURL("login.php");
 	}
-	var_dump($_FILES);
+	//var_dump($_FILES);
 ?>
 
 <!DOCTYPE html">
