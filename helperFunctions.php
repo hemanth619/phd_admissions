@@ -401,15 +401,44 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 		}
 	}
 	//var_dump($qualificationsInfo["grade_10"]);
-	if(($qualificationsInfo["grade_10"]!='MAR-100') && ($qualificationsInfo["grade_10"]!='CGP-10') && ($qualificationsInfo["grade_10"]!='CPI-4') && ($qualificationsInfo["grade_10"]!='CPI-8') ){
-		$message = $message."Enter valid 10th Evalution of marks.<br/>";
-	}
+	
 	if(trim($qualificationsInfo["marks_10"])!=''){
 		//var_dump($qualificationsInfo["marks_10"]);
-		$marks_10 = $qualificationsInfo["marks_10"];
-		if(!isValidPercentage($marks_10)){
-			$message = $message."Enter valid percentage for class 10.<br/>";
+
+		if(($qualificationsInfo["grade_10"]!='MAR-100') && ($qualificationsInfo["grade_10"]!='CGP-10') && ($qualificationsInfo["grade_10"]!='CPI-4') && ($qualificationsInfo["grade_10"]!='CPI-8') )
+		{
+			$message = $message."Enter valid 10th Evalution of marks.<br/>";
 		}
+		$marks_10 = $qualificationsInfo["marks_10"];
+		if($qualificationsInfo['grade_10']=='MAR-100')
+		{
+			if(!isValidPercentage($marks_10))
+			{
+				$message = $message."Enter valid percentage for class 10.<br/>";
+			}
+		}
+		else if($qualificationsInfo['grade_10']=='CGP-10')
+		{
+			if(!isValidPercentage($marks_10))
+			{
+				$message = $message."Enter valid percentage for class 10.<br/>";
+			}
+		}
+		else if($qualificationsInfo['grade_10']=='CPI-8')
+		{
+			if(!isValidPercentage($marks_10))
+			{
+				$message = $message."Enter valid percentage for class 10.<br/>";
+			}
+		}
+		else if($qualificationsInfo['grade_10']=='CPI-4')
+		{
+			if(!isValidPercentage($marks_10))
+			{
+				$message = $message."Enter valid percentage for class 10.<br/>";
+			}
+		}
+		
 	}
 	if(trim($qualificationsInfo["year_10"])!=''){
 		$passYear_10 = $qualificationsInfo["year_10"];
@@ -584,12 +613,12 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 			$message = $message."Enter valid percentage for B.E/B.tech X sem.<br/>";
 		}
 	}*/
-/*	if($qualificationsInfo["bd_agr"]!=''){
+	if($qualificationsInfo["bd_agr"]!=''){
 		$bd_cgpaagr = $qualificationsInfo["bd_agr"];
 		if(!isValidPercentage($bd_cgpaagr)){
 			$message = $message."Enter valid aggregate percentage for B.E/B.tech.<br/>";
 		}
-	}*/
+	}
 /*	if(trim($qualificationsInfo["bd_class"])!=''){
 		$bd_agrclass = $qualificationsInfo["bd_class"];
 		if(!hasOnlyAlphaNumerics($bd_agrclass)){
