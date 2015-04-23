@@ -299,70 +299,52 @@
 									';
 										if(isset($_POST['submit_criteria']))
 										{
+											$msg = "";
 											if(empty($ug_min_cgpa) || empty($ug_min_percentage) || empty($ug_min_cpi4) || empty($ug_min_cpi8))									
-											{
-												echo "<div class='alert alert-danger' role='alert'>
-													<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
-													<span class='sr-only'>Error:</span>
-
-
-													Fill the empty fields!
-													</div>";
+											{												
+												$msg = $msg . "Fill the empty fields<br />";													
 											}	
 											else if ($ug_min_cgpa <=0 || $ug_min_percentage <=0 || $ug_min_cpi4 <=0 || $ug_min_cpi8 <=0)
-											{
-												echo "<div class='alert alert-danger' role='alert'>
-													<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
-													<span class='sr-only'>Error:</span>
-
-
-													Fields cannot be negative or zero!
-													</div>";												
+											{											
+												$msg = $msg . "Fields cannot be negative or zero!<br />";
+																							
 											}
-											else if($ug_min_cgpa >10 )
+											if($ug_min_cgpa >10 )
 											{
-												echo "<div class='alert alert-danger' role='alert'>
-													<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
-													<span class='sr-only'>Error:</span>
-
-
-													Enter valid cgpa!
-													</div>";
+												
+												$msg = $msg . "Enter valid cgpa!<br />";
+													
 											}
+											//echo $msg;
 											if($ug_min_percentage >100 )
 											{
-												echo "<div class='alert alert-danger' role='alert'>
-													<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
-													<span class='sr-only'>Error:</span>
-
-
-													Enter valid percentage!
-													</div>";
+												
+												$msg = $msg ."Enter valid percentage!<br />";
+													
 											}
-											else if($ug_min_cpi4 >4 )
+											if($ug_min_cpi4 >4 )
 											{
-												echo "<div class='alert alert-danger' role='alert'>
-													<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
-													<span class='sr-only'>Error:</span>
-
-
-													Enter valid cpi-4 value!
-													</div>";
+												
+												$msg = $msg. "Enter valid cpi-4 value! <br />";
+													
 											}
-											else if($ug_min_cpi8 >8 )
-											{
-												echo "<div class='alert alert-danger' role='alert'>
-													<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
-													<span class='sr-only'>Error:</span>
-
-
-													Enter valid cpi-8 value!
-													</div>";
+											if($ug_min_cpi8 >8 )
+											{											
+												$msg = $msg. "Enter valid cpi-8 value!<br />";
 											}
+
 											else
 											{
 												$reset_ug = 1;
 											}
+											//echo $msg;
+											echo "<div class='alert alert-danger topMargin' role='alert'>
+													<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
+													<span class='sr-only'>Error:</span>
+													";
+													echo $msg;
+													
+													echo "</div>";
 										}								
 									echo'
 								</div>
@@ -454,70 +436,52 @@
 									';
 										if(isset($_POST['submit_criteria']))
 										{
-											if(empty(trim($pg_min_cgpa)) || empty(trim($pg_min_percentage)) || empty(trim($pg_min_cpi4)) || empty(trim($pg_min_cpi8)))									
-											{
-												echo "<div class='alert alert-danger' role='alert'>
-													<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
-													<span class='sr-only'>Error:</span>
-
-
-													Fill the empty fields!
-													</div>";
+											$msg = "";
+											if(empty($pg_min_cgpa) || empty($pg_min_percentage) || empty($pg_min_cpi4) || empty($pg_min_cpi8))									
+											{												
+												$msg = $msg . "Fill the empty fields<br />";													
 											}	
 											else if ($pg_min_cgpa <=0 || $pg_min_percentage <=0 || $pg_min_cpi4 <=0 || $pg_min_cpi8 <=0)
-											{
-												echo "<div class='alert alert-danger' role='alert'>
-													<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
-													<span class='sr-only'>Error:</span>
-
-
-													Fields cannot be negative or zero!
-													</div>";												
+											{											
+												$msg = $msg . "Fields cannot be negative or zero!<br />";
+																							
 											}
-											else if($pg_min_cgpa >10 )
+											if($pg_min_cgpa >10 )
 											{
-												echo "<div class='alert alert-danger' role='alert'>
-													<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
-													<span class='sr-only'>Error:</span>
-
-
-													Enter valid cgpa!
-													</div>";
+												
+												$msg = $msg . "Enter valid cgpa!<br />";
+													
 											}
-											else if($pg_min_percentage >100 )
+											//echo $msg;
+											if($pg_min_percentage >100 )
 											{
-												echo "<div class='alert alert-danger' role='alert'>
-													<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
-													<span class='sr-only'>Error:</span>
-
-
-													Enter valid percentage!
-													</div>";
+												
+												$msg = $msg ."Enter valid percentage!<br />";
+													
 											}
-											else if($pg_min_cpi4 >4 )
+											if($pg_min_cpi4 >4 )
 											{
-												echo "<div class='alert alert-danger' role='alert'>
-													<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
-													<span class='sr-only'>Error:</span>
-
-
-													Enter valid cpi-4 value!
-													</div>";
+												
+												$msg = $msg. "Enter valid cpi-4 value! <br />";
+													
 											}
-											else if($pg_min_cpi8 >8 )
-											{
-												echo "<div class='alert alert-danger' role='alert'>
-													<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
-													<span class='sr-only'>Error:</span>
+											if($pg_min_cpi8 >8 )
+											{											
+												$msg = $msg. "Enter valid cpi-8 value!<br />";
+											}
 
-
-													Enter valid cpi-8 value!
-													</div>";
-											}											
 											else
 											{
 												$reset_pg = 1;
 											}
+											//echo $msg;
+											echo "<div class='alert alert-danger topMargin' role='alert'>
+													<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
+													<span class='sr-only'>Error:</span>
+													";
+													echo $msg;
+													
+													echo "</div>";
 										}																	
 									echo'			
 								</div>
@@ -526,8 +490,7 @@
 										<label class="col-md-6">Age*</label>
 										<label class="col-md-6"></label>
 									</div>
-									<input name="age" id="age" class="form-control" placeholder="Age"	
-									onblur=check_age()								
+									<input name="age" id="age" class="form-control" placeholder="Age"																	
 									value=';
 									if(isset($_POST['submit_criteria']))
 									{
@@ -552,14 +515,14 @@
 											Enter the min. age!
 											</div>";
 									}
-									else if($min_age <= 15)
+									else if($min_age < 15)
 									{
-										echo "<div class='col-md-offset-5 col-md-2 alert alert-danger' role='alert'>
+										echo "<div class='col-md-offset-4 col-md-4 alert alert-danger' role='alert'>
 											<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
 											<span class='sr-only'>Error:</span>
 
 
-											Enter the valid age!
+											Age can not be less than 15!
 											</div>";
 									}
 									else
@@ -737,7 +700,7 @@
 		}
 	});
 
-	function check_age(){
+	/*function check_age(){
 		var age = document.getElementById('age').value;
 		if(age.length == 0 || age <= 15)
 		{
@@ -749,5 +712,5 @@
 			$("#age").parent().removeClass('has-error');
 			$("#submit_criteria").removeAttr('disabled');
 		}
-	}
+	}*/
 </script>

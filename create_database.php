@@ -173,8 +173,7 @@
 												//echo "password_reset table created successfully";		
 												$personalInfoQuery = "CREATE TABLE IF NOT EXISTS ".$database.".personal_info (
 													userId int(11) NOT NULL,
-													firstName varchar(50) NOT NULL,
-													lastName varchar(50) NOT NULL,
+													fullName varchar(50) NOT NULL,													
 													gender varchar(12) NOT NULL,
 													dob varchar(10) NOT NULL,
 													fatherName varchar(50) NOT NULL,

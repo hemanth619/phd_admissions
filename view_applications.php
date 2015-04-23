@@ -146,7 +146,7 @@
 				global $semDbConnection;
 				//echo $semDbConnection;
 				//echo $_POST['discipline'];
-				$FetchApplicationSQL="select pi.userId,pi.firstName,pi.lastName From registered_users as ru inner join personal_info as pi on pi.userId=ru.userId where ru.discipline='".$_POST['discipline']."' and ru.applicationSubmitStatus = 1";
+				$FetchApplicationSQL="select pi.userId,pi.fullName From registered_users as ru inner join personal_info as pi on pi.userId=ru.userId where ru.discipline='".$_POST['discipline']."' and ru.applicationSubmitStatus = 1";
 				$result=mysqli_query($semDbConnection,$FetchApplicationSQL);	
 
 				if($result)
@@ -185,7 +185,7 @@
 											<td ><a data-toggle="tooltip" data-placement="left" title="Show full details" target="_blank" href=personal_info.php?app_no='.$array['userId'].'
 												>
 												<center>'.$array['userId'].'</center></a></td>
-											<td >'.$array['firstName']." ".$array['lastName'].'</td>
+											<td >'.$array['fullName'].'</td>
 											</tr>';
 											$count++;
 										}

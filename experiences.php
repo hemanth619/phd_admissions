@@ -49,6 +49,100 @@
 			
 			global $semDbConnection;
 
+			$query = "select * from experience where userId = ".$appNo;
+			$queryResult = mysqli_query($semDbConnection,$query);
+			if($queryResult)
+			{
+				$array = mysqli_fetch_array($queryResult);
+			
+				if(!empty($array['org_1']))
+				{
+				?>
+					<div class=" col-md-4 col-md-offset-1 topMargin">
+						<div class="panel panel-info">					
+							<div class="panel-heading center">Experience: 1</div>
+							<div class="panel-body">						
+								<div class="form-group betweenMargin">
+									<div class="row">
+										<label class="col-md-4">Organisation</label>
+										<p class="col-md-1">:</p>
+										<p class="col-md-4"><?php echo $array['org_1']; ?></p>	
+									</div>															
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<label class="col-md-4">Designation</label>	
+										<p class="col-md-1">:</p>
+										<p class="col-md-4"><?php echo $array['des_1']; ?></p>						
+									</div>							
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<label class="col-md-4">Period</label>	
+										<p class="col-md-1">:</p>
+										<p class="col-md-4"><?php echo $array['per_1']; ?></p>						
+									</div>							
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<label class="col-md-4">Nature of Work</label>
+										<p class="col-md-1">:</p>
+										<p class="col-md-4"><?php echo $array['work_1']; ?></p>							
+									</div>							
+								</div>																						
+							</div>			
+						</div>	
+					</div>	
+				<?php
+				}
+
+				if(!empty($array['org_2']))
+				{
+				?>
+					<div class=" col-md-4 col-md-offset-1 topMargin">
+						<div class="panel panel-info">					
+							<div class="panel-heading center">Experience: 2</div>
+							<div class="panel-body">						
+								<div class="form-group betweenMargin">
+									<div class="row">
+										<label class="col-md-4">Organisation</label>
+										<p class="col-md-1">:</p>
+										<p class="col-md-4"><?php echo $array['org_2']; ?></p>	
+									</div>															
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<label class="col-md-4">Designation</label>	
+										<p class="col-md-1">:</p>
+										<p class="col-md-4"><?php echo $array['des_2']; ?></p>						
+									</div>							
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<label class="col-md-4">Period</label>	
+										<p class="col-md-1">:</p>
+										<p class="col-md-4"><?php echo $array['per_2']; ?></p>						
+									</div>							
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<label class="col-md-4">Nature of Work</label>
+										<p class="col-md-1">:</p>
+										<p class="col-md-4"><?php echo $array['work_2']; ?></p>							
+									</div>							
+								</div>																						
+							</div>			
+						</div>	
+					</div>	
+				
+
+				<?php
+				}
+			}
+			else
+			{
+				echo mysql_error($semDbConnection);
+			}
 		?>	
 		<?php 
 			}

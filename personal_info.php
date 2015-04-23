@@ -66,7 +66,7 @@
 				echo '
 					<div class="topMargin content" >															
 						<p class="col-md-6"><strong>Full Name</strong></p>
-						<p class="col-md-6">'.$array['firstName'].' '.$array['lastName'].'</p>
+						<p class="col-md-6">'.$array['fullName'].'</p>
 
 						<p class="col-md-6"><strong>Gender</strong></p>
 						<p class="col-md-6">'.$array['gender'].'</p>
@@ -84,7 +84,7 @@
 						<p class="col-md-6">'.$array['maritalStatus'].'</p>
 
 						<p class="col-md-6"><strong>Physically Challenged</strong></p> 	
-						<p class="col-md-6">'.$pd.'</p>
+						<p class="col-md-6">'.$array['physicallyChallenged'].'</p>
 
 						<p class="col-md-6"><strong>Community</strong></p>  	
 						<p class="col-md-6">'.$array['community'].'</p>
