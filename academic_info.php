@@ -144,7 +144,7 @@
 								<div class="row">
 									<label class="col-md-4">University/Institute Name</label>
 									<p class="col-md-1">:</p>
-									<p class="col-md-4"><?php echo $array['ug_instituteName']; ?></p>	
+									<p class="col-md-4"><?php echo $array['ug_university']; ?></p>	
 								</div>															
 							</div>
 							<div class="form-group">
@@ -193,7 +193,7 @@
 								<div class="row">
 									<label class="col-md-4">University/Institute Name</label>
 									<p class="col-md-1">:</p>
-									<p class="col-md-4"><?php echo $array['pg_instituteName']; ?></p>	
+									<p class="col-md-4"><?php echo $array['pg_university']; ?></p>	
 								</div>															
 							</div>
 							<div class="form-group">
