@@ -1,8 +1,6 @@
 <?PHP
 session_start();
 	include_once('db.php');
-	require_once('QOB/qob.php');
-	require_once('backendFunctions.php');
 	/*require_once("./include/membersite_config.php");
 	if(!$fgmembersite->CheckLogin())
 	{
@@ -15,6 +13,7 @@ session_start();
 		displayAlert("Please Login to continue");
 		RedirectToURL("login.php");
 	}
+
 	$userId=$_SESSION['userId'];
 	$user=getUserByID($userId);
 
@@ -23,6 +22,8 @@ session_start();
 		RedirectToURL("thank-you.php");
 	}
 	//var_dump($_FILES);
+
+
 ?>
 
 <!DOCTYPE html">
@@ -628,6 +629,7 @@ session_start();
 					    	</div>
 						</div>
 
+
 						<br />
 	      				<div style="background-color: #fb8c00; color: white;" id="Enclosures_info_tab" >&nbsp;<i class=" small mdi-editor-attach-file"></i><span style="font-size: 26px;">Enclosures</span></div>
 						<div ><div class="divider"></div><div class="divider"></div><div class="divider"></div><div class="divider"></div>
@@ -666,6 +668,7 @@ session_start();
 											<td>
 												<?php 
 												if (file_exists("upload/" .$applnNo."_PP.jpg"))
+
 												{
 													echo $applnNo.'_PP.png';
 
@@ -681,12 +684,15 @@ session_start();
 							</div>
 						</div>
 
+
 						<br />
 						<div class="row" >
 							<div class="col s3 offset-s6">
 								<button class="btn waves-effect waves-light blue darken-4" type="submit" name="Save" value="Save">Save
 								    <i class="mdi-content-save right"></i>
 								</button>
+
+										
 							</div>
 						</div>
 					</form>

@@ -53,10 +53,11 @@
 						<div class="form-group betweenMargin">
 							<div class="row">
 										
-							<?php					
-								if(file_exists("upload/".$appNo."_PP.jpg"))
+							<?php		
+							//echo $appNoF;			
+								if(file_exists("upload/".$appNoF."_PP.jpg"))
 								{
-									echo "<img src='upload/".$appNo."_PP.jpg'";
+									echo "<img src='upload/".$appNoF."_PP.jpg'";
 								}
 							 	else
 							 	{
