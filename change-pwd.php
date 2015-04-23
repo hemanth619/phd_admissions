@@ -1,4 +1,5 @@
 <?PHP
+session_start();
 require_once("QOB/qob.php");
 
 require_once("backendFunctions.php");
@@ -72,69 +73,51 @@ else
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
   <head>
-   
+   <?php require_once("header.php"); ?>
   </head>
 
   <body>
     <!-- Form Code Start -->
-    <div id='fg_membersite'>
+    <div >
       <form id='changepwd' action='change-pwd.php' method='post' accept-charset='UTF-8'>
-        <fieldset >
-          <legend>Change Password</legend>
+        <div style="padding-top: 20px;" class='container'>
+          <div style="font-size: 26px;"><center><strong>Change Password</strong></center></div>
+
+           <div style="padding-left: 40px; padding-top: 20px;">
+            <a class="waves-effect waves-light btn" href='forms.php'>Home</a>
+          </div>
+
           <input type='hidden' name='submitted' id='submitted' value='1'/>
-          <div class='short_explanation'>* required fields</div>
-          <div><span class='error'><?php echo $fgmembersite->GetErrorMessage(); ?></span></div>
+          <div class='short_explanation'><font color=red>&nbsp;*</font> required fields</div>
+          <div class="row">
+            <div class="input-field col s6">
+            <input type='password' name='oldpwd' id='oldpwd' maxlength="50" />
+            <label for='oldpwd' >Old Password<font color=red>&nbsp;*</font>&nbsp;:</label>
+            </div>
+          </div>     
           
-          <div class='container'>
-            <label for='oldpwd' >Old Password*:</label><br/>
-            <div class='pwdwidgetdiv' id='oldpwddiv' ></div><br/>
-            <noscript>
-              <input type='password' name='oldpwd' id='oldpwd' maxlength="50" />
-            </noscript>    
-            <span id='changepwd_oldpwd_errorloc' class='error'></span>
+          <div class="row">
+            <div class="input-field col s6">
+            <input type='password' name='newpwd' id='newpwd' maxlength="50" />
+            <label for='newpwd' >New Password<font color=red>&nbsp;*</font>&nbsp;:</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+            <input type='password' name='confirmNewPassword' id='confirmNewPassword' maxlength="50" />
+            <label for='confirmNewPassword' >Confirm New Password<font color=red>&nbsp;*</font>&nbsp;:</label>
+            </div>
           </div>
 
           <div class='container'>
-            <label for='newpwd' >New Password*:</label><br/>
-            <div class='pwdwidgetdiv' id='newpwddiv' ></div>
-            <noscript>
-              <input type='password' name='newpwd' id='newpwd' maxlength="50" /><br/>
-            </noscript>
-            <span id='changepwd_newpwd_errorloc' class='error'></span>
+              <button class="waves-effect waves-light btn" type='submit' name='Submit' value='Submit' >Submit<i class="mdi-content-send right"></i></button>
           </div>
-          <br/>
-          <br/>
-          <br/>
-          <div class='container'>
-              <input type='submit' name='Submit' value='Submit' />
-          </div>
-        </fieldset>
+        </div>
       </form>
       <!-- client-side Form Validations:
       Uses the excellent form validation script from JavaScript-coder.com-->
-
-      <script type='text/javascript'>
-        // <![CDATA[
-        var pwdwidget = new PasswordWidget('oldpwddiv','oldpwd');
-        pwdwidget.enableGenerate = false;
-        pwdwidget.enableShowStrength=false;
-        pwdwidget.enableShowStrengthStr =false;
-        pwdwidget.MakePWDWidget();
-        
-        var pwdwidget = new PasswordWidget('newpwddiv','newpwd');
-        pwdwidget.MakePWDWidget();
-        
-        var frmvalidator  = new Validator("changepwd");
-        frmvalidator.EnableOnPageErrorDisplay();
-        frmvalidator.EnableMsgsTogether();
-
-        frmvalidator.addValidation("oldpwd","req","Please provide your old password");
-        frmvalidator.addValidation("newpwd","req","Please provide your new password");
-        // ]]>
-      </script>
-      <p>
-        <a href='forms.php'>Home</a>
-      </p>
+     
     </div>
     <!--
     Form Code End (see html-form-guide.com for more info.)

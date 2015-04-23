@@ -6,7 +6,7 @@
 	{
 		$serverName = 'localhost';
 		$userName = 'root';
-		$password = 'root';
+		$password = 'isquarer';
 		// Create connection
 
 		global $semDbConnection;

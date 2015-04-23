@@ -4,7 +4,7 @@ require_once("QOB/qob.php");
 require_once('backendFunctions.php');
 require_once('helperFunctions.php');
 require_once('db.php');
-var_dump($_FILES);
+//var_dump($_FILES);
 //displayAlert(var_dump($_FILES));
 //echo "<script>alert('something')</script>";
 if(isset($_SESSION['email']))
@@ -131,7 +131,7 @@ echo $fileLocation." is the location";
 			{
 				//displayAlert("$filename not in Specified Format.");
 
-				$message.="Uploaded Photo Not in Specified format.\\n";
+				$message.="Uploaded Photo Not in Specified format.<br/>";
 				//RedirectToURL("forms.php");
 				//exit();
 			}
@@ -166,7 +166,7 @@ echo $fileLocation." is the location";
 				else
 				{
 					//$filename=$_FILES["file"]["name"];
-					$message.="Photo not uploaded.\\n";
+					$message.="Photo not uploaded.<br/>";
 				}
 			}
 
@@ -177,14 +177,18 @@ echo $fileLocation." is the location";
 
 	 if(($message)=='')
     {
-    	displayAlert("Details Saved Succesfully!");
-		
+    	//displayAlert("Details Saved Succesfully!");
+		echo "<script>alert('Details Saved Succesfully');
+		window.location.href='forms.php';</script>";
         //RedirectToURL("forms.php");
     }
     else
     {
-    	$message= "Saved but few details entered needs to be changed\\n".$message;
-    	displayAlert($message);
+    	$message= "Saved but few details entered needs to be changed<br/>".$message;
+    	//displayAlert($message);
+    	echo $message;
+
+    	echo "<br/><br/><h3><strong>Go back to <a href='forms.php'>Home</a></strong></h3><br/>";
     	//RedirectToURL("forms.php");
     }
 }
