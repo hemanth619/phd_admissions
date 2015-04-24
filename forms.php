@@ -206,6 +206,11 @@ session_start();
 				$P_mobile_number = $row['alternateMobileNumber'];
 				$tstate=$row['currentState'];
 				$pstate=$row['permanentState'];
+
+				$typeOfTransaction=$row['paymentType'];
+				$transactionNo=$row['transactionNo'];
+
+
 				
 			
 				
@@ -697,7 +702,7 @@ session_start();
 												DD/UTR NO<font color=red>&nbsp;*</font>&nbsp;:
 											</td>
 											<td><div class="input-field row col s8">
-												<input name="transactionNo" placeholder="Transaction No" type="text" id="dd_utr_no" size="50" value="<?php if(isset($dd_utr_no)) echo $dd_utr_no ;?>" length="50" onkeypress="return isAlphaNumeric(event,errorDDno);" /></div><span id="errorDDno" style="color: Red; display: none">* Special Characters are not allowed</span>
+												<input name="transactionNo" placeholder="Transaction No" type="text" id="dd_utr_no" size="50" value="<?php if(isset($transactionNo)) echo $transactionNo ;?>" length="50" onkeypress="return isAlphaNumeric(event,errorDDno);" /></div><span id="errorDDno" style="color: Red; display: none">* Special Characters are not allowed</span>
 											</td>
 										</tr>
 									</table>

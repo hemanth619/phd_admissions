@@ -127,7 +127,7 @@ if(isset($_SESSION['email']))
 	}	*/
 $fileLocation= __DIR__."\upload\\" . $_FILES["fileToUpload"]["name"];
 						//displayAlert($fileLocation);
-echo $fileLocation." is the location";
+//echo $fileLocation." is the location";
 	$applicationNo=$_SESSION['applicationNo'];
 	if($_FILES['fileToUpload']['name']!='')
 		{

@@ -111,9 +111,9 @@ function validateRegisterFormEntries($formVars)
 
 function validateDate($rawDate,$seperator='/')
 	{
-		var_dump($rawDate);
+		//var_dump($rawDate);
 		$ndate=explode($seperator,$rawDate);
-		var_dump($ndate);
+		//var_dump($ndate);
 		$currentYear=(int)date('Y',time());
 		$acceptableMinimumAge=15;
 		$acceptableInputYear=$currentYear-$acceptableMinimumAge;
