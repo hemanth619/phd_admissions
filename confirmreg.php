@@ -12,42 +12,32 @@
   <head>
         <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
         <title>Confirm registration</title>
-        <link rel="STYLESHEET" type="text/css" href="style/fg_membersite.css" />
-        <script type='text/javascript' src='scripts/gen_validatorv31.js'></script>
+        <?php require_once("header.php");?>
   </head>
 
   <body>
-    <h2>Confirm registration</h2>
+  <?php
+  require_once("header_logo.php"); 
+  ?>
+  <div style="padding-top: 20px;" class="container">
+    <div  style="font-size: 26px;">Confirm registration</div>
     <p>
       Please Click on the Confirmation Link sent or enter the confirmation code that has been mailed to the email-id you provided in the box below.
     </p>
-    <!-- Form Code Start -->
-    <div id='fg_membersite'>
+
+    <div >
       <form id='confirm' action="confirmreg.php" method='get' accept-charset='UTF-8'>
-        <div class='short_explanation'>* required fields</div>
+        <div class='short_explanation'><font color="red">&nbsp;* </font>&nbsp; required fields</div>
        <!--  <div><span class='error'><?php //echo $fgmembersite->GetErrorMessage(); ?></span></div> -->
-        <div class='container'>
-            <label for='code' >Confirmation Code:* </label><br/>
-            <input type='text' name='code' id='code' /><br/>
-            <span id='register_code_errorloc' class='error'></span>
+        <div class='input-field container row col s4 offset-s3'>
+            <input type='text' name='code' id='code' /><label for='code' >Confirmation Code:<font color="red">&nbsp;* </font></label>
         </div>
         <div class='container'>
-          <input type='submit' name='Submit' value='Submit' />
+          <button class="waves-effect waves-light btn" type='submit' name='Submit' value='Submit' >Submit<i class="mdi-content-send right"></i></button>
         </div>
       </form>
-      <!-- client-side Form Validations:
-      Uses the excellent form validation script from JavaScript-coder.com-->
-      <script type='text/javascript'>
-        // <![CDATA[
-        var frmvalidator  = new Validator("confirm");
-        frmvalidator.EnableOnPageErrorDisplay();
-        frmvalidator.EnableMsgsTogether();
-        frmvalidator.addValidation("code","req","Please enter the confirmation code");
-        // ]]>
-      </script>
+      
     </div>
-    <!--
-    Form Code End (see html-form-guide.com for more info.)
-    -->
+  </div>
   </body>
 </html>

@@ -544,37 +544,37 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 	if(trim($qualificationsInfo["bd_marks"])!=''){
 		//var_dump($qualificationsInfo["marks_10"]);
 
-		if(($qualificationsInfo["grade_12"]!='MAR-100') && ($qualificationsInfo["grade_12"]!='CGP-10') && ($qualificationsInfo["grade_12"]!='CPI-4') && ($qualificationsInfo["grade_12"]!='CPI-8') )
+		if(($qualificationsInfo["bd_grade"]!='MAR-100') && ($qualificationsInfo["bd_grade"]!='CGP-10') && ($qualificationsInfo["bd_grade"]!='CPI-4') && ($qualificationsInfo["bd_grade"]!='CPI-8') )
 		{
-			$message = $message."Enter valid Grading format for 12th.<br/>";
+			$message = $message."Enter valid Grading format for UG.<br/>";
 		}
 		$bd_marks = $qualificationsInfo["bd_marks"];
-		if($qualificationsInfo['grade_12']=='MAR-100')
+		if($qualificationsInfo['bd_grade']=='MAR-100')
 		{
 			if(!isValidPercentage($bd_marks))
 			{
-				$message = $message."Enter valid percentage for class 12.<br/>";
+				$message = $message."Enter valid percentage for UG.<br/>";
 			}
 		}
-		else if($qualificationsInfo['grade_12']=='CGP-10')
+		else if($qualificationsInfo['bd_grade']=='CGP-10')
 		{
 			if(!(isValidPercentage($bd_marks)&&$bd_marks<=10))
 			{
-				$message = $message."Enter valid CGPA/10 for class 12.<br/>";
+				$message = $message."Enter valid CGPA/10 for UG.<br/>";
 			}
 		}
-		else if($qualificationsInfo['grade_12']=='CPI-8')
+		else if($qualificationsInfo['bd_grade']=='CPI-8')
 		{
 			if(!(isValidPercentage($bd_marks)&&$bd_marks<=8))
 			{
-				$message = $message."Enter valid CPI/8 for class 12.<br/>";
+				$message = $message."Enter valid CPI/8 for UG.<br/>";
 			}
 		}
-		else if($qualificationsInfo['grade_12']=='CPI-4')
+		else if($qualificationsInfo['bd_grade']=='CPI-4')
 		{
 			if(!(isValidPercentage($bd_marks)&&$bd_marks<=4))
 			{
-				$message = $message."Enter valid CPI/4 for class 12.<br/>";
+				$message = $message."Enter valid CPI/4 for UG.<br/>";
 			}
 		}
 		
@@ -587,6 +587,8 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 			$message = $message."Enter valid year of passsing for Bachelor Degree.<br/>";
 		}
 	}
+
+
 	/**************  Masters degree validation  ****************/
 	if(trim($qualificationsInfo["pg_univ"])!=''){
 		$pg_univName = $qualificationsInfo["pg_univ"];
@@ -600,7 +602,7 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 			$message = $message."Enter the Valid Masters Degree Equivalent.<br/>";
 		}
 	}
-	if(($qualificationsInfo["pg_grade"]!='MAR-100') && ($qualificationsInfo["pg_grade"]!='CGP-10') && ($qualificationsInfo["pg_grade"]!='CPI-4') && ($qualificationsInfo["pg_grade"]!='CPI-8') ){
+	/*if(($qualificationsInfo["pg_grade"]!='MAR-100') && ($qualificationsInfo["pg_grade"]!='CGP-10') && ($qualificationsInfo["pg_grade"]!='CPI-4') && ($qualificationsInfo["pg_grade"]!='CPI-8') ){
 		$message = $message."Enter valid Evalution of marks for Masters degree.<br/>";
 	}
 	if($qualificationsInfo["pg_marks"]!=''){
@@ -608,7 +610,47 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 		if(!isValidPercentage($pg_marks)){
 			$message = $message."Enter valid percentage for Masters Degree.<br/>";
 		}
+	}*/
+
+	if(trim($qualificationsInfo["pg_marks"])!=''){
+		//var_dump($qualificationsInfo["marks_10"]);
+
+		if(($qualificationsInfo["pg_grade"]!='MAR-100') && ($qualificationsInfo["pg_grade"]!='CGP-10') && ($qualificationsInfo["pg_grade"]!='CPI-4') && ($qualificationsInfo["pg_grade"]!='CPI-8') )
+		{
+			$message = $message."Enter valid Grading format for PG.<br/>";
+		}
+		$pg_marks = $qualificationsInfo["pg_marks"];
+		if($qualificationsInfo['pg_grade']=='MAR-100')
+		{
+			if(!isValidPercentage($pg_marks))
+			{
+				$message = $message."Enter valid percentage for PG.<br/>";
+			}
+		}
+		else if($qualificationsInfo['pg_grade']=='CGP-10')
+		{
+			if(!(isValidPercentage($pg_marks)&&$pg_marks<=10))
+			{
+				$message = $message."Enter valid CGPA/10 for PG.<br/>";
+			}
+		}
+		else if($qualificationsInfo['pg_grade']=='CPI-8')
+		{
+			if(!(isValidPercentage($pg_marks)&&$pg_marks<=8))
+			{
+				$message = $message."Enter valid CPI/8 for PG.<br/>";
+			}
+		}
+		else if($qualificationsInfo['pg_grade']=='CPI-4')
+		{
+			if(!(isValidPercentage($pg_marks)&&$pg_marks<=4))
+			{
+				$message = $message."Enter valid CPI/4 for PG.<br/>";
+			}
+		}
+		
 	}
+
 	if($qualificationsInfo["pg_year"]!=''){
 		$passYear_pg = $qualificationsInfo["pg_year"];
 		if(!hasOnlyNumbers($passYear_pg)){
@@ -704,12 +746,12 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 			$message = $message."Enter valid percentage for B.E/B.tech X sem.<br/>";
 		}
 	}*/
-	if($qualificationsInfo["bd_agr"]!=''){
+	/*if($qualificationsInfo["bd_agr"]!=''){
 		$bd_cgpaagr = $qualificationsInfo["bd_agr"];
 		if(!isValidPercentage($bd_cgpaagr)){
 			$message = $message."Enter valid aggregate percentage for B.E/B.tech.<br/>";
 		}
-	}
+	}*/
 /*	if(trim($qualificationsInfo["bd_class"])!=''){
 		$bd_agrclass = $qualificationsInfo["bd_class"];
 		if(!hasOnlyAlphaNumerics($bd_agrclass)){

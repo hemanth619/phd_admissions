@@ -757,21 +757,21 @@ session_start();
 					</form>
 				</div>
 			</div>
+			<div id="navtopbottom" class="col s1 center">
+				<div style="top: 45px; right: 24px; postion: fixed; padding: 10px;">
+			    	<a href="#personal_info_tab" class="btn-floating btn-large purple accent-3">
+			        	<i style="font-size: 25px;" class="fa fa-chevron-circle-up"></i>
+			    	</a>
+			    </div>
+
+			    <div style="right: 24px; postion: fixed;">
+			    	<a href="#submit_button" class="btn-floating btn-large green accent-3">
+			        	<i style="font-size: 25px;" class="fa fa-chevron-circle-down"></i>
+			    	</a>
+			    </div>
+			</div>
 		</div>
 		
-		<div id="navtopbottom" class="col s1 center">
-			<div style="top: 45px; right: 24px; postion: fixed; padding: 10px;">
-		    	<a href="#personal_info_tab" class="btn-floating btn-large purple accent-3">
-		        	<i style="font-size: 25px;" class="fa fa-chevron-circle-up"></i>
-		    	</a>
-		    </div>
-
-		    <div style="right: 24px; postion: fixed;">
-		    	<a href="#submit_button" class="btn-floating btn-large green accent-3">
-		        	<i style="font-size: 25px;" class="fa fa-chevron-circle-down"></i>
-		    	</a>
-		    </div>
-		</div>
 
 		<input type="hidden" value="<?php echo $applnNo ?>" name="appln_number">
 		<script type="text/javascript">

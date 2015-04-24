@@ -1,7 +1,8 @@
 ﻿<?php 
 //session_start();
 include 'header_logo.php';
-include 'header3.php'; 
+include "header.php";
+include "menu.php"; 
 ?>
 
 

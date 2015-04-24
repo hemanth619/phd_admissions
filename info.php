@@ -35,7 +35,14 @@ if(isset($_SESSION['email']))
 	    $sqlq="delete from personal_info where userId = '$userId'";
 	    $res=mysql_query($sqlq) or die(mysql_error());	
 	    $dob = ($_POST['date1']);
-	    $sql="Insert into  personal_info(userId,fullName,gender,dob,age,fatherName,nationality,maritalStatus,physicallyChallenged,community,minority,primaryEmail,alternateEmail,currentAddress,currentDistrict,currentState,currentPincode,mobileNumber,mobileCountryCode,permanentAddress,permanentDistrict,permanentState,permanentPincode,alternateMobileNumber,alternateMobileCountryCode,paymentType,transactionNo) values ('$userId','$_POST[Full_Name]' , '$_POST[gender]' , '$dob' , '$age' ,'$_POST[fname]' , '$_POST[nation]' , '$_POST[Marital_status]' , '$_POST[Physically_challenged]' , '$_POST[community]' ,'$_POST[Minority]' , '$_POST[pemail]' , '$_POST[aemail]','$_POST[Temp_Address]' , '$_POST[T_District]' , '$_POST[T_state]' , '$_POST[T_pincode]', '$_POST[T_mobile_number]' , '$_POST[mobileCountryCode]' , '$_POST[perm_Address]' , '$_POST[P_District]' , '$_POST[P_state]' , '$_POST[P_pincode]'  , '$_POST[P_mobile_number]', '$_POST[alternateMobileCountryCode]' ,$_POST['typeOfTransaction'],$_POST['transactionNo'])";
+	    $sql="Insert into  personal_info (userId,fullName,gender,dob,age,fatherName,nationality,maritalStatus,physicallyChallenged,community,minority,primaryEmail,alternateEmail,currentAddress,currentDistrict,currentState,currentPincode,mobileNumber,mobileCountryCode,permanentAddress,permanentDistrict,permanentState,permanentPincode,alternateMobileNumber,alternateMobileCountryCode,paymentType,transactionNo)
+	     values ('$userId','$_POST[Full_Name]' , '$_POST[gender]' , '$dob' , '$age' , 
+	     	'$_POST[fname]' , '$_POST[nation]' , '$_POST[Marital_status]' , '$_POST[Physically_challenged]' , 
+	     	'$_POST[community]' ,'$_POST[Minority]' , '$_POST[pemail]' , '$_POST[aemail]','$_POST[Temp_Address]' , 
+	     	'$_POST[T_District]' , '$_POST[T_state]' , '$_POST[T_pincode]', '$_POST[T_mobile_number]' , 
+	     	'$_POST[mobileCountryCode]' , '$_POST[perm_Address]' , '$_POST[P_District]' , '$_POST[P_state]' , 
+	     	'$_POST[P_pincode]'  , '$_POST[P_mobile_number]', '$_POST[alternateMobileCountryCode]' , 
+	     	'$_POST[typeOfTransaction]', '$_POST[transactionNo]')";
 	    $result=mysql_query($sql) or die(mysql_error());
 	    $message=validatePersonalInfoOnSave($_POST);
 
@@ -129,7 +136,7 @@ echo $fileLocation." is the location";
 			$uploadedFile=$_FILES['tmp_name'];
 			list($width,$height)=getimagesize($uploadedfile);
 
-			if(($filename!=$applicationNo."_PP.jpg" && $filename!=$applicationNo."_PP.JPG" && ) $width<=500 && $height<=500 )
+			if($filename!=$applicationNo."_PP.jpg" && $filename!=$applicationNo."_PP.JPG" &&  ($width>500 || $height>500) )
 			{
 				//displayAlert("$filename not in Specified Format.");
 
