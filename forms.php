@@ -407,7 +407,7 @@ session_start();
 									    	State, Country<font color=red>&nbsp;*</font> :        
 								    	</td>
 								        <td ><div class="input-field ">
-								        		<input name="T_state" type="text" id="T_state" size="30" length="100" value="<?php if(isset($tstate)) echo '$tstate'; ?>" />							
+								        		<input name="T_state" type="text" id="T_state" size="30" length="100" value="<?php if(isset($tstate)) echo "$tstate"; ?>" />							
 											</div>
 										</td>
 									</tr>
@@ -483,7 +483,7 @@ session_start();
 										</td>
 										<td >
 											<div class="input-field ">
-								        		<input name="P_state" type="text" id="P_state" size="30" length="100" value="<?php if(isset($pstate)) echo '$pstate'; ?>" />							
+								        		<input name="P_state" type="text" id="P_state" size="30" length="100" value="<?php if(isset($pstate)) echo "$pstate"; ?>" />							
 											</div>
 										</td>
 									</tr>

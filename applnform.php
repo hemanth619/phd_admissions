@@ -17,7 +17,14 @@ if(!isset($_SESSION['userId']))
     exit();
 }
 $userId=$_SESSION['userId'];
+$user=getUserByID($userId);
+if($user['applicationSubmitStatus']!=1)
+{
+    RedirectToURL("login.php");
+    exit();
+}
 ?>
+
 <?php
 require("fpdf/fpdf.php");
 class PDF extends FPDF{
@@ -67,7 +74,8 @@ $pdf->Line(15,285,195,285);
 
     $result = mysql_query($retrieve) or die(mysql_error());
 
-
+    $paymentType="1";
+    $transactionNo="2";
     while($row = mysql_fetch_array($result))
     {
         $App_no = $_SESSION['applicationNo'];
@@ -91,6 +99,8 @@ $pdf->Line(15,285,195,285);
         $P_state = $row['permanentState'];
         //$P_phone_number = $row['P_phone_number'];
         $P_mobile_number = $row['alternateMobileNumber'];
+        $paymentType = $row['paymentType'];
+        $transactionNo = $row['transactionNo'];
     }
     $t1 = $Full_Name;
 
@@ -115,7 +125,7 @@ $pdf->Image('upload/'.$App_no.'_PP.png',150,70,-300);
 //$pdf->Ln(20);
 
 $pdf->SetFont('Arial','B',11);
-$head = 'Application Number :  ';
+$head = ' Application Number :  ';
 $pdf->Cell(2*strlen($head),10,$head,0,0);
 $pdf->SetFont('Arial');
 $pdf->Cell(25,10,$App_no);
@@ -123,21 +133,21 @@ $pdf->Cell(25,10,$App_no);
 
 $pdf->SetFont('Arial','B',11);
 $pdf->Cell(20);
-$head = 'Specialization : ';
+$head = ' Specialization : ';
 $pdf->Cell(2*strlen($head),10,$head,0,0);
 $pdf->SetFont('Arial');
 $pdf->Cell(25,10,$sp);
 $pdf->Ln();
 
 $pdf->SetFont('Arial','B',11);
-$head = 'Mode : ';
+$head = ' Mode : ';
 $pdf->Cell(2*strlen($head),10,$head,0,0);
 $pdf->SetFont('Arial');
 $pdf->Cell(25,10,$area);
 $pdf->Ln();
 
 $pdf->SetFont('Arial','B');
-$head = 'Full Name : ';
+$head = ' Full Name : ';
 $pdf->Cell(2*strlen($head),10,$head,0,0);
 $pdf->SetFont('Arial');
 $pdf->Cell(10,10,$Full_Name);
@@ -145,14 +155,14 @@ $pdf->Ln();
 //$pdf->Ln();
 
 $pdf->SetFont('Arial','B');
-$head = 'Name of Father/Husband :   ';
+$head = ' Name of Father/Husband :   ';
 $pdf->Cell(2*strlen($head),10,$head,0,0);
 $pdf->SetFont('Arial');
 $pdf->Cell(10,10,$fname);
 $pdf->Ln();
 
 $pdf->SetFont('Arial','B');
-$head = 'Date of Birth (DD-MM-YYYY):  ';
+$head = ' Date of Birth (DD-MM-YYYY):  ';
 $date = date("d-m-Y", strtotime($dob));
 $pdf->Cell(2*strlen($head),10,$head,0,0);
 $pdf->SetFont('Arial');
@@ -162,7 +172,7 @@ $pdf->Ln();
 
 
 $pdf->SetFont('Arial','B');
-$head = 'Nationality :  ';
+$head = ' Nationality :  ';
 $pdf->Cell(2*strlen($head),10,$head,0,0);
 $pdf->SetFont('Arial');
 $pdf->Cell(10,10,$nationality);
@@ -171,7 +181,7 @@ $pdf->Ln();
 
 
 $pdf->SetFont('Arial','B');
-$head = 'Sex :  ';
+$head = ' Sex :  ';
 $pdf->Cell(2*strlen($head),10,$head,0,0);
 $pdf->SetFont('Arial');
 $pdf->Cell(10,10,$gender);
@@ -180,7 +190,7 @@ $pdf->Ln();
 
 
 $pdf->SetFont('Arial','B');
-$head = 'Community :    ';
+$head = ' Community :    ';
 $pdf->Cell(2*strlen($head),10,$head,0,0);
 $pdf->SetFont('Arial');
 $pdf->Cell(10,10,$community);
@@ -193,38 +203,72 @@ $pdf->Ln();
 */
 
 $pdf->SetFont('Arial','B');
-$head = 'Address of Communication :';
+$head = ' Address of Communication :';
 $pdf->Cell(2*strlen($head),10,$head,0,1);
 $pdf->SetFont('Arial');
-$pdf->Cell(10,10,$Temp_Address.",".$T_District."-".$T_pincode.",".$T_state);
+$pdf->Cell(10,10," ".$Temp_Address.",".$T_District."-".$T_pincode.",".$T_state);
 $pdf->Ln();
 // $head = 'Phone : ';
 // $pdf->Cell(2*strlen($head),10,$head,0,0);
 // $pdf->Cell(10,10,$T_phone_number);
 // //$pdf->Ln();
 // $pdf->Cell(30);
-$head = 'Email : ';
+$pdf->SetFont('Arial','B');
+$head = ' Primary Email : ';
 $pdf->Cell(2*strlen($head),10,$head,0,0);
+$pdf->SetFont('Arial');
 $pdf->Cell(10,10,$pemail);
 $pdf->Ln();
 //$pdf->Ln();
 
-$pdf->SetFont('Arial','B');
-$head = 'Permanent Home Address :';
-$pdf->Cell(2*strlen($head),10,$head,0,1);
-$pdf->SetFont('Arial');
-$pdf->Cell(10,10,$perm_Address.",".$P_District."-".$P_pincode.",".$P_state);
-$pdf->Ln();
-// $head = 'Phone : ';
-// $pdf->Cell(2*strlen($head),10,$head,0,0);
-// $pdf->Cell(10,10,$P_phone_number);
-// //$pdf->Ln();
-// $pdf->Cell(30);
-$head = ' Alternate Email : ';
-$pdf->Cell(2*strlen($head),10,$head,0,0);
-$pdf->Cell(10,10,$aemail);
-$pdf->Ln();
+$pdf->SetFont('Arial','B'); $head = ' Permanent Home Address :';
+$pdf->Cell(2*strlen($head),10,$head,0,1); $pdf->SetFont('Arial');
+$pdf->Cell(10,10," ".$perm_Address.",".$P_District."-".$P_pincode.",".$P_state);
+$pdf->Ln(); 
+// $head = 'Phone : '; 
+// $pdf->Cell(2*strlen($head),10,$head,0,0); // $pdf->Cell(10,10,$P_phone_number); // //$pdf->Ln(); // $pdf->Cell(30);
+$pdf->SetFont('Arial','B'); $head = ' Alternate Email : ';
+$pdf->Cell(2*strlen($head),10,$head,0,0); $pdf->SetFont('Arial');
+$pdf->Cell(10,10,$aemail); $pdf->Ln();
 
+$pdf->SetFont('Arial','B');
+$head = ' Payment Details:';
+$pdf->Cell(2*strlen($head),10,$head,0,1);
+
+$head=" Payment Type: ";
+$pdf->Cell(2*strlen($head),10,$head,0,0);
+/*$pdf->SetFont('Arial');
+$pdf->Cell(2*strlen($paymentType),10,$paymentType,0,1);
+$head="Transaction Number:";
+$pdf->SetFont('Arial','B');
+$pdf->Cell(strlen($head),10,$head,0,1);
+$pdf->SetFont('Arial');
+$pdf->Cell(strlen($transactionNo),10,$transactionNo,0,1);*/
+
+if($paymentType=="onlineTransfer")
+{
+    $pdf->SetFont('Arial');
+    $head=$paymentType="Online Transfer";
+    $pdf->Cell(2*strlen($head),10,$head,0,1);
+    
+    $head=" Transaction Number:";
+    $pdf->SetFont('Arial','B');
+    $pdf->Cell(2*strlen($head),10,$head,0,0);
+    $pdf->SetFont('Arial');
+    $pdf->Cell(2*strlen($transactionNo),10,$transactionNo,0,1);
+}
+else
+{
+    $pdf->SetFont('Arial');
+    $head=$paymentType="Demand Draft";
+    $pdf->Cell(2*strlen($head),10,$head,0,1);
+
+    $head=" Demand Draft No. :";
+    $pdf->SetFont('Arial','B');
+    $pdf->Cell(2*strlen($head),10,$head,0,0);
+    $pdf->SetFont('Arial');
+    $pdf->Cell(2*strlen($transactionNo),10,$transactionNo,0,1);
+}
 //$pdf->Ln();
 
 //***********END OF FORM1***********
@@ -286,7 +330,7 @@ $sql1 = "select * from qualifications where userId='$userId'";
   }
  
 $pdf->SetFont('Arial','B');
-$head = 'Education Details :';
+$head = ' Education Details :';
 $pdf->Cell(2*strlen($head),10,$head,0,1);
 $col_widths = array(45, 65, 30, 20, 20,);
 $headers = array("Degree with discipline", "University", "Grade Format", "Marks*", "Year*"); 

@@ -11,7 +11,7 @@
 	</head>
 	<body class="body">
 		<div id="header" class="row">
-			<div class="col-lg-2"><a href="../index.php"><img id="logo" src="logo.png"></a></div>	
+			<div class="col-lg-2"><a href="index.php"><img id="logo" src="logo.png"></a></div>	
 			<div class="col-lg-10">
 				<div class="row col-md-12 vcenter" id="college_name">
 					Indian Institute of Information Technology, Design & Manufacturing

@@ -194,6 +194,8 @@
 													permanentState varchar(50) NOT NULL,
 													permanentPincode varchar(15) NOT NULL,
 													alternateMobileNumber varchar(15) NOT NULL,
+													`paymentType` varchar(50) NOT NULL,
+													`transactionNo` varchar(50) NOT NULL,
 													age int(11) NOT NULL,
 													primary key(userId)
 													)";
@@ -275,6 +277,8 @@
 																mode varchar(10) NOT NULL,
 																emailConfirmationStatus tinyint(1) NOT NULL DEFAULT '0',
 																applicationSubmitStatus tinyint(1) NOT NULL DEFAULT '0',
+																`submitPlace` varchar(100) NOT NULL,
+																`submitDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
 																primary key(userId)
 																)";
 
