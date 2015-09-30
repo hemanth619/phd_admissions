@@ -280,7 +280,7 @@
 																`submitPlace` varchar(100) NOT NULL,
 																`submitDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
 																primary key(userId)
-																)";
+																) AUTO_INCREMENT = 1002";
 
 															$regUserQueryResult = mysqli_query($masterDbConnection,$regUserQuery);
 																					

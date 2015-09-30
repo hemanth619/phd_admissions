@@ -133,8 +133,8 @@ $fileLocation= __DIR__."\upload\\" . $_FILES["fileToUpload"]["name"];
 		{
 			displayAlert("File Found");
 			$filename=$_FILES["fileToUpload"]["name"];
-			$uploadedFile=$_FILES['tmp_name'];
-			list($width,$height)=getimagesize($uploadedfile);
+			$uploadedFile=$_FILES["fileToUpload"]["tmp_name"];
+			list($width,$height)=getimagesize($uploadedFile);
 
 			if($filename!=$applicationNo."_PP.jpg" && $filename!=$applicationNo."_PP.JPG" &&  ($width>500 || $height>500) )
 			{
