@@ -375,7 +375,7 @@ function resendEmailConfirmationLink($email)
 
     $user=getUserByEmail($email);
 
-    var_dump($user);
+    //var_dump($user);
 
     $userId=$user['userId'];
 

@@ -13,7 +13,7 @@ if(isset($_POST['Email']))
 	
 	if(($user=getUserByEmail($Email))==false)
 	{
-		var_dump($user);
+		//var_dump($user);
 		
 		echo "<h3><strong>Entered Email Id is not registered. Please make sure you enter same Email Address you used for registration.</strong></h3><br/>";
 	}

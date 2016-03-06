@@ -50,7 +50,7 @@ $pdf->AddPage('P');
 $pdf->Image('images/logo.jpg',15,15,30,30);
 $header = "INDIAN INSTITUTE OF INFORMATION TECHNOLOGY,";
 $header1 = "DESIGN & MANUFACTURING(IIITD&M),KANCHEEPURAM";
-$header2 = "APPLICATION FORM FOR ADMISSION TO Ph.D PROGRAMMME";
+$header2 = "APPLICATION FORM FOR ADMISSION TO Ph.D PROGRAMME";
 $pdf->SetFont('Arial','B','12');
 $pdf->Cell(40);
 $pdf->Cell(100,10,$header,'C');

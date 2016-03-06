@@ -333,7 +333,7 @@ function validatePersonalInfoOnSave($personalInfo)
 		}
 		else if(!hasOnlyNumbers($personalInfo['mobileCountryCode']))
 		{
-			$message.="Country Code for Mobile Number should be a Number";
+			$message.="Country Code for Mobile Number should be a Number. Enter Only Numbers.<br/>";
 		}
 	}
 
@@ -382,7 +382,7 @@ function validatePersonalInfoOnSave($personalInfo)
 		}
 		else if(!hasOnlyNumbers($personalInfo['alternateMobileCountryCode']))
 		{
-			$message.="Country Code for Alternate Mobile Number should be a Number";
+			$message.="Country Code for Alternate Mobile Number should be a Number.Enter Only Numbers.<br/>";
 		}
 	}
 
@@ -452,7 +452,7 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 	if(trim($qualificationsInfo["year_10"])!=''){
 		$passYear_10 = $qualificationsInfo["year_10"];
 		if(!hasOnlyNumbers($passYear_10)){
-			$message = $message."Enter valid year of passsing for class 10th.<br/>";
+			$message = $message."Enter valid year of passsing for class 10th. Enter Only Numbers.<br/>";
 		}
 	}
 	/*********  CLASS 12 Validation  ************/
@@ -515,7 +515,7 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 	if($qualificationsInfo["year_12"]!=''){
 		$passYear_12 = $qualificationsInfo["year_12"];
 		if(!hasOnlyNumbers($passYear_12)){
-			$message = $message."Enter valid year of passsing for Board 12.<br/>";
+			$message = $message."Enter valid year of passsing for Board 12. Enter Only Numbers.<br/>";
 		}
 	}
 	/************ bachelor degree validation  ***************/
@@ -528,7 +528,7 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 	if(trim($qualificationsInfo["bd_degree"])!=''){
 		$bd_degree = $qualificationsInfo["bd_degree"];
 		if(!hasOnlyAlphaNumerics($bd_degree)){
-			$message = $message."Enter the Valid Bachelor Degree Equivalent.<br/>";
+			$message = $message."Enter the Valid Bachelor Degree Equivalent. Enter Only Alpha Numerics<br/>";
 		}
 	}
 	/*if(($qualificationsInfo["bd_grade"]!='MAR-100') && ($qualificationsInfo["bd_grade"]!='CGP-10') && ($qualificationsInfo["bd_grade"]!='CPI-4') && ($qualificationsInfo["bd_grade"]!='CPI-8') ){
@@ -584,7 +584,7 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 	if($qualificationsInfo["bd_year"]!=''){
 		$passYear_bd = $qualificationsInfo["bd_year"];
 		if(!hasOnlyNumbers($passYear_bd)){
-			$message = $message."Enter valid year of passsing for Bachelor Degree.<br/>";
+			$message = $message."Enter valid year of passsing for Bachelor Degree.Enter Only Numbers.<br/>";
 		}
 	}
 
@@ -599,7 +599,7 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 	if(trim($qualificationsInfo["pg_degree"])!=''){
 		$pg_degree = $qualificationsInfo["pg_degree"];
 		if(!hasOnlyAlphaNumerics($pg_degree)){
-			$message = $message."Enter the Valid Masters Degree Equivalent.<br/>";
+			$message = $message."Enter the Valid Masters Degree Equivalent. Enter Only Alpha Numerics<br/>";
 		}
 	}
 	/*if(($qualificationsInfo["pg_grade"]!='MAR-100') && ($qualificationsInfo["pg_grade"]!='CGP-10') && ($qualificationsInfo["pg_grade"]!='CPI-4') && ($qualificationsInfo["pg_grade"]!='CPI-8') ){
@@ -654,7 +654,7 @@ function validateQualificationsInfoOnSave($qualificationsInfo){
 	if($qualificationsInfo["pg_year"]!=''){
 		$passYear_pg = $qualificationsInfo["pg_year"];
 		if(!hasOnlyNumbers($passYear_pg)){
-			$message = $message."Enter valid year of passsing for masters degree.<br/>";
+			$message = $message."Enter valid year of passsing for masters degree. Enter Only Numbers.<br/>";
 		}
 	}
 	/**************   Other degree validation  ********************/
@@ -809,7 +809,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(!hasOnlyAlphaNumerics($experienceInfo['org_1']))
 		{
-			$message.="Enter a Valid Organisation name. Only Alphanumerics are Allowed in Work Experience 1.<br/>";
+			$message.="Enter a Valid Organisation name. Only Alphanumerics are Allowed in Work Experience 1. <br/>";
 		}
 	}
 
@@ -817,7 +817,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 	{
 		if(trim($experienceInfo['org_1'])=="")
 		{
-			$message.="You cant enter a Designation Without Organisation in Work experience 1.<br/>";
+			$message.="You cant enter a Designation Without Organisation in Work experience 1. <br/>";
 		}
 		if(!hasOnlyAlphabets($experienceInfo['des_1']))
 		{
@@ -833,7 +833,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 		}
 		if(!hasOnlyAlphaNumerics($experienceInfo['per_1']))
 		{
-			$message.="Enter A valid Experience Period. Only Alpha Numerics are Allowed in Work Experience 1.<br/>";
+			$message.="Enter A valid Experience Period. Only Alpha Numerics are Allowed in Work Experience 1. <br/>";
 		}
 	}
 
@@ -845,7 +845,7 @@ function validateExperienceInfoOnSave($experienceInfo)
 		}
 		if(!hasOnlyAlphaNumerics($experienceInfo['work_1']))
 		{
-			$message.="Only Alpha Numerics are allowed in Nature Of work in work Experience 1.<br/>";
+			$message.="Only Alpha Numerics are allowed in Nature Of work in work Experience 1. Enter Only Alpha Numerics. <br/>";
 		}
 	}
 

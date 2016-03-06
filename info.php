@@ -131,12 +131,12 @@ $fileLocation= __DIR__."\upload\\" . $_FILES["fileToUpload"]["name"];
 	$applicationNo=$_SESSION['applicationNo'];
 	if($_FILES['fileToUpload']['name']!='')
 		{
-			displayAlert("File Found");
+			//displayAlert("File Found");
 			$filename=$_FILES["fileToUpload"]["name"];
 			$uploadedFile=$_FILES["fileToUpload"]["tmp_name"];
 			list($width,$height)=getimagesize($uploadedFile);
 
-			if($filename!=$applicationNo."_PP.jpg" && $filename!=$applicationNo."_PP.JPG" &&  ($width>500 || $height>500) )
+			if(($filename!=$applicationNo."_PP.jpg" && $filename!=$applicationNo."_PP.JPG") ||  ($width>500 || $height>500) )
 			{
 				//displayAlert("$filename not in Specified Format.");
 

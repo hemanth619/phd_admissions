@@ -6,7 +6,7 @@ require_once("backendFunctions.php");
 
 if(isset($_SESSION['userId']))
 {
-  if(isset($_POST['submit']))
+  if(isset($_POST['Submit']))
   {
     $userId=$_SESSION['userId'];
 
@@ -24,6 +24,8 @@ if(isset($_SESSION['userId']))
 
       if($user['password']==$oldPasswordHash)
       {
+        //echo "Old Password == New Password <br/>";
+
         $newPasswordHash=hash("sha512", $newPassword.PASSSALT);
 
         $values[]=array($newPasswordHash => 's');
@@ -32,27 +34,30 @@ if(isset($_SESSION['userId']))
 
         $changePasswordSQL="UPDATE registered_users SET password=? WHERE userId=?";
 
-        $con=QoB();
+        $con=new QoB();
 
         $result=$con->update($changePasswordSQL,$values);
 
         if($con->error=="")
         {
-          displayAlert("Password changed successfully.");
+          displayAlertAndRedirect("Password changed successfully.","forms.php");
 
-          RedirectToURL("forms.php");
+          //echo "Password Changed Successfully."
+
+          //RedirectToURL("forms.php");
         }
         else
         {
-          displayAlert("Some Error occured. Please Try Again Later. Admin will be notified.");
-
           notifyAdmin("Conn. Error : $con->error while Changing Password", $userId);
 
-          RedirectToURL("forms.php");
+          displayAlertAndRedirect("Some Error occured. Please Try Again Later. Admin will be notified.","forms.php");
+
+          //RedirectToURL("forms.php");
         }
       }
       else
       {
+        //echo "Old password not equal to new password <br/>.";
         displayAlert("Old password doesnt match. Try again.");
       }
     }
@@ -64,9 +69,9 @@ if(isset($_SESSION['userId']))
 }
 else
 {
-  displayAlert("Please login to continue.");
+  displayAlertAndRedirect("Please login to continue.", "login.php");
 
-  RedirectToURL("login.php");
+  //RedirectToURL("login.php");
 }
 ?>
 

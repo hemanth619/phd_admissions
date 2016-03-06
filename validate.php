@@ -149,7 +149,7 @@ else
 		//var_dump($personalInfo);
 	}
 
-	var_dump($personalInfo);
+	//var_dump($personalInfo);
 	
 
 
@@ -165,12 +165,12 @@ else
 
 	<body>
 	<?php
-
+	$incorrectSubmission=FALSE;
 	if(!isset($Full_Name) || !isset($gender) || !isset($dob)  || !isset($fname)  || !isset($nation) || !isset($marital) || !isset($pc) || !isset($com) || !isset($pemail)  || !isset($Temp_Address) || !isset($T_District) || !isset($tstate) || !isset($T_pincode)  || !isset($perm_Address) || !isset($P_District) || !isset($pstate) || !isset($P_pincode) || !isset($transactionNo))
 	{
 		echo '<a href="forms.php">Personal Information</a> not saved. Please save the information before you submit.';
 		echo '</head> <body></body></html>'; 
-		exit();
+		$incorrectSubmission = TRUE;
 	}
 
 	if(!isset($univ_10) || !isset($univ_12) || !isset($univ_bd) || !isset($univ_pg) || !isset($degree_10) || !isset($degree_12) || !isset($degree_bd) || !isset($degree_pg) || !isset($marks_10) || !isset($marks_12) ||
@@ -189,13 +189,14 @@ else
 			</script>";*/
 		echo '<a href="forms.php">Academic Information</a> not saved. Please save the information before you submit.';
 		echo '</head> <body></body></html>';
-		exit();
+		//exit();
+		$incorrectSubmission = TRUE;
 	}
 
 
 
 
-	if($Full_Name=="" || $gender=="" || ($dob=='1970-01-01')  || $fname==""  || $nation="" || $marital=="" || $pc=="" || ($com=="") || ($pemail=="")  || ($Temp_Address=="") || ($T_District=="") || ($tstate=="") || ($T_pincode=="")  ||($perm_Address=="") || ($P_District=="") || ($pstate=="") || ($P_pincode=="" || $transactionNo==""))
+	if($Full_Name=="" || $gender=="" || ($dob=='1970-01-01')  || $fname==""  || $nation="" || $marital=="" || $pc=="" || ($com=="") || ($pemail=="")  || ($Temp_Address=="") || ($T_District=="") || ($tstate=="") || ($T_pincode=="")  ||($perm_Address=="") || ($P_District=="") || ($pstate=="") || ($P_pincode==""))
 	{
 		    echo "<br />";
 			echo '<center><span style="font-size: 24px;"><a href="forms.php">Some fields are empty in personal information. Make sure you have filled in all the required fields.</a></span></center>';
@@ -205,8 +206,9 @@ else
 			window.location.href='forms.php';
 			</script>";*/
 			//window.location.href='forms.php';
+			$incorrectSubmission = TRUE;
 	}
-	else if(($univ_10=="") || ($univ_12=="") || ($univ_bd=="") || ($univ_pg=="") || ($degree_10=="") || ($degree_12=="") || ($degree_bd=="") || ($degree_pg=="") || ($marks_10=="") || ($marks_12=="") ||
+	if(($univ_10=="") || ($univ_12=="") || ($univ_bd=="") || ($univ_pg=="") || ($degree_10=="") || ($degree_12=="") || ($degree_bd=="") || ($degree_pg=="") || ($marks_10=="") || ($marks_12=="") ||
 		// ($marks_bd=="") || ($marks_pg=="") || 
 		($grade_10=="") || ($grade_12=="") || ($grade_bd=="") || ($grade_pg=="") || ($year_10=="") || ($year_12=="")|| ($year_bd=="")|| ($year_pg=="")||
 		//($bd_2=="") ||($bd_3=="") ||($bd_4=="") ||($bd_5=="") ||($bd_6=="") ||($bd_7=="") ||($bd_8=="") ||
@@ -225,8 +227,25 @@ else
 			alert('Errors in Academic Information');
 			window.location.href='forms.php';
 			</script>";*/
+			$incorrectSubmission = TRUE;
 	}
-	else
+	if($transactionNo=="")
+	{
+		echo "<br />";
+		echo '<center><span style="font-size: 24px;">Some Fields are empty in <a href="forms.php">Payment Information Section</a></span></center>';
+		echo '</head> <body></body></html>';
+		$incorrectSubmission = TRUE;
+	}
+	$applicationNumber = $_SESSION['applicationNo'];
+	$picFileLocation =  __DIR__."\upload\\".$applicationNumber;
+	if(!(file_exists($picFileLocation."_PP.jpg")||file_exists($picFileLocation."_PP.JPG")||file_exists($applicationNumber."_PP.jpeg")))
+	{
+		echo "<br />";
+		echo '<center><span style="font-size: 24px;">Upload your Passport Size Image.</span></center>';
+		echo '</head> <body></body></html>';
+		$incorrectSubmission = TRUE;
+	}
+	if($incorrectSubmission ==FALSE)
 	{
 
 		/*if(($Full_Name!="") && ($gender!="") && ($dob!="")  && ($fname!="") && ($nation!="") && ($marital!="") && ($pc!="") && ($com!="") && ($pemail!="")  && ($Temp_Address!="") && ($T_District!="") && ($tstate!="") && ($T_pincode!="")  &&($perm_Address!="") && ($P_District!="") && ($pstate!="") && ($P_pincode!="") && ($univ_10!="") && ($univ_12!="") && ($univ_bd!="") && ($univ_pg!="") && ($degree_10!="") && ($degree_12!="") && ($degree_bd!="") && ($degree_pg!="") && ($marks_10!="") && ($marks_12!="") && ($marks_bd!="") && ($marks_pg!="") && ($grade_10!="") && ($grade_12!="") && ($grade_bd!="") && ($grade_pg!="") && ($year_10!="") && ($year_12!="")&& ($year_bd!="")&& ($year_pg!="")&&($bd_2!="") &&($bd_3!="") &&($bd_4!="") &&($bd_5!="") &&($bd_6!="") &&($bd_7!="") &&($bd_8!="") &&($bd_agr!="") && ($bd_class!="") && ($md_1!="") &&($md_2!="") &&($md_3!="") &&($md_4!="") &&($md_agr!="") && ($md_class!=""))*/
@@ -794,12 +813,15 @@ else
 		// if(!hasOnlyAlphaNumerics($md_agrClass)){
 		// 	$message = $message."Enter valid aggregate percentage for M.E/M.tech.\\n";
 		// }
-	
-
+		$submitPlace=$_POST['regplace'];
+		if($submitPlace=="")
+		{
+			$message = $message."Enter a valid place in the Declaration Box before submitting.";
+		}
 
 		if($message=='')
 		{
-			$submitPlace=$_POST['regplace'];
+			
 			$sql5 ="update registered_users set applicationSubmitStatus='1',submitPlace='$submitPlace' where userId='$userId'";
 		    $result4=mysql_query($sql5) or die(mysql_error());
 			echo "<script>

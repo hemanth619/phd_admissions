@@ -184,13 +184,13 @@ Buttons :   Submit
               </div>
 
               <div name="ModeOfRegistration" id="modeOfRegistrationId" class="input-field col s12">Choose your Mode of Registration
-                  <input class="with-gap" checked value="httra" <?php if(isset($modeOfRegistration)&&$modeOfRegistration=='httra') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="rhttra"  />
+                  <input class="with-gap" checked value="HTTRA" <?php if(isset($modeOfRegistration)&&$modeOfRegistration=='HTTRA') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="rhttra"  />
                   <label for="rhttra">Regular HTTRA</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input class="with-gap" value="nhttra" <?php if(isset($modeOfRegistration)&&$modeOfRegistration=='nhttra') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="rnhttra"  />
+                  <input class="with-gap" value="NHTTRA" <?php if(isset($modeOfRegistration)&&$modeOfRegistration=='NHTTRA') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="rnhttra"  />
                   <label for="rnhttra">Regular NHTTRA</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input class="with-gap" value="internal" <?php if(isset($modeOfRegistration)&&$modeOfRegistration=='internal') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="inter"  />
+                  <input class="with-gap" value="Internal" <?php if(isset($modeOfRegistration)&&$modeOfRegistration=='Internal') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="inter"  />
                   <label for="inter">Internal</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input class="with-gap" value="external" <?php if(isset($modeOfRegistration)&&$modeOfRegistration=='external') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="ext"  />
+                  <input class="with-gap" value="External" <?php if(isset($modeOfRegistration)&&$modeOfRegistration=='External') echo 'checked="checked"'; ?> name="registrationMode" type="radio" id="ext"  />
                   <label for="ext">External</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <!-- <select name="modeOfRegistration">
                   <option value="" selected>Choose your Mode of Registration</option>
