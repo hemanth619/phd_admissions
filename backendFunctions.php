@@ -4,7 +4,7 @@ require_once("QOB/qob.php");
 function getDBName()
 {
 	$con = mysqli_connect("localhost", "root", "isquarer", "phd_admission_master");
-	$getDbNameSQL="SELECT dbname From db_list where activeStatus=1";
+	$getDbNameSQL="SELECT dbName From db_list where activeStatus=1";
 	$result=mysqli_query($con,$getDbNameSQL);
 	if(mysqli_num_rows($result)==0)
 	{
@@ -15,7 +15,7 @@ function getDBName()
 	{
 		$row=mysqli_fetch_array($result);
 		//var_dump($row);
-		$dbName=$row['dbname'];
+		$dbName=$row['dbName'];
 		//echo $dbName;
 		return $dbName;
 	}
