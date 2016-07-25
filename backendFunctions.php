@@ -2,97 +2,97 @@
 require_once("QOB/qob.php");
 
 function getDBName()
-{
-	$con = mysqli_connect("localhost", "root", "isquarer", "phd_admission_master");
-	$getDbNameSQL="SELECT dbName From db_list where activeStatus=1";
-	$result=mysqli_query($con,$getDbNameSQL);
-	if(mysqli_num_rows($result)==0)
 	{
-		//displayAlert("Admissions aren't open yet. Please Try again later.");
-		return "NODB";
-	}
-	else
-	{
-		$row=mysqli_fetch_array($result);
-		//var_dump($row);
-		$dbName=$row['dbName'];
-		//echo $dbName;
-		return $dbName;
-	}
+		$con = mysqli_connect(HOST, USER, PASSWORD, "phd_admission_master");
+		$getDbNameSQL="SELECT dbName From db_list where activeStatus=1";
+		$result=mysqli_query($con,$getDbNameSQL);
+		if(mysqli_num_rows($result)==0)
+		{
+			//displayAlert("Admissions aren't open yet. Please Try again later.");
+			return "NODB";
+		}
+		else
+		{
+			$row=mysqli_fetch_array($result);
+			//var_dump($row);
+			$dbName=$row['dbName'];
+			//echo $dbName;
+			return $dbName;
+		}
 
-}
+	}
 
 function getMasterDBQoBObject()
-{
-	$con=new QoB("localhost","root","isquarer", "phd_admission_master");
+	{
+		$con=new QoB("localhost","root","isquarer", "phd_admission_master");
 
-	return $con;
-}
+		return $con;
+	}
 
 function RedirectToURL($url)
-{
-    header("Location: $url");
-    exit();
-}
+	{
+	    header("Location: $url");
+	    exit();
+	}
 
 function getAppNoPrefix()
-{
-	$prefix=strtoupper(getDBName());
-	return $prefix;
-}
+	{
+		$prefix=strtoupper(getDBName());
+		return $prefix;
+	}
 
 function getUserByID($userId)
-{
-	$con=new QoB();
-
-	$getUserSQL="SELECT registered_users.*,personal_info.fullName as name From registered_users left join personal_info on personal_info.userId=registered_users.userId WHERE registered_users.userId=?";
-
-	$values[]=array($userId => 's');
-
-	$result=$con->fetchAll($getUserSQL,$values);
-
-	if($con->error==""&&$result!="")
 	{
-		return $result;
+		$con=new QoB();
+
+		$getUserSQL="SELECT registered_users.*,personal_info.fullName as name From registered_users left join personal_info on personal_info.userId=registered_users.userId WHERE registered_users.userId=?";
+
+		$values[]=array($userId => 's');
+
+		$result=$con->fetchAll($getUserSQL,$values);
+
+		if($con->error==""&&$result!="")
+		{
+			return $result;
+		}
+		else
+		{
+			notifyAdmin("Conn. Error : $con->error while fetching user by ID",$userId);
+		}
 	}
-	else
-	{
-		notifyAdmin("Conn. Error : $con->error while fetching user by ID",$userId);
-	}
-}
 
 
 function getUserByEmail($email)
-{
-	$con=new QoB();
-
-	$getUserSQL="SELECT registered_users.*,personal_info.fullName as name From registered_users left join personal_info on personal_info.userId=registered_users.userId WHERE registered_users.emailAddress=?";
-
-	$values[]=array($email => 's');
-
-	$result=$con->fetchAll($getUserSQL,$values);
-
-	if($con->error==""&&$result!="")
 	{
-		return $result;
-	}
-	else
-	{
-		notifyAdmin("Conn. Error : $con->error while fetching user by ID",$email);
+		$con=new QoB();
 
-		return false;
+		$getUserSQL="SELECT registered_users.*,personal_info.fullName as name From registered_users left join personal_info on personal_info.userId=registered_users.userId WHERE registered_users.emailAddress=?";
+
+		$values[]=array($email => 's');
+
+		$result=$con->fetchAll($getUserSQL,$values);
+
+		if($con->error==""&&$result!="")
+		{
+			return $result;
+		}
+		else
+		{
+			notifyAdmin("Conn. Error : $con->error while fetching user by ID",$email);
+
+			return false;
+		}
 	}
-}
 
 function displayAlert($message)
-{
-	echo '<script>alert("'.$message.'")</script>';
-}
+	{
+		echo '<script>alert("'.$message.'")</script>';
+	}
 
 function displayAlertAndRedirect($message,$url)
-{
-	echo '<script>alert("'.$message.'"); window.location.href="'.$url.'"</script>';
-}
+	{
+		echo '<script>alert("'.$message.'"); window.location.href="'.$url.'"</script>';
+	}
 
 function notifyAdmin($notification,$userIdentity="")
 	{
@@ -131,7 +131,7 @@ function notifyAdmin($notification,$userIdentity="")
 	}
 
 
-function getMailerObject()
+function getMailerObject($isHTML=FALSE)
 	{
 		try
 		{
@@ -139,7 +139,7 @@ function getMailerObject()
 
 			$mail->IsSMTP();
 
-			//$mail->IsHTML();
+			$mail->IsHTML($isHTML);
 
 			$mail->Timeout    = 45;
 
@@ -218,61 +218,72 @@ function sendEmail($mailerObject,$emailId,$content,$subject,$attachments="")
 function GetAbsoluteURLFolder()
     {
         $scriptFolder = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) ? 'https://' : 'http://';
-        $scriptFolder .= $_SERVER['SERVER_ADDR'] . dirname($_SERVER['REQUEST_URI']);
+        $scriptFolder .= $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']);
         return $scriptFolder;
     }
 
 
 function generateRandomKey()
-{
-	$time=time();
+	{
+		$time=time();
 
-	$randKey=hash("sha512", $time.RANDSALT);
+		$randKey=hash("sha512", $time.RANDSALT);
 
-	return $randKey;
-}
+		return $randKey;
+	}
 
 function confirmUser($code)
-{
-	$getUserByConfirmationLinkSQL="SELECT * FROM email_confirmation WHERE confirmationLink=?";
-
-	$values[0]=array($code=>'s');
-
-	$con=new QoB();
-
-	$result=$con->fetchAll($getUserByConfirmationLinkSQL,$values);
-
-	//var_dump($result);
-
-	if($con->error=="")
 	{
-		$userId=$result['userId'];
+		$getUserByConfirmationLinkSQL="SELECT * FROM email_confirmation WHERE confirmationLink=?";
 
-		if($result['isValid']==1 && $result['confirmationStatus']==0)
+		$values[0]=array($code=>'s');
+
+		$con=new QoB();
+
+		$result=$con->fetchAll($getUserByConfirmationLinkSQL,$values);
+
+		//var_dump($result);
+
+		if($con->error=="")
 		{
-			$con->startTransaction();
+			$userId=$result['userId'];
 
-			$confirmUserSQL="UPDATE registered_users SET emailConfirmationStatus=1 WHERE userId=?";
-
-			$values[0] = array($userId=>'i');
-
-			$result=$con->update($confirmUserSQL,$values);
-
-			if($con->error=="")
+			if($result['isValid']==1 && $result['confirmationStatus']==0)
 			{
-				$invalidateConfirmCodeSQL="UPDATE email_confirmation SET isValid=0, confirmationStatus=1 WHERE confirmationLink=?";
+				$con->startTransaction();
 
-				$values[0]=array($code=>'s');
+				$confirmUserSQL="UPDATE registered_users SET emailConfirmationStatus=1 WHERE userId=?";
 
-				$con->update($invalidateConfirmCodeSQL,$values);
+				$values[0] = array($userId=>'i');
+
+				$result=$con->update($confirmUserSQL,$values);
 
 				if($con->error=="")
 				{
-					$con->completeTransaction();
+					$invalidateConfirmCodeSQL="UPDATE email_confirmation SET isValid=0, confirmationStatus=1 WHERE confirmationLink=?";
 
-					displayAlertAndRedirect("Your Email Confirmation is successfull. Now you can proceed to Login.","login.php");
+					$values[0]=array($code=>'s');
 
-					//RedirectToURL("login.php");
+					$con->update($invalidateConfirmCodeSQL,$values);
+
+					if($con->error=="")
+					{
+						$con->completeTransaction();
+
+						displayAlertAndRedirect("Your Email Confirmation is successfull. Now you can proceed to Login.","login.php");
+
+						//RedirectToURL("login.php");
+					}
+					else
+					{
+						$er=$con->error;
+
+						$con->rollbackTransaction();
+
+						notifyAdmin("Conn. Error $er while invalidating confirm code in confirm user.",$userId);
+
+						displayAlert("Some Error Occured. Please Try Again.");
+					}
 				}
 				else
 				{
@@ -280,116 +291,37 @@ function confirmUser($code)
 
 					$con->rollbackTransaction();
 
-					notifyAdmin("Conn. Error $er while invalidating confirm code in confirm user.",$userId);
+					notifyAdmin("Conn. Error $er while updating registrations in confirm user.",$userId);
 
 					displayAlert("Some Error Occured. Please Try Again.");
 				}
+
 			}
 			else
 			{
-				$er=$con->error;
-
-				$con->rollbackTransaction();
-
-				notifyAdmin("Conn. Error $er while updating registrations in confirm user.",$userId);
-
-				displayAlert("Some Error Occured. Please Try Again.");
+				echo "<br/><h3><strong>Invalid Confirmation Link.Please use the latest link you received or Request a new one <a href='resendConfirmationEmail.php'>here</a></strong></h3><br/>";
 			}
-
-		}
-		else
-		{
-			echo "<br/><h3><strong>Invalid Confirmation Link.Please use the latest link you received or Request a new one <a href='resendConfirmationEmail.php'>here</a></strong></h3><br/>";
 		}
 	}
-}
 
 
 
 function sendEmailConfirmationLink($con,$user,$userId)
-{
+	{
 
-	//displayAlert("In Send Email Confirmation".$userId);
+		//displayAlert("In Send Email Confirmation".$userId);
 
-    //var_dump($user);
+	    //var_dump($user);
 
-    //displayAlert($user['emailAddress']);
+	    //displayAlert($user['emailAddress']);
 
-    //$con=new QoB();
+	    //$con=new QoB();
 
-    //$con->startTransaction();
+	    //$con->startTransaction();
 
-    $email=$user['emailAddress'];
+	    $email=$user['emailAddress'];
 
-    $randomKey=generateRandomKey();
-
-    $storeConfirmationLinkSQL="Insert into email_confirmation(userId,confirmationLink) Values(?,?)";
-
-    $values[]=array($userId => 's');
-
-    $values[]=array($randomKey => 's');
-
-    $result=$con->insert($storeConfirmationLinkSQL,$values);
-
-    if($con->error=="")
-    {
-    	$mailerObject=getMailerObject();
-
-    	$subject="Confirm Your Email To Register For Ph.D Admissions@IIITDMK";
-
-		$confirm_url = GetAbsoluteURLFolder().'/confirmreg.php?code='.$randomKey;
-	        
-	    $content ="Hello ".$user['name'].",\r\n\r\n".
-	    "Thanks for your registration with www.iiitdm.ac.in\r\n".
-	    "Please click the link below or Enter $randomKey in the page displayed after registration to confirm your email address.\r\n".
-	    "$confirm_url\r\n".
-	    "\r\n".
-	    "Regards,\r\n".
-	    "Webmaster\r\n".
-	    "www.iiitdm.ac.in";
-
-    	if(sendEmail($mailerObject,$user['emailAddress'],$content,$subject))
-    	{
-    		//$con->completeTransaction();
-
-    		return true;
-    	}
-    	else
-    	{
-    		//$con->rollbackTransaction();
-
-    		return false;
-    	}
-    }
-    else
-    {
-    	notifyAdmin("Conn. Error: $con->error while storing confirmation Link in sendConfirmation",$userId);
-
-    	return false;
-    }
-}
-
-
-function resendEmailConfirmationLink($email)
-{
-
-    $user=getUserByEmail($email);
-
-    //var_dump($user);
-
-    $userId=$user['userId'];
-
-    $con=new QoB();
-
-    $invalidateOldConfirmationCodesSQL="UPDATE email_confirmation set isValid=0 WHERE userId=?";
-
-    $values1[]=array($userId => 's');
-
-    $result=$con->update($invalidateOldConfirmationCodesSQL, $values1);
-
-    if($con->error=="")
-    {
-    	$randomKey=generateRandomKey();
+	    $randomKey=generateRandomKey();
 
 	    $storeConfirmationLinkSQL="Insert into email_confirmation(userId,confirmationLink) Values(?,?)";
 
@@ -401,113 +333,181 @@ function resendEmailConfirmationLink($email)
 
 	    if($con->error=="")
 	    {
-	    	$mailerObject=getMailerObject();
+	    	$mailerObject=getMailerObject(TRUE);
 
-	    	$subject="Resend:: Confirm Your Email To Register For Ph.D Admissions@IIITDMK";
+	    	$subject="Confirm Your Email - Ph.D Admissions@IIITDMK";
 
 			$confirm_url = GetAbsoluteURLFolder().'/confirmreg.php?code='.$randomKey;
 		        
-		    $content ="Hello ".$user['name']."\r\n\r\n".
-		    "This Email Confirmation mail has been resent as per your request. Please note that all the previous links you received have been invalidated.\r\n".
-		    "Please click the link below or Enter $randomKey in the page displayed after registration to confirm your Email Address.\r\n".
-		    "$confirm_url\r\n".
-		    "\r\n".
-		    "Regards,\r\n".
-		    "Webmaster\r\n".
+		    $content =
+		    "Thank you for your interest in Ph.D. Programme at IIITDM-Kancheepuram<br/><br/>".
+		    "Please click here <a href='$confirm_url'> here </a> <br/><br/> or <br/><br/> Enter the following <br/><br/>Code : $randomKey <br/><br/> in the page displayed after registration to confirm your email address.".
+		    "<br/>".
+		    "<br/>".
+		    "Regards,<br/>".
+		    "Webmaster<br/>".
 		    "www.iiitdm.ac.in";
 
 	    	if(sendEmail($mailerObject,$user['emailAddress'],$content,$subject))
 	    	{
+	    		//$con->completeTransaction();
+
 	    		return true;
 	    	}
 	    	else
 	    	{
+	    		//$con->rollbackTransaction();
+
 	    		return false;
 	    	}
 	    }
 	    else
 	    {
-	    	notifyAdmin("Conn. Error: $con->error while storing confirmation Link in resend Confirmation",$userId);
+	    	notifyAdmin("Conn. Error: $con->error while storing confirmation Link in sendConfirmation",$userId);
 
 	    	return false;
 	    }
-    }
-    else
-    {
-    	notifyAdmin("Conn. Error: $con->error while invalidating old confirmation links",$userId);
+	}
 
-    	return false;
-    }
-    
-}
 
-function sendResetPasswordLink($emailId)
-{
-	$user=getUserByEmail($emailId);
+function resendEmailConfirmationLink($email)
+	{
 
-	$userId=$user['userId'];
+	    $user=getUserByEmail($email);
 
-    $con=new QoB();
+	    //var_dump($user);
 
-    $invalidateOldResetCodesSQL="UPDATE password_reset set isValid=0 WHERE userId=?";
+	    $userId=$user['userId'];
 
-    $values1[]=array($userId => 's');
+	    $con=new QoB();
 
-    $result=$con->update($invalidateOldResetCodesSQL, $values1);
+	    $invalidateOldConfirmationCodesSQL="UPDATE email_confirmation set isValid=0 WHERE userId=?";
 
-    if($con->error=="")
-    {
-    	$randomKey=generateRandomKey();
+	    $values1[]=array($userId => 's');
 
-	    $storeConfirmationLinkSQL="Insert into password_reset(userId,resetLink) Values(?,?)";
-
-	    $values[]=array($userId => 's');
-
-	    $values[]=array($randomKey => 's');
-
-	    $result=$con->insert($storeConfirmationLinkSQL,$values);
+	    $result=$con->update($invalidateOldConfirmationCodesSQL, $values1);
 
 	    if($con->error=="")
 	    {
-	    	$mailerObject=getMailerObject();
+	    	$randomKey=generateRandomKey();
 
-	    	$subject="Reset your password for account at Ph.D Admissions@IIITDMK";
+		    $storeConfirmationLinkSQL="Insert into email_confirmation(userId,confirmationLink) Values(?,?)";
 
-			$link = GetAbsoluteURLFolder().
-                '/resetpwd.php?email='.
-                urlencode($user['emailAddress']).'&token='.
-                urlencode($randomKey);
+		    $values[]=array($userId => 's');
 
-	        $mailer->Body ="Hello ".$user['name']."\r\n\r\n".
-	        "There was a request to reset your password at www.iiitdm.ac.in\r\n".
-	        "Please click the link below to complete the request: \r\n".$link."\r\n".
-	        "Regards,\r\n".
-	        "Webmaster\r\n".
-	        "www.iiitdm.ac.in";
+		    $values[]=array($randomKey => 's');
 
-	    	if(sendEmail($mailerObject,$user['emailAddress'],$content,$subject))
-	    	{
-	    		return true;
-	    	}
-	    	else
-	    	{
-	    		return false;
-	    	}
+		    $result=$con->insert($storeConfirmationLinkSQL,$values);
+
+		    if($con->error=="")
+		    {
+		    	$mailerObject=getMailerObject();
+
+		    	$subject="Resend:: Confirm Your Email To Register For Ph.D Admissions@IIITDMK";
+
+				$confirm_url = GetAbsoluteURLFolder().'/confirmreg.php?code='.$randomKey;
+			        
+			    $content ="Hello ".$user['name']."\r\n\r\n".
+			    "This Email Confirmation mail has been resent as per your request. Please note that all the previous links you received have been invalidated.\r\n".
+			    "Please click the link below or Enter $randomKey in the page displayed after registration to confirm your Email Address.\r\n".
+			    "$confirm_url\r\n".
+			    "\r\n".
+			    "Regards,\r\n".
+			    "Webmaster\r\n".
+			    "www.iiitdm.ac.in";
+
+		    	if(sendEmail($mailerObject,$user['emailAddress'],$content,$subject))
+		    	{
+		    		return true;
+		    	}
+		    	else
+		    	{
+		    		return false;
+		    	}
+		    }
+		    else
+		    {
+		    	notifyAdmin("Conn. Error: $con->error while storing confirmation Link in resend Confirmation",$userId);
+
+		    	return false;
+		    }
 	    }
 	    else
 	    {
-	    	notifyAdmin("Conn. Error: $con->error while storing reset password Link",$userId);
+	    	notifyAdmin("Conn. Error: $con->error while invalidating old confirmation links",$userId);
 
 	    	return false;
 	    }
-    }
-    else
-    {
-    	notifyAdmin("Conn. Error: $con->error while invalidating old reset password links",$userId);
+	    
+	}
 
-    	return false;
-    }
-}
+function sendResetPasswordLink($emailId)
+	{
+		$user=getUserByEmail($emailId);
+
+		$userId=$user['userId'];
+
+	    $con=new QoB();
+
+	    $invalidateOldResetCodesSQL="UPDATE password_reset set isValid=0 WHERE userId=?";
+
+	    $values1[]=array($userId => 's');
+
+	    $result=$con->update($invalidateOldResetCodesSQL, $values1);
+
+	    if($con->error=="")
+	    {
+	    	$randomKey=generateRandomKey();
+
+		    $storeConfirmationLinkSQL="Insert into password_reset(userId,resetLink) Values(?,?)";
+
+		    $values[]=array($userId => 's');
+
+		    $values[]=array($randomKey => 's');
+
+		    $result=$con->insert($storeConfirmationLinkSQL,$values);
+
+		    if($con->error=="")
+		    {
+		    	$mailerObject=getMailerObject();
+
+		    	$subject="Reset your password for account at Ph.D Admissions@IIITDMK";
+
+				$link = GetAbsoluteURLFolder().
+	                '/resetpwd.php?email='.
+	                urlencode($user['emailAddress']).'&token='.
+	                urlencode($randomKey);
+
+		        $mailer->Body ="Hello ".$user['name']."\r\n\r\n".
+		        "There was a request to reset your password at www.iiitdm.ac.in\r\n".
+		        "Please click the link below to complete the request: \r\n".$link."\r\n".
+		        "Regards,\r\n".
+		        "Webmaster\r\n".
+		        "www.iiitdm.ac.in";
+
+		    	if(sendEmail($mailerObject,$user['emailAddress'],$content,$subject))
+		    	{
+		    		return true;
+		    	}
+		    	else
+		    	{
+		    		return false;
+		    	}
+		    }
+		    else
+		    {
+		    	notifyAdmin("Conn. Error: $con->error while storing reset password Link",$userId);
+
+		    	return false;
+		    }
+	    }
+	    else
+	    {
+	    	notifyAdmin("Conn. Error: $con->error while invalidating old reset password links",$userId);
+
+	    	return false;
+	    }
+	}
 
 function getResetPassRecord($extHash)
 	{

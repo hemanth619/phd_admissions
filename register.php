@@ -180,7 +180,7 @@ Buttons :   Submit
                   <input class="with-gap" value="Mathematics" <?php if(isset($discipline)&&$discipline=='Mathematics') echo 'checked="checked"'; ?> name="discipline" type="radio" id="maths"  />
                   <label for="maths">Maths</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <input class="with-gap" value="Physics" <?php if(isset($discipline)&&$discipline=='Physics') echo 'checked="checked"'; ?> name="discipline" type="radio" id="physics"  />
-                  <label for="physics">Phsics</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label for="physics">Physics</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </div>
 
               <div name="ModeOfRegistration" id="modeOfRegistrationId" class="input-field col s12">Choose your Mode of Registration
